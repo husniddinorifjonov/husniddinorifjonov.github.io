@@ -1,6 +1,6 @@
 # ROYAL music school — sayt
 
-https://husniddinorifjonov.github.io/
+https://royal-art.uz/ (ruscha: https://royal-art.uz/ru/)
 
 Fayllar `WEB ROYAL/deploy-site.py` bilan yig'iladi (asl manba — `~/Desktop/WEB ROYAL`). Bu yerda qo'lda tahrirlamang.
 

@@ -12,9 +12,9 @@
   Bio matnlari TASDIQLANISHI kerak (o'qituvchilardan so'rang) — hech qanday yil/yutuq o'ylab topilmagan.
 -->
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Skripka kursi Andijonda | Уроки скрипки в Андижане — ROYAL music school</title>
+<title>Skripka kursi Andijonda — ROYAL music school</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Andijonda skripka darslari: kamon, to&#x27;rt tor, toza intonatsiya. Individual darslar, birinchi sinov darsi bepul. Уроки скрипки в Андижане, первый урок бесплатно.">
+<meta name="description" content="Andijonda skripka darslari: kamon, to&#x27;rt tor, toza intonatsiya. Individual darslar, birinchi sinov darsi bepul.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
@@ -537,6 +537,20 @@ form.lead .btn,.hero-form .btn{white-space:normal;text-align:center;line-height:
 </style>
 <script>
 (function () {
+  var LANG = 'uz', ALT = '/ru/skripka.html';
+  try { localStorage.setItem('royal-lang', LANG); } catch (e) {}
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.lang button, #langUz, #langRu'); if (!b) return;
+    var to = b.getAttribute('data-lang') || (b.id === 'langRu' ? 'ru' : 'uz');
+    if (to === LANG) return;
+    e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+    try { localStorage.setItem('royal-lang', to); } catch (x) {}
+    location.href = ALT + location.hash;
+  }, true);
+})();
+</script>
+<script>
+(function () {
   var REF = [[/(^|\.)(chatgpt\.com|openai\.com)$/, 'chatgpt.com'], [/(^|\.)perplexity\.ai$/, 'perplexity'], [/^gemini\.google\./, 'gemini'],
     [/(^|\.)copilot\.microsoft\.com$/, 'copilot'], [/(^|\.)claude\.ai$/, 'claude'], [/(^|\.)instagram\.com$/, 'instagram'],
     [/(^|\.)(t\.me|telegram\.org)$/, 'telegram'], [/(^|\.)facebook\.com$/, 'facebook'], [/(^|\.)google\./, 'google'], [/(^|\.)yandex\./, 'yandex'], [/(^|\.)bing\.com$/, 'bing']];
@@ -556,17 +570,20 @@ form.lead .btn,.hero-form .btn{white-space:normal;text-align:center;line-height:
 })();
 </script>
 <link rel="canonical" href="https://royal-art.uz/skripka.html">
+<link rel="alternate" hreflang="uz" href="https://royal-art.uz/skripka.html">
+<link rel="alternate" hreflang="ru" href="https://royal-art.uz/ru/skripka.html">
+<link rel="alternate" hreflang="x-default" href="https://royal-art.uz/skripka.html">
 <link rel="icon" type="image/png" href="img/logo.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ROYAL music school">
-<meta property="og:title" content="Skripka kursi Andijonda | Уроки скрипки в Андижане — ROYAL music school">
-<meta property="og:description" content="Andijonda skripka darslari: kamon, to&#x27;rt tor, toza intonatsiya. Individual darslar, birinchi sinov darsi bepul. Уроки скрипки в Андижане, первый урок бесплатно.">
+<meta property="og:title" content="Skripka kursi Andijonda — ROYAL music school">
+<meta property="og:description" content="Andijonda skripka darslari: kamon, to&#x27;rt tor, toza intonatsiya. Individual darslar, birinchi sinov darsi bepul.">
 <meta property="og:url" content="https://royal-art.uz/skripka.html">
 <meta property="og:image" content="https://royal-art.uz/img/skripka.jpg">
 <meta property="og:locale" content="uz_UZ">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Skripka kursi", "description": "Andijonda skripka darslari: kamon, to'rt tor, toza intonatsiya. Individual darslar, birinchi sinov darsi bepul. Уроки скрипки в Андижане, первый урок бесплатно.", "url": "https://royal-art.uz/skripka.html", "inLanguage": ["uz", "ru"], "provider": {"@type": "EducationalOrganization", "@id": "https://royal-art.uz/#school", "name": "ROYAL music school", "url": "https://royal-art.uz/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Skripka kursi", "description": "Andijonda skripka darslari: kamon, to'rt tor, toza intonatsiya. Individual darslar, birinchi sinov darsi bepul.", "url": "https://royal-art.uz/skripka.html", "inLanguage": "uz", "provider": {"@type": "EducationalOrganization", "@id": "https://royal-art.uz/#school", "name": "ROYAL music school", "url": "https://royal-art.uz/"}}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">

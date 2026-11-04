@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<!--
+  ROYAL music school — Fortepiano lendingi (template/landing-template.html asosida)
+  Palitra va bezaklar: asosiy sayt (index.html) uslubi, gitara.html dagi kabi (egasi qoidasi 2026-11-03: barcha lendinglar shu dizaynda;
+  palitra o'zgarmaydi, bloklar ranglari har sahifada boshqacha).
+  Hero: chalinadigan 2 oktavali klaviatura (Web Audio) + "birinchi melodiya" rejimi.
+  O'qituvchi rasmlari hali yo'q: initsial-plashka turibdi, rasm kelganda <img class="avatar"> bilan almashtiring.
+  Bio matnlari TASDIQLANISHI kerak (o'qituvchilardan so'rang) — hech qanday yil/yutuq o'ylab topilmagan.
+-->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Уроки фортепиано в Андижане — ROYAL music school</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Уроки фортепиано в Андижане: нотная грамота, игра двумя руками, первая мелодия. Индивидуальные занятия, первый пробный урок бесплатно.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* Uslub: asosiy sayt (index.html) palitrasi va bezaklari — krem fon, terrakota aksent (--acc), shaftoli/shalfey kartalar, navy bloklar (--navy);
+   Montserrat sarlavhalar, Caveat qo'lyozma. Tuzilma — lending shabloni (hero: grif + akkord kartasi). */
+:root{
+  --paper:#FBF6F0; --surface:#FFFFFF; --tint:#F4EADF; --tint-2:#E0D2C2;
+  --ink:#1D2740; --ink-soft:#5B6170; --ink-faint:#868B97;
+  --line:#EADFD2;
+  --acc:#B65335; --acc-deep:#9E4529; --acc-soft:#F6DED2; --on-acc:#FFFFFF; --acc-lite:#EBB59A; --acc-text:#B65335;
+  --peach:#EBB59A; --peach-soft:#F8E6DA;
+  --sage:#8BA383; --sage-deep:#56724F; --on-sage:#FFFFFF; --sage-soft:#E3EADF; --sage-text:#3F5A3A;
+  --navy:#1F2B45; --navy-deep:#17203A; --on-navy:#FFFFFF; --on-navy-soft:#C9D1E0; --navy-card:rgba(255,255,255,.06);
+  --hero-bg:linear-gradient(135deg,#F8ECE1 0%,#F3E0D0 100%);
+  --fb-1:#3A2418; --fb-2:#1E120B;
+  --key-white:#FFFFFF; --key-black:#1D2740;
+  --key-w:#FFFFFF; --key-b:#1D2740; --key-line:#E0D2C2;
+  --key-label:#5B6170; /* klavish yozuvi: klavishlar ikkala rejimda ham och, shuning uchun bir xil */
+  --ph-bg:#F1E2D5; --ph-stripe:rgba(182,83,53,.06); --ph-icon:rgba(182,83,53,.42);
+  --logo-bg:#FFFFFF; --logo-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.04);
+  --shadow:0 18px 40px -18px rgba(0,0,0,.22); --shadow-sm:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.04);
+  --ok:#3F5A3A; --err:#B3261E;
+  --f:'Inter','Segoe UI',Helvetica,Arial,sans-serif; --fh:'Montserrat','Inter',sans-serif; --fc:'Caveat',cursive;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121A2B; --surface:#1A2338; --tint:#172036; --tint-2:#34405E;
+    --ink:#F3EEE8; --ink-soft:#A3ABBD; --ink-faint:#7D8699;
+    --line:#26314A;
+    --acc:#EE8A67; --acc-deep:#F5A083; --acc-soft:#3A2A2C; --on-acc:#121A2B; --acc-lite:#EBB59A; --acc-text:#F08E6B;
+    --peach:#5A3B33; --peach-soft:#262230;
+    --sage:#4C6247; --sage-deep:#A8BFA1; --on-sage:#121A2B; --sage-soft:#1D2B29; --sage-text:#B7CDB0;
+    --navy:#0B111E; --navy-deep:#070B14; --on-navy:#F3EEE8; --on-navy-soft:#A3ABBD; --navy-card:rgba(255,255,255,.05);
+    --hero-bg:linear-gradient(135deg,#1A2236 0%,#211F30 100%);
+    --fb-1:#2E1D14; --fb-2:#170E09;
+    --key-white:#D9D3CB; --key-black:#0B111E;
+    --key-w:#D9D3CB; --key-b:#0B111E; --key-line:#34405E;
+  --key-w:#D9D3CB; --key-b:#0B111E; --key-line:#34405E;
+    --ph-bg:#222C44; --ph-stripe:rgba(240,142,107,.06); --ph-icon:rgba(240,142,107,.5);
+    --logo-bg:transparent; --logo-shadow:none;
+    --shadow:0 18px 40px -18px rgba(0,0,0,.6); --shadow-sm:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.18);
+    --ok:#B7CDB0; --err:#FF8A80;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121A2B; --surface:#1A2338; --tint:#172036; --tint-2:#34405E;
+  --ink:#F3EEE8; --ink-soft:#A3ABBD; --ink-faint:#7D8699;
+  --line:#26314A;
+  --acc:#EE8A67; --acc-deep:#F5A083; --acc-soft:#3A2A2C; --on-acc:#121A2B; --acc-lite:#EBB59A; --acc-text:#F08E6B;
+  --peach:#5A3B33; --peach-soft:#262230;
+  --sage:#4C6247; --sage-deep:#A8BFA1; --on-sage:#121A2B; --sage-soft:#1D2B29; --sage-text:#B7CDB0;
+  --navy:#0B111E; --navy-deep:#070B14; --on-navy:#F3EEE8; --on-navy-soft:#A3ABBD; --navy-card:rgba(255,255,255,.05);
+  --hero-bg:linear-gradient(135deg,#1A2236 0%,#211F30 100%);
+  --fb-1:#2E1D14; --fb-2:#170E09;
+  --key-white:#D9D3CB; --key-black:#0B111E;
+  --key-w:#D9D3CB; --key-b:#0B111E; --key-line:#34405E;
+  --ph-bg:#222C44; --ph-stripe:rgba(240,142,107,.06); --ph-icon:rgba(240,142,107,.5);
+  --logo-bg:transparent; --logo-shadow:none;
+  --shadow:0 18px 40px -18px rgba(0,0,0,.6); --shadow-sm:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.18);
+  --ok:#B7CDB0; --err:#FF8A80;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-weight:500;margin:0;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+@media (max-width:640px){section{padding-block:52px}}
+.label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+h2{font-size:clamp(28px,3.6vw,40px)}
+.lead{color:var(--ink-soft);font-size:15px;max-width:52ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500;font-size:14px;padding:12px 20px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,transform .15s;font-family:var(--f);white-space:nowrap}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+.btn-primary{background:var(--acc);color:var(--on-acc)}
+.btn-primary:hover{background:var(--acc-deep);transform:translateY(-1px)}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-line:hover{border-color:var(--ink)}
+.btn-onnavy{background:transparent;color:var(--on-navy);border-color:rgba(234,242,243,.25)}
+.btn-onnavy:hover{border-color:var(--on-navy)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.card{background:var(--surface);border-radius:20px;border:1px solid var(--line)}
+.card.tint{background:var(--tint);border-color:transparent}
+
+/* NAV */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(12px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:1;min-width:0;font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
+.logo img{width:38px;height:38px;object-fit:contain;flex-shrink:0;margin:-3px 0}
+.logo span{color:var(--ink-faint);font-weight:500}
+.logo .logo-t{display:flex;flex-direction:column;align-items:flex-start;gap:0;line-height:1.25;min-width:0}
+.logo .brand{color:var(--ink);font-weight:600}
+footer .logo{font-size:17px}
+@media (max-width:760px){nav .logo{font-size:13px}}
+@media (max-width:560px){nav .logo{font-size:12px;gap:8px}.nav-in{gap:8px}.nav-right{gap:6px}.lang button{padding:7px 8px}.theme-btn,.burger{width:32px;height:32px}}
+.nav-links{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--ink-soft);white-space:nowrap}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.lang button{background:none;border:0;color:var(--ink-soft);font-family:var(--f);font-size:12px;font-weight:600;padding:8px 11px;cursor:pointer}
+.lang button.active{background:var(--navy);color:var(--on-navy)}
+.theme-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:14px;display:grid;place-items:center}
+.nav-cta{padding:9px 16px}
+.burger{display:none;width:36px;height:36px;background:none;border:0;cursor:pointer;flex-direction:column;justify-content:center;gap:5px;padding:7px}
+.burger span{display:block;height:2px;background:var(--ink);border-radius:2px}
+@media (max-width:1100px){
+  .nav-links{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 0}
+  .nav-links.open{display:flex}
+  .nav-links a{display:block;padding:14px max(16px,env(safe-area-inset-left,0px))}
+  .burger{display:flex}
+  .nav-cta{display:none}
+}
+
+/* HERO */
+.hero{padding-block:56px 72px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding-block:40px 56px}}
+.hero h1{font-size:clamp(36px,4.8vw,58px);max-width:14ch}
+.hero-desc{margin-top:18px;color:var(--ink-soft);font-size:15px;max-width:44ch}
+.hero-form{margin-top:26px;display:grid;grid-template-columns:1fr 1fr auto;gap:8px;max-width:540px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px;align-items:center}
+.hero-form input{min-width:0;width:100%;border:1px solid var(--line);background:var(--paper);border-radius:10px;font:inherit;font-size:14px;color:var(--ink);padding:11px 14px}
+.hero-form input:focus{outline:none;border-color:var(--acc)}
+.hero-form .btn{padding:11px 16px;font-size:13px}
+@media (max-width:560px){.hero-form{grid-template-columns:1fr}.hero-form .btn{width:100%}}
+.hero-msg{margin-top:10px;font-size:13px;min-height:18px;color:var(--ink-soft)}
+.hero-msg.ok{color:var(--ok)} .hero-msg.err{color:var(--err)}
+
+/* hero mock */
+.mock{position:relative;padding:82px 28px 0 0;max-width:520px;margin-left:auto}
+@media (max-width:900px){.mock{margin-left:0;max-width:100%;padding:0}}
+.kb-card{background:var(--surface);border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow);padding:20px;position:relative}
+.kb-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-right:190px;min-height:40px}
+.kb-head b{font-weight:600;font-size:14px}
+.kb-head small{font-size:12px;color:var(--ink-faint)}
+@media (max-width:900px){.kb-head{padding-right:0}}
+.keys{position:relative;display:flex;height:126px;user-select:none;touch-action:manipulation;margin-top:16px}
+.wk{flex:1;background:var(--key-w);border:1px solid var(--key-line);border-radius:0 0 5px 5px;position:relative;cursor:pointer;transition:background .08s}
+.wk.on{background:var(--acc)}
+.wk i{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-style:normal;font-size:9px;color:var(--key-label);font-weight:600}
+.bk{position:absolute;top:0;width:4%;height:62%;background:var(--key-b);border-radius:0 0 3px 3px;cursor:pointer;z-index:2;box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.bk.on{background:var(--acc)}
+.ranges{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.range{height:30px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;background:var(--tint);color:var(--ink-soft);transition:background .2s,color .2s}
+.range.on{background:var(--acc);color:var(--on-acc)}
+.kb-hint{margin-top:12px;font-size:12px;color:var(--ink-faint)}
+.note-card{position:absolute;top:0;right:0;width:200px;background:var(--acc);color:var(--on-acc);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);overflow:hidden;z-index:3}
+.note-card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 58%,rgba(255,255,255,.10) 58% 70%,transparent 70% 78%,rgba(255,255,255,.10) 78%);pointer-events:none}
+.note-card > *{position:relative;z-index:1}
+.nc-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;font-weight:600}
+.nc-note{font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums;min-height:30px}
+.nc-note small{font-size:11px;font-weight:500;opacity:.85;margin-left:6px;letter-spacing:0}
+canvas#wave{display:block;width:100%;height:44px;margin-top:6px}
+.nc-foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;opacity:.9;margin-top:4px;font-weight:500}
+@media (max-width:900px){.mock{display:flex;flex-direction:column}.note-card{position:relative;order:-1;width:100%;margin-bottom:12px}}
+:root[data-theme="dark"] .note-card,.note-card{--on-acc:#FFFFFF}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .note-card{--on-acc:#1C0C12}}
+:root[data-theme="dark"] .note-card{--on-acc:#1C0C12}
+
+/* WHY card */
+.why{padding:44px;display:grid;gap:40px}
+@media (max-width:640px){.why{padding:28px}}
+.why-top{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end}
+@media (max-width:800px){.why-top{grid-template-columns:1fr;gap:16px}}
+.why-top h2{margin-top:12px;max-width:18ch}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+@media (max-width:800px){.feats{grid-template-columns:1fr;gap:24px}}
+.feat{display:grid;gap:12px;align-content:start}
+.feat h3{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.feat p{font-size:13px;color:var(--ink-soft);max-width:30ch}
+
+/* BENTO */
+.center{text-align:center;display:grid;justify-items:center;gap:10px;margin-bottom:36px}
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:800px){.bento{grid-template-columns:1fr}}
+.b{padding:32px;display:grid;align-content:space-between;gap:24px;min-height:220px}
+.b .big{font-size:clamp(48px,6vw,72px);font-weight:600;color:var(--acc);letter-spacing:-.04em;line-height:1}
+.b h3{font-size:20px;max-width:16ch}
+.b p{font-size:13px;color:var(--ink-soft);max-width:34ch}
+.flow{display:flex;align-items:center;gap:14px}
+.flow .node{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--acc);border:1px solid var(--line)}
+.flow .node.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.flow .node svg{width:22px;height:22px}
+.flow .dots{flex:1;max-width:120px;height:0;border-top:2px dashed var(--tint-2)}
+.b.wide{grid-column:1/-1;grid-template-columns:1fr 1.3fr;align-items:center;gap:32px}
+@media (max-width:800px){.b.wide{grid-template-columns:1fr}}
+.chart{background:var(--surface);border-radius:14px;border:1px solid var(--line);padding:20px 22px;display:grid;gap:18px}
+.chart .ch-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.chart .ch-head b{font-weight:600;font-size:13px}
+.chart .ch-head small{font-size:11px;color:var(--ink-faint)}
+.row{display:grid;gap:8px}
+.row .rt{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft)}
+.row .rt b{color:var(--ink);font-weight:600}
+.bar{display:flex;height:12px;border-radius:999px;overflow:hidden;gap:3px}
+.bar i{display:block;height:100%}
+.s1{background:var(--acc-lite)} .s2{background:var(--acc)} .s3{background:var(--sage-deep)}
+.lg{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12px;color:var(--ink-soft)}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg em{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* STEPS band */
+.band{background:var(--navy);color:var(--on-navy)}
+.band .label{color:var(--on-navy-soft)}
+.band h2{margin-top:10px;max-width:22ch}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.step{background:var(--navy-card);border-radius:16px;padding:24px 22px;display:grid;gap:8px;align-content:start;border:1px solid rgba(255,255,255,.06)}
+.step .n{font-size:40px;font-weight:600;color:rgba(234,242,243,.35);letter-spacing:-.04em;line-height:1}
+.step h3{font-size:16px;font-weight:600;margin-top:10px}
+.step p{font-size:13px;color:var(--on-navy-soft)}
+.finale{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;background:var(--navy-card);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px 24px}
+.finale b{font-size:40px;font-weight:600;color:var(--acc);letter-spacing:-.04em;line-height:1}
+.finale div{flex:1;min-width:240px}
+.finale h3{font-size:16px;font-weight:600}
+.finale p{font-size:13px;color:var(--on-navy-soft);margin-top:4px;max-width:60ch}
+
+/* TEACHER */
+.teacher{display:grid;justify-items:center;text-align:center;gap:12px}
+.teacher h2{font-size:clamp(28px,3.6vw,40px)}
+.t-role{font-size:14px;color:var(--acc);font-weight:600}
+.avatar{width:180px;height:180px;border-radius:50%;object-fit:cover;object-position:50% 38%;margin-bottom:8px;border:4px solid var(--surface);box-shadow:var(--shadow);background:var(--tint)}
+.bio{color:var(--ink-soft);font-size:15px;max-width:62ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;width:100%;max-width:720px}
+@media (max-width:520px){.stats{grid-template-columns:1fr}}
+.stat b{display:block;font-size:40px;font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;font-size:13px;color:var(--ink-soft)}
+
+/* NARX: faqat "...so'mdan" (to'liq tariflar saytga chiqmaydi) */
+.from-band{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center;padding:36px}
+.from-text{min-width:0}
+.from-band h2{margin-top:10px}
+.from-band .lead{margin-top:12px}
+.from-band .price-note{margin-top:12px}
+.from-box{background:var(--surface);border-radius:16px;padding:26px 24px;display:grid;gap:6px;justify-items:start}
+.from-box small{font-size:13px;color:var(--ink-soft)}
+.from-num{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;font-variant-numeric:tabular-nums}
+.from-num b{font-size:46px;font-weight:600;letter-spacing:-.03em;line-height:1.05}
+.from-num span{font-size:16px;font-weight:500;color:var(--ink-soft)}
+.from-num .pre:empty{display:none}
+.from-box .btn{margin-top:14px;white-space:normal}
+@media (max-width:900px){.from-band{grid-template-columns:1fr;padding:26px 20px}}
+.price-note{margin-top:20px;font-size:13px;color:var(--ink-soft);max-width:70ch}
+
+/* FAQ */
+.faq{max-width:760px;margin:0 auto}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:500;font-size:16px;display:flex;justify-content:space-between;gap:20px;align-items:center;letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--acc);font-size:22px;line-height:1;flex-shrink:0;font-weight:400}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 18px;color:var(--ink-soft);font-size:14px;max-width:62ch}
+
+/* CTA band */
+.cta{padding-block:0}
+.cta-in{background:var(--navy);color:var(--on-navy);border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center}
+@media (max-width:900px){.cta-in{grid-template-columns:1fr;padding:32px 24px}}
+.cta-in .label{color:var(--on-navy-soft)}
+.cta-in h2{margin-top:10px;max-width:16ch}
+.cta-in p{color:var(--on-navy-soft);font-size:14px;margin-top:12px;max-width:44ch}
+.cta-contacts{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 24px;font-size:14px}
+.cta-contacts a{text-decoration:none;font-weight:500}
+.cta-contacts a:hover{color:var(--acc)}
+form.lead{background:var(--surface);color:var(--ink);border-radius:18px;padding:24px;display:grid;gap:12px}
+form.lead label{display:grid;gap:6px;font-size:12px;font-weight:600;color:var(--ink-soft)}
+form.lead input,form.lead select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px}
+form.lead input:focus,form.lead select:focus{border-color:var(--acc);outline:none}
+.form-msg{font-size:13px;color:var(--ink-soft);min-height:18px}
+.form-msg.ok{color:var(--ok)} .form-msg.err{color:var(--err)}
+
+/* FOOTER */
+footer{padding-block:56px 32px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+@media (max-width:800px){.foot{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.foot{grid-template-columns:1fr}}
+.foot h4{margin:0 0 14px;font-size:13px;font-weight:600}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:13px;color:var(--ink-soft)}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--acc)}
+.foot .about{font-size:13px;color:var(--ink-soft);max-width:30ch;margin-top:14px}
+.copy{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-soft)}
+
+/* fortepiano hero: keys, controls, progress */
+.keys{height:132px}
+.wk,.bk{padding:0;font-family:inherit;-webkit-tap-highlight-color:transparent;outline-offset:-3px}
+.wk.on{background:var(--acc)} .bk.on{background:var(--acc)}
+.wk.next{background:var(--acc-soft);box-shadow:inset 0 -4px 0 var(--acc)}
+.bk.next{box-shadow:inset 0 -6px 0 var(--acc),0 2px 0 rgba(0,0,0,.35)}
+.wk.next i,.wk.on i{color:var(--acc-deep)} .wk.on i{color:var(--on-acc)}
+.keys.celebrate .wk{animation:kbcel .9s ease}
+@keyframes kbcel{30%{background:var(--acc-soft)}}
+.kb-ctl{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.kb-ctl .range{border:0;cursor:pointer;font-family:inherit;padding:0 14px}
+.kb-ctl .range.play{gap:6px;text-transform:none;letter-spacing:0;font-size:12px;background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.kb-ctl .range.play svg{width:12px;height:12px}
+.kb-ctl .range.play.busy{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.mel-sel{flex:1;min-width:150px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:12px;font-weight:500;padding:0 10px}
+.mel-sel:focus{outline:none;border-color:var(--acc)}
+.kb-prog{height:6px;border-radius:999px;background:var(--tint);margin-top:12px;overflow:hidden}
+.kb-prog i{display:block;height:100%;width:0;background:var(--acc);border-radius:999px;transition:width .25s}
+.nc-note small{display:inline-block}
+/* teachers */
+.teachers{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;max-width:920px;margin-top:28px}
+@media (max-width:760px){.teachers{grid-template-columns:1fr}}
+.tcard{padding:32px 28px;display:grid;justify-items:center;text-align:center;gap:8px;align-content:start}
+.tcard h3{font-size:22px;letter-spacing:-.02em}
+.tcard .avatar{width:140px;height:140px}
+.tcard .bio{font-size:14px;max-width:40ch;margin-top:6px}
+.avatar.ph{display:grid;place-items:center;font-weight:600;font-size:34px;color:var(--acc);background:var(--acc-soft);letter-spacing:-.02em}
+
+/* ===== ASOSIY SAYT USLUBI (index.html dan): shriftlar, eyebrow, aksent chiziq, rangli plitkalar, bezaklar ===== */
+h1,h2{font-family:var(--fh);font-weight:800;letter-spacing:-.025em;line-height:1.08;isolation:isolate}
+h3{font-family:var(--fh);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(28px,3.4vw,42px)}
+.hero h1{font-size:clamp(34px,4.6vw,56px);max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--acc-text)}
+.label{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--acc-text)}
+.label::before{content:"";width:22px;height:2px;border-radius:2px;background:currentColor}
+.u{position:relative;display:inline-block;font-style:normal;color:var(--acc-text)}
+.u::after{content:"";position:absolute;left:-2%;right:-2%;bottom:-.16em;height:.3em;background:var(--peach);z-index:-1;opacity:.9;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 14C40 5 90 3 130 7s50 6 67-2' fill='none' stroke='black' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 14C40 5 90 3 130 7s50 6 67-2' fill='none' stroke='black' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.band .u,.cta-in .u{color:var(--acc-lite)}
+.band .u::after,.cta-in .u::after{background:var(--acc-lite);opacity:.3}
+.band .label,.cta-in .label{color:var(--acc-lite)}
+.hand{font-family:var(--fc);font-weight:600}
+.dk{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-8px) rotate(var(--r,0deg))}}
+.btn{border-radius:999px;font-weight:600;min-height:46px;padding:10px 22px}
+.btn-line{border-width:1.5px;border-color:var(--tint-2);background:var(--surface)}
+.nav-cta{min-height:40px}
+.logo .brand-short,footer .logo{font-family:var(--fh);font-weight:800;letter-spacing:.04em}
+footer .logo span{font-family:var(--f);font-weight:500;letter-spacing:0}
+.lang,.theme-btn{border-radius:999px}
+.hero-form{border-radius:18px;box-shadow:var(--shadow-sm);border-color:transparent;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);max-width:500px}
+.hero-form .btn{grid-column:1 / -1}
+.hero-form input,form.lead input,form.lead select{border-radius:12px;border:1.5px solid var(--tint-2)}
+.hero-form input:focus,form.lead input:focus,form.lead select:focus{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 18%,transparent)}
+.phone-pre{border-right-color:var(--tint-2)}
+/* hero: shaftoli panel, notalar, blob, muhr */
+.hero{padding-block:12px 64px}
+.hero-grid.panel{background:var(--hero-bg);border-radius:32px;padding:56px 56px 60px;position:relative;isolation:isolate;overflow:hidden}
+.hero-notes{position:absolute;left:50%;top:16px;width:150px;height:120px;color:var(--acc);pointer-events:none;z-index:0}
+.hero-notes svg{position:absolute;animation:bob 7s ease-in-out infinite}
+.hero-notes .n1{left:0;top:26px;width:56px;height:56px;--r:-12deg;opacity:.5}
+.hero-notes .n2{left:66px;top:0;width:28px;height:42px;--r:10deg;opacity:.4;animation-delay:-2.3s}
+.hero-notes .n3{left:104px;top:34px;width:30px;height:60px;--r:6deg;opacity:.45;color:var(--sage-deep);stroke-width:2;animation-delay:-4.6s}
+.mock{isolation:isolate}
+.mock .blob{position:absolute;z-index:-1;aspect-ratio:1;height:auto;pointer-events:none}
+.mock .b1{width:62%;left:-16%;bottom:-18%;color:var(--peach)}
+.mock .b2{width:44%;right:-10%;top:-4%;color:var(--sage);opacity:.45}
+.kb-card{border-color:transparent;box-shadow:var(--shadow)}
+.note-card{box-shadow:var(--shadow)}
+.nc-note{font-family:var(--fh);font-weight:800}
+.stamp{position:absolute;right:-22px;bottom:-46px;z-index:4;width:104px;height:104px;border-radius:50%;display:grid;place-items:center;padding:12px;text-align:center;font-size:21px;line-height:1;transform:rotate(-10deg);box-shadow:var(--shadow);background:var(--sage-deep);color:var(--on-sage)}
+@media (min-width:901px){.mock .kb-hint{padding-right:64px}}
+/* ishonch kartasi: rangli doirachalar */
+.trust-card{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-radius:22px;box-shadow:var(--shadow-sm);margin-top:20px}
+.trust-item{display:flex;align-items:center;gap:14px;padding:20px 22px;min-width:0}
+.trust-item + .trust-item{border-left:1px solid var(--line)}
+.trust-item b{display:block;font:700 15px/1.3 var(--fh)}
+.trust-item div span{display:block;font-size:13px;color:var(--ink-soft);line-height:1.4;margin-top:2px}
+.bubble{width:48px;height:48px;flex:none;border-radius:50%;display:grid;place-items:center}
+.bubble svg{width:22px;height:22px}
+.b-terra{background:var(--acc-soft);color:var(--acc-text)}
+.b-sage{background:var(--sage-soft);color:var(--sage-text)}
+.b-peach{background:var(--peach-soft);color:var(--acc-text);box-shadow:inset 0 0 0 1.5px var(--peach)}
+.b-navy{background:var(--navy);color:#FFFFFF}
+/* kartalar */
+.why{position:relative;overflow:hidden;isolation:isolate;border-color:transparent;box-shadow:var(--shadow-sm)}
+.why-deco{position:absolute;right:28px;top:-18px;width:84px;height:134px;color:var(--peach);opacity:.9;transform:rotate(14deg);z-index:-1;stroke-width:2.2}
+.c-peach{background:var(--peach-soft);border-color:transparent}
+.c-sage{background:var(--sage-soft);border-color:transparent}
+.b .big{font-family:var(--fh);font-weight:800;color:var(--acc-text)}
+.b h3{max-width:22ch}
+.b.photo{border:0}
+.pnote{position:absolute;left:16px;bottom:16px;z-index:2;margin:0;background:var(--surface);color:var(--ink);border-radius:14px;padding:6px 14px;font-size:22px;line-height:1.1;transform:rotate(-3deg);box-shadow:var(--shadow)}
+.flow .node.n-terra{background:var(--acc-soft);color:var(--acc-text);border-color:transparent}
+.flow .node.n-sage{background:var(--surface);color:var(--sage-text)}
+.flow .node.dark{background:var(--navy);color:#FFFFFF;border-color:transparent}
+.flow .dots{border-top-color:var(--sage)}
+.center.has-staff{position:relative;isolation:isolate}
+.sec-staff{position:absolute;right:0;top:-34px;width:400px;height:86px;z-index:-1;color:var(--sage);opacity:.55;stroke-width:1.6;pointer-events:none}
+/* dastur bloki: navy, rangli raqamlar, nota yo'li */
+.band{position:relative;overflow:hidden;isolation:isolate}
+.band-staff{position:absolute;right:0;top:36px;width:520px;height:120px;color:var(--acc-lite);opacity:.16;z-index:-1;stroke-width:1.6;pointer-events:none}
+.step{border-top:3px solid var(--sc,#EBB59A)}
+.step .n{font-family:var(--fh);font-weight:800;color:var(--sc,#EBB59A)}
+.step:nth-child(1){--sc:#EBB59A} .step:nth-child(2){--sc:#EE8A67} .step:nth-child(3){--sc:#A8BFA1} .step:nth-child(4){--sc:#C9D1E0}
+.finale b{font-family:var(--fh);font-weight:800}
+/* o'qituvchi: blob, gitara nishoni, rangli raqam kartalari */
+.t-art{position:relative;isolation:isolate;margin-bottom:8px}
+.t-art .avatar{margin-bottom:0;display:block}
+.t-art .blob{position:absolute;width:150%;left:-25%;top:-16%;z-index:-1;aspect-ratio:1;height:auto;color:var(--peach);opacity:.6}
+.art-badge{position:absolute;left:-20px;top:14%;z-index:2;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--acc-text);box-shadow:var(--shadow)}
+.art-badge .dk{width:24px;height:38px;stroke-width:3}
+.stat{background:var(--surface);border-radius:18px;padding:18px 14px 16px;box-shadow:var(--shadow-sm)}
+.stat b{font-family:var(--fh);font-weight:800;color:var(--acc-text)}
+.stat:nth-child(2) b{color:var(--sage-deep)}
+.stat:nth-child(3) b{color:var(--ink)}
+/* narx: shaftoli karta */
+.from-band{position:relative;overflow:hidden;isolation:isolate}
+.from-deco{position:absolute;left:44%;bottom:-26px;width:130px;height:130px;color:var(--acc);opacity:.13;transform:rotate(-12deg);z-index:-1;stroke-width:2.2;pointer-events:none}
+.from-box{box-shadow:var(--shadow-sm)}
+.from-num b{font-family:var(--fh);font-weight:800;color:var(--acc-text)}
+/* yozilish: navy, gitara silueti */
+.cta-in{position:relative;overflow:hidden;isolation:isolate}
+.cta-deco{position:absolute;left:-26px;bottom:-70px;width:170px;height:272px;color:var(--acc-lite);opacity:.12;transform:rotate(-18deg);z-index:-1;stroke-width:1.8;pointer-events:none}
+/* footer: pianino klavishlari */
+footer{background:var(--tint);margin-top:72px;padding-block:0 32px}
+.foot-keys{display:block;width:100%;height:42px;margin-bottom:48px}
+.foot-keys .kw{fill:var(--key-white)}
+.foot-keys .kl{fill:none;stroke:var(--tint-2);stroke-width:1.5}
+.foot-keys .kb{fill:var(--key-black)}
+@media (max-width:1000px){.trust-card{grid-template-columns:1fr 1fr}.trust-item:nth-child(3){border-left:0}.trust-item:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:900px){.hero{padding-block:8px 48px}.hero-grid.panel{padding:30px 20px 26px;border-radius:24px;gap:28px}.hero-notes{left:auto;right:10px;top:6px;transform:scale(.6);transform-origin:top right}.stamp{display:none}}
+@media (max-width:1000px){.sec-staff{display:none}}
+@media (max-width:640px){.band-staff{display:none}.why-deco{right:12px;top:-28px;width:60px;height:96px}}
+@media (max-width:560px){.hero-form{grid-template-columns:1fr}.hero-notes{display:none}.trust-card{grid-template-columns:1fr}.trust-item + .trust-item{border-left:0;border-top:1px solid var(--line)}.trust-item{padding:14px 16px}.bubble{width:42px;height:42px}.pnote{font-size:19px;left:12px;bottom:12px}.stat{padding:12px 6px}.art-badge{width:48px;height:48px;left:-12px}.art-badge .dk{width:20px;height:32px}}
+@media (prefers-reduced-motion: reduce){.hero-notes svg{animation:none!important}}
+
+/* ===== BLOKLAR RANGLARI (palitra o'zgarmaydi — egasi qoidasi 2026-11-03) ===== */
+.hero-grid.panel{background:var(--sage-soft)}
+.note-card{background:var(--navy);color:#FFFFFF}
+.stamp.s-terra{background:var(--acc);color:var(--on-acc)}
+.stamp.s-navy{background:var(--navy);color:#FFFFFF}
+.why-deco.sq{width:112px;height:112px;top:-6px;right:20px}
+.cta-deco.sq{width:230px;height:230px;bottom:-60px;left:-40px}
+.art-badge .dk.sq{width:30px;height:30px}
+.finale b{color:var(--acc-lite)}
+.band .btn-primary{background:var(--acc-lite);color:#1F2B45}
+.band .btn-primary:hover{background:#F3C7B0}
+.cta-contacts a:hover{color:var(--acc-lite)}
+.logo img{border-radius:9px;background:var(--logo-bg);box-shadow:var(--logo-shadow)}
+.tcard{border-color:transparent;box-shadow:var(--shadow-sm)}
+.tcard .avatar.ph{background:var(--acc-soft);color:var(--acc-text);font-family:var(--fh);font-weight:800}
+.tcard:nth-child(2) .avatar.ph{background:var(--sage-soft);color:var(--sage-text)}
+/* forma: +998 (gitara.html dagi kabi) */
+/* telefon: +998 doim turadi, foydalanuvchi 9 raqam kiritadi */
+.phone-wrap{position:relative;display:block;min-width:0}
+.phone-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);padding-right:8px;border-right:1.5px solid var(--line);font-size:14px;font-weight:600;line-height:1;color:var(--ink);pointer-events:none}
+.phone-wrap input{padding-left:62px!important;letter-spacing:.02em}
+.form-msg.call,.hero-msg.call{color:var(--ink);font-size:14px;line-height:1.5}
+.call-link{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-weight:600;color:var(--acc);text-decoration:none;border-bottom:1.5px solid currentColor;white-space:nowrap}
+.call-link::before{content:"\260E";font-size:13px}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.phone-pre{border-right-color:var(--tint-2)}
+@media (max-width:900px){.phone-pre{font-size:16px}.phone-wrap input{padding-left:68px!important}}
+/* telefonda karta interaktiv blok ustida; relative — ::after bezagi karta ichida qolsin */
+@media (max-width:900px){.mock{display:flex;flex-direction:column}.note-card{position:relative;order:-1;width:100%;margin-bottom:12px}}
+
+/* ===== MOBILE / RESPONSIVE ===== */
+.brand-short{display:none}
+.nav-links .m-only{display:none}
+.cta-in > *,.hero-grid > *,.why-top > *,.b.wide > *{min-width:0}
+form.lead .btn,.hero-form .btn{white-space:normal;text-align:center;line-height:1.3}
+@media (max-width:900px){
+  .nav-links .m-only{display:block;padding:10px max(16px,env(safe-area-inset-left,0px)) 14px}
+  .nav-links .m-only .btn{display:flex;width:100%;color:var(--on-acc);padding:14px 18px;white-space:normal}
+}
+@media (max-width:900px){
+  .hero-form input,form.lead input,form.lead select{font-size:16px}
+  .phone-pre{font-size:16px}
+  .phone-wrap input{padding-left:68px!important}
+  .lang button{min-height:40px;min-width:40px}
+  .theme-btn,.burger{width:40px;height:40px}
+  .kb-ctl .range{height:36px}
+}
+@media (max-width:760px){
+  .foot ul{gap:0}
+  .foot ul a,.foot ul li{display:inline-block;padding-block:7px}
+  .copy{flex-direction:column}
+  .stats{grid-template-columns:repeat(3,1fr);gap:10px}
+  .stat b{font-size:30px}
+  .stat span{font-size:12px}
+}
+@media (max-width:560px){
+  nav .logo{font-size:13px}
+  nav .logo .brand{display:none}
+  nav .logo .brand-short{display:inline;color:var(--ink);font-weight:700;letter-spacing:.03em}
+  nav .logo .logo-t{flex-direction:column;gap:0;line-height:1.25}
+  .why{padding:24px 18px}
+  .b{padding:24px;min-height:0}
+  .b.photo{padding:0}
+  .finale .btn{width:100%}
+  .cta-in{padding:28px 18px;border-radius:20px}
+  form.lead{padding:18px}
+  .kb-card{padding:16px}
+}
+.nav-links .m-theme{display:none}
+.m-theme-btn{background:none;border:0;padding:14px 0;font:inherit;font-size:14px;font-weight:500;color:var(--ink-soft);cursor:pointer;text-align:left;width:100%}
+@media (max-width:400px){
+  nav .theme-btn{display:none}
+  .nav-links .m-theme{display:block;padding-block:0}
+  nav .logo .logo-t span:last-child{font-size:11px;letter-spacing:.02em}
+  .logo .logo-t{overflow:hidden}
+  .logo .logo-t span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+}
+/* sticky mobile action bar */
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;gap:8px;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);transition:transform .25s}
+  .mbar .btn{flex:1;min-height:46px;white-space:normal;line-height:1.25;padding:10px 12px}
+  .mbar .btn-line{background:var(--surface)}
+  .mbar.hide{transform:translateY(115%)}
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<script>
+(function () {
+  var LANG = 'ru', ALT = '/fortepiano.html';
+  try { localStorage.setItem('royal-lang', LANG); } catch (e) {}
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.lang button, #langUz, #langRu'); if (!b) return;
+    var to = b.getAttribute('data-lang') || (b.id === 'langRu' ? 'ru' : 'uz');
+    if (to === LANG) return;
+    e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+    try { localStorage.setItem('royal-lang', to); } catch (x) {}
+    location.href = ALT + location.hash;
+  }, true);
+})();
+</script>
+<script>
+(function () {
+  var REF = [[/(^|\.)(chatgpt\.com|openai\.com)$/, 'chatgpt.com'], [/(^|\.)perplexity\.ai$/, 'perplexity'], [/^gemini\.google\./, 'gemini'],
+    [/(^|\.)copilot\.microsoft\.com$/, 'copilot'], [/(^|\.)claude\.ai$/, 'claude'], [/(^|\.)instagram\.com$/, 'instagram'],
+    [/(^|\.)(t\.me|telegram\.org)$/, 'telegram'], [/(^|\.)facebook\.com$/, 'facebook'], [/(^|\.)google\./, 'google'], [/(^|\.)yandex\./, 'yandex'], [/(^|\.)bing\.com$/, 'bing']];
+  try {
+    var src = new URLSearchParams(location.search).get('utm_source');
+    if (!src && document.referrer) {
+      var h = new URL(document.referrer).hostname;
+      if (h && h !== location.hostname) for (var i = 0; i < REF.length; i++) if (REF[i][0].test(h)) { src = REF[i][1]; break; }
+    }
+    if (src && !sessionStorage.getItem('royal_src')) sessionStorage.setItem('royal_src', src.slice(0, 40));
+  } catch (e) {}
+  window.royalPage = function () {
+    var p = location.href.split('#')[0];
+    try { var s = sessionStorage.getItem('royal_src'); if (s && p.indexOf('utm_source=') < 0) p += (p.indexOf('?') < 0 ? '?' : '&') + 'utm_source=' + encodeURIComponent(s); } catch (e) {}
+    return p;
+  };
+})();
+</script>
+<link rel="canonical" href="https://royal-art.uz/ru/fortepiano.html">
+<link rel="alternate" hreflang="uz" href="https://royal-art.uz/fortepiano.html">
+<link rel="alternate" hreflang="ru" href="https://royal-art.uz/ru/fortepiano.html">
+<link rel="alternate" hreflang="x-default" href="https://royal-art.uz/fortepiano.html">
+<link rel="icon" type="image/png" href="../img/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ROYAL music school">
+<meta property="og:title" content="Уроки фортепиано в Андижане — ROYAL music school">
+<meta property="og:description" content="Уроки фортепиано в Андижане: нотная грамота, игра двумя руками, первая мелодия. Индивидуальные занятия, первый пробный урок бесплатно.">
+<meta property="og:url" content="https://royal-art.uz/ru/fortepiano.html">
+<meta property="og:image" content="https://royal-art.uz/img/fortepiano.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="uz_UZ">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Курс фортепиано", "description": "Уроки фортепиано в Андижане: нотная грамота, игра двумя руками, первая мелодия. Индивидуальные занятия, первый пробный урок бесплатно.", "url": "https://royal-art.uz/ru/fortepiano.html", "inLanguage": "ru", "provider": {"@type": "EducationalOrganization", "@id": "https://royal-art.uz/#school", "name": "ROYAL music school", "url": "https://royal-art.uz/"}}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-3.3 3.6-5.5 8-5.5s8 2.2 8 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-keys" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 6v8M12 6v8M16.5 6v8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 6h3v6H6zM10.5 6h3v6h-3zM15 6h3v6h-3z" fill="currentColor" opacity=".35"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M9 18V5l10-2v13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="6.5" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16.5" cy="16" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-ear" viewBox="0 0 24 24"><path d="M6 10a6 6 0 0 1 12 0c0 3-2 3.5-2.5 5.5S14 20 12 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 10a2.5 2.5 0 0 1 5 0c0 1.5-1.5 2-1.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 7.6 8 9 4.6-1.4 8-4.5 8-9V6l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8L12 3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 16 16"><path d="M5 3.5v9l7-4.5-7-4.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></g></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></g></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></g></symbol>
+  <symbol id="i-blob1" viewBox="0 0 200 200"><path fill="currentColor" stroke="none" d="M143.2 41.9c12.2 8.5 21.2 21.8 26.4 36.8 5.2 15 6.6 31.7.7 45.3-5.9 13.6-19.1 24.1-33.3 32.5-14.2 8.4-29.4 14.7-45.4 15.9-16 1.2-32.8-2.7-45.1-12.8-12.3-10.1-20.1-26.4-22.1-43.2-2-16.8 1.8-34.1 10.7-47.5 8.9-13.4 22.9-22.9 37.1-30.6 14.2-7.7 28.6-13.6 42.4-11.4 13.8 2.2 16.4 6.5 28.6 15Z"/></symbol>
+  <symbol id="i-blob2" viewBox="0 0 200 200"><path fill="currentColor" stroke="none" d="M138.9 49.2c12.6 5.4 24.5 15.6 30 28.9 5.5 13.3 4.7 29.7-1.5 43.3-6.2 13.6-17.8 24.4-30.9 33.3-13.1 8.9-27.7 15.9-42.9 16.7-15.2.8-31-4.6-43.3-14.8-12.3-10.2-21.1-25.2-23.9-41.3-2.8-16.1.4-33.3 9.2-46.5 8.8-13.2 23.2-22.4 37.3-27.1 14.1-4.7 27.9-4.9 41.3-2.9 13.4 2 12.1 5 24.7 10.4Z"/></symbol>
+  <symbol id="d-note" viewBox="0 0 32 48"><ellipse cx="11" cy="38" rx="6.5" ry="4.6" transform="rotate(-20 11 38)" fill="currentColor"/><path d="M17 37V5c1 7 11 9 9 19"/></symbol>
+  <symbol id="d-notes" viewBox="0 0 48 48"><ellipse cx="11" cy="38" rx="6" ry="4.3" transform="rotate(-20 11 38)" fill="currentColor"/><ellipse cx="35" cy="33" rx="6" ry="4.3" transform="rotate(-20 35 33)" fill="currentColor"/><path d="M16.6 37V10M40.6 32V5"/><path d="M16.6 10 40.6 5" stroke-width="5"/></symbol>
+  <symbol id="d-clef" viewBox="0 0 32 64"><path d="M11 52C13 56 18 56 18 50L16 8C16 3 22 3 21 9 20 15 7 22 7 33 7 40 12 44 17 44 22 44 25 41 25 37 25 33 22 30 18 30 14 30 12 33 12.5 36 13 38.5 15 39.5 17 39.5"/><circle cx="11" cy="51.5" r="2.6" fill="currentColor"/></symbol>
+  <symbol id="d-staff" viewBox="0 0 560 120"><path d="M0 30C180 16 380 44 560 30M0 40C180 26 380 54 560 40M0 50C180 36 380 64 560 50M0 60C180 46 380 74 560 60M0 70C180 56 380 84 560 70" stroke-width="1.4"/><use href="#d-clef" x="4" y="12" width="40" height="80"/><g fill="currentColor" stroke="none"><ellipse cx="90" cy="46" rx="6.5" ry="4.6" transform="rotate(-20 90 46)"/><ellipse cx="160" cy="41" rx="6.5" ry="4.6" transform="rotate(-20 160 41)"/><ellipse cx="250" cy="59" rx="6.5" ry="4.6" transform="rotate(-20 250 59)"/><ellipse cx="300" cy="55" rx="6.5" ry="4.6" transform="rotate(-20 300 55)"/><ellipse cx="400" cy="44" rx="6.5" ry="4.6" transform="rotate(-20 400 44)"/><ellipse cx="490" cy="58" rx="6.5" ry="4.6" transform="rotate(-20 490 58)"/></g><path d="M96 45V15M166 40V12c1 6 9 8 7 17M256 58V26M306 54V22M394 45v30M496 57V27c1 6 9 8 7 17"/><path d="M256 26 306 22" stroke-width="5"/></symbol>
+  <symbol id="d-piano" viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" rx="3"/><path d="M12 39V25M20 39V25M28 39V9M36 39V25"/><path d="M9.5 9h5v16h-5zM17.5 9h5v16h-5zM33.5 9h5v16h-5z" fill="currentColor"/></symbol>
+</svg>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="logo"><img src="data:image/png;base64,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" alt=""><span class="logo-t"><span class="brand-short">ROYAL</span><span class="brand" data-uz="ROYAL musiqa maktabi —" data-ru="Музыкальная школа ROYAL —">Музыкальная школа ROYAL —</span><span data-uz="FORTEPIANO KURSLARI" data-ru="КУРСЫ ФОРТЕПИАНО">КУРСЫ ФОРТЕПИАНО</span></span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#path" data-uz="Dastur" data-ru="Программа">Программа</a></li>
+      <li><a href="#teacher" data-uz="O'qituvchilar" data-ru="Преподаватели">Преподаватели</a></li>
+      <li><a href="#plans" data-uz="Narxlar" data-ru="Цены">Цены</a></li>
+      <li><a href="#faq" data-uz="Savollar" data-ru="Вопросы">Вопросы</a></li>
+      <li><a href="#contacts" data-uz="Kontaktlar" data-ru="Контакты">Контакты</a></li>
+      <li class="m-only m-theme"><button type="button" class="m-theme-btn" onclick="toggleTheme()"><span data-uz="Yorug' / qorong'i rejim" data-ru="Светлая / тёмная тема">Светлая / тёмная тема</span></button></li>
+      <li class="m-only"><a href="#signup" class="btn btn-primary" data-uz="Bepul sinov darsiga yozilish" data-ru="Записаться на бесплатный урок">Записаться на бесплатный урок</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Til">
+        <button type="button" id="langUz" class="active" onclick="setLang('uz')">UZ</button>
+        <button type="button" id="langRu" onclick="setLang('ru')">RU</button>
+      </div>
+      <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Mavzu">☀️</button>
+      <a href="#signup" class="btn btn-primary nav-cta" data-uz="Yozilish" data-ru="Записаться">Записаться</a>
+      <button type="button" class="burger" aria-label="Menyu" aria-expanded="false" aria-controls="navLinks" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+  <div class="hero-grid panel">
+    <div class="hero-notes" aria-hidden="true"><svg class="dk n1"><use href="#d-notes"/></svg><svg class="dk n2"><use href="#d-note"/></svg><svg class="dk n3"><use href="#d-clef"/></svg></div>
+    <div>
+      <h1><span data-uz="Fortepianoni" data-ru="Научитесь играть на фортепиано">Научитесь играть на фортепиано</span> <em data-uz="biz bilan o'rganing" data-ru="с нами">с нами</em></h1>
+      <p class="hero-desc" data-uz="ROYAL music school fortepiano kursi, Andijon. Qo'l qo'yish, nota o'qish, ikki qo'lda chalish va sahna — individual darslarda. Birinchi darsdayoq birinchi melodiyangizni chalasiz." data-ru="Курс фортепиано ROYAL music school, Андижан. Постановка рук, чтение нот, игра двумя руками и сцена — на индивидуальных уроках. Уже на первом уроке вы сыграете свою первую мелодию.">Курс фортепиано ROYAL music school, Андижан. Постановка рук, чтение нот, игра двумя руками и сцена — на индивидуальных уроках. Уже на первом уроке вы сыграете свою первую мелодию.</p>
+      <form class="hero-form" id="heroForm" novalidate>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input id="hName" name="name" type="text" autocomplete="name" data-ph-uz="Ismingiz" data-ph-ru="Ваше имя" placeholder="Ваше имя" aria-label="Ismingiz">
+        <div class="phone-wrap">
+          <span class="phone-pre" id="hPhonePre">+998</span>
+          <input id="hPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="90 123 45 67" maxlength="12" aria-describedby="hPhonePre" aria-label="Номер телефона" data-aria-uz="Telefon raqamingiz" data-aria-ru="Номер телефона">
+        </div>
+        <button type="submit" class="btn btn-primary" id="heroBtn"><span data-uz="Bepul sinov darsi" data-ru="Бесплатный пробный урок">Бесплатный пробный урок</span><svg><use href="#i-arrow"/></svg></button>
+      </form>
+      <p class="hero-msg" id="heroMsg" aria-live="polite"></p>
+    </div>
+
+    <!-- HERO VISUAL: chalinadigan klaviatura + "birinchi melodiya" rejimi -->
+    <div class="mock">
+      <svg class="blob b1" aria-hidden="true"><use href="#i-blob1"/></svg>
+      <svg class="blob b2" aria-hidden="true"><use href="#i-blob2"/></svg>
+      <div class="kb-card">
+        <div class="kb-head"><b data-uz="Klaviaturani sinab ko'ring" data-ru="Попробуйте клавиатуру">Попробуйте клавиатуру</b><small data-uz="2 oktava · ovoz bilan" data-ru="2 октавы · со звуком">2 октавы · со звуком</small></div>
+        <div class="keys" id="keys" role="group" aria-label="Fortepiano klaviaturasi"></div>
+        <div class="kb-ctl">
+          <button type="button" class="range on" id="modeFree" data-uz="Erkin" data-ru="Свободно">Свободно</button>
+          <button type="button" class="range" id="modeMel" data-uz="Melodiya" data-ru="Мелодия">Мелодия</button>
+          <select id="melSel" class="mel-sel" aria-label="Melodiya">
+            <option value="twinkle" data-uz="Mozart — Yulduzcha" data-ru="Моцарт — Звёздочка">Моцарт — Звёздочка</option>
+            <option value="ode" data-uz="Beethoven — Quvonch odasi" data-ru="Бетховен — Ода к радости">Бетховен — Ода к радости</option>
+            <option value="elise" data-uz="Beethoven — Elizaga" data-ru="Бетховен — К Элизе">Бетховен — К Элизе</option>
+            <option value="jingle" data-uz="Pierpont — Jingle Bells" data-ru="Пьерпонт — Jingle Bells">Пьерпонт — Jingle Bells</option>
+            <option value="bday" data-uz="Tug'ilgan kun qo'shig'i" data-ru="С днём рождения">С днём рождения</option>
+          </select>
+          <button type="button" class="range play" id="demoBtn" aria-label="Eshitish"><svg><use href="#i-play"/></svg><span data-uz="Eshitish" data-ru="Послушать">Послушать</span></button>
+        </div>
+        <div class="kb-prog" id="kbProg" hidden><i id="kbProgBar"></i></div>
+        <p class="kb-hint" id="kbHint" data-uz="Tugmalarni bosing yoki kompyuterda A S D F G H J K harflarini ishlating. Melodiya rejimida yongan tugmani bosing." data-ru="Нажимайте клавиши или буквы A S D F G H J K на компьютере. В режиме мелодии нажимайте подсвеченную клавишу.">Нажимайте клавиши или буквы A S D F G H J K на компьютере. В режиме мелодии нажимайте подсвеченную клавишу.</p>
+      </div>
+      <div class="note-card">
+        <span class="nc-label" id="ncLabel" data-uz="Hozirgi nota" data-ru="Текущая нота">Текущая нота</span>
+        <div class="nc-note"><span id="ncNote">—</span><small id="ncSub" data-uz="tugmani bosing" data-ru="нажмите клавишу">нажмите клавишу</small></div>
+        <div class="nc-foot" style="margin-top:14px"><span id="ncFoot" data-uz="Erkin rejim" data-ru="Свободный режим">Свободный режим</span><span>♪ ROYAL</span></div>
+      </div>
+      <div class="stamp hand s-navy" aria-hidden="true" data-uz="Birinchi dars — bepul" data-ru="Первый урок — бесплатно">Первый урок — бесплатно</div>
+    </div>
+  </div>
+  <div class="trust-card">
+    <div class="trust-item"><span class="bubble b-terra"><svg><use href="#i-user"/></svg></span><div><b data-uz="Individual darslar" data-ru="Индивидуальные уроки">Индивидуальные уроки</b><span data-uz="Fortepiano — yakka tartibda" data-ru="Фортепиано — один на один">Фортепиано — один на один</span></div></div>
+    <div class="trust-item"><span class="bubble b-sage"><svg><use href="#i-users"/></svg></span><div><b data-uz="5 yoshdan" data-ru="С 5 лет">С 5 лет</b><span data-uz="Bolalar va kattalar uchun" data-ru="Для детей и взрослых">Для детей и взрослых</span></div></div>
+    <div class="trust-item"><span class="bubble b-peach"><svg><use href="#i-gift"/></svg></span><div><b data-uz="Birinchi dars bepul" data-ru="Первый урок бесплатно">Первый урок бесплатно</b><span data-uz="Sinov darsiga yoziling" data-ru="Запишитесь на пробный">Запишитесь на пробный</span></div></div>
+    <div class="trust-item"><span class="bubble b-navy"><svg><use href="#i-mic"/></svg></span><div><b data-uz="Mini-konsertlar" data-ru="Мини-концерты">Мини-концерты</b><span data-uz="Oylik va kvartal" data-ru="Ежемесячные и квартальные">Ежемесячные и квартальные</span></div></div>
+  </div>
+  </div>
+</header>
+
+<!-- NEGA ROYAL -->
+<section id="why" style="padding-top:0">
+  <div class="wrap">
+    <div class="card why">
+      <svg class="dk why-deco sq" aria-hidden="true"><use href="#d-piano"/></svg>
+      <div class="why-top">
+        <div>
+          <span class="label" data-uz="Nega ROYAL" data-ru="Почему ROYAL">Почему ROYAL</span>
+          <h2><span data-uz="Fortepiano —" data-ru="Фортепиано —">Фортепиано —</span> <em class="u" data-uz="musiqaning asosi" data-ru="основа музыки">основа музыки</em></h2>
+        </div>
+        <p class="lead" data-uz="Klaviaturada notalar ko'z oldingizda turadi: garmoniya, ritm va eshitish fortepianoda eng tez shakllanadi. Shu sababli ko'p musiqachilar yo'lini aynan undan boshlaydi." data-ru="На клавиатуре ноты у вас перед глазами: гармония, ритм и слух быстрее всего формируются именно на фортепиано. Поэтому многие музыканты начинают свой путь с него.">На клавиатуре ноты у вас перед глазами: гармония, ритм и слух быстрее всего формируются именно на фортепиано. Поэтому многие музыканты начинают свой путь с него.</p>
+      </div>
+      <div class="feats">
+        <div class="feat"><span class="bubble b-terra"><svg><use href="#i-user"/></svg></span><h3 data-uz="Individual yondashuv" data-ru="Индивидуальный подход">Индивидуальный подход</h3><p data-uz="Dastur yosh, maqsad va darajaga mos tuziladi: bolalar uchun o'yin shaklida, kattalar uchun sevimli asarlar orqali." data-ru="Программа строится под возраст, цель и уровень: детям — в игровой форме, взрослым — через любимые произведения.">Программа строится под возраст, цель и уровень: детям — в игровой форме, взрослым — через любимые произведения.</p></div>
+        <div class="feat"><span class="bubble b-sage"><svg><use href="#i-note"/></svg></span><h3 data-uz="Nota va eshitish birga" data-ru="Ноты и слух вместе">Ноты и слух вместе</h3><p data-uz="Nota o'qish, ritm va solfejio alohida zerikarli nazariya emas — dars ichida, cholg'u oldida o'rganiladi." data-ru="Чтение нот, ритм и сольфеджио — не скучная теория отдельно, а часть урока за инструментом.">Чтение нот, ритм и сольфеджио — не скучная теория отдельно, а часть урока за инструментом.</p></div>
+        <div class="feat"><span class="bubble b-peach"><svg><use href="#i-shield"/></svg></span><h3 data-uz="Ikki o'qituvchi, qulay jadval" data-ru="Два преподавателя, удобное расписание">Два преподавателя, удобное расписание</h3><p data-uz="Nazokatxon Soxibjonova va Temur Polonchiyev — vaqt va o'qituvchini o'zingizga qulay tanlaysiz." data-ru="Назокатхон Сохибжонова и Темур Полончиев — время и преподавателя вы выбираете сами.">Назокатхон Сохибжонова и Темур Полончиев — время и преподавателя вы выбираете сами.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NATIJA (bento) -->
+<section id="results" style="padding-top:0">
+  <div class="wrap">
+    <div class="center has-staff">
+      <svg class="dk sec-staff" aria-hidden="true"><use href="#d-staff"/></svg>
+      <span class="label" data-uz="Natija" data-ru="Результат">Результат</span>
+      <h2><span data-uz="Nega ROYALni" data-ru="Почему выбирают">Почему выбирают</span> <em class="u" data-uz="tanlashadi" data-ru="ROYAL">ROYAL</em></h2>
+    </div>
+    <div class="bento">
+      <div class="card c-peach b">
+        <div class="big">1</div>
+        <div><h3 data-uz="Birinchi darsdayoq birinchi melodiyangizni chalasiz" data-ru="Уже на первом уроке вы сыграете первую мелодию">Уже на первом уроке вы сыграете первую мелодию</h3><p data-uz="To'g'ri o'tirish, qo'l qo'yish, besh nota — va tanish ohang. Uyga «men chala olaman» hissi bilan qaytasiz." data-ru="Правильная посадка, постановка рук, пять нот — и знакомая мелодия. Домой вы вернётесь с ощущением «я умею играть».">Правильная посадка, постановка рук, пять нот — и знакомая мелодия. Домой вы вернётесь с ощущением «я умею играть».</p></div>
+      </div>
+      <div class="card tint b">
+        <h3 data-uz="Yo'l: birinchi notadan sahnagacha" data-ru="Путь: от первой ноты до сцены">Путь: от первой ноты до сцены</h3>
+        <div class="flow"><span class="node n-terra"><svg><use href="#i-keys"/></svg></span><span class="dots"></span><span class="node n-sage"><svg><use href="#i-note"/></svg></span><span class="dots"></span><span class="node dark"><svg><use href="#i-star"/></svg></span></div>
+      </div>
+      <div class="card c-sage b wide">
+        <div>
+          <h3 data-uz="Darslar qanday o'tiladi" data-ru="Как проходят занятия">Как проходят занятия</h3>
+          <p style="margin-top:10px" data-uz="Har bir dars uch qismdan iborat: barmoq va qo'l mashqlari, yangi material (nota, ritm, texnika) va asar ustida ishlash." data-ru="Каждый урок состоит из трёх частей: упражнения для пальцев и рук, новый материал (ноты, ритм, техника) и работа над произведением.">Каждый урок состоит из трёх частей: упражнения для пальцев и рук, новый материал (ноты, ритм, техника) и работа над произведением.</p>
+          <div class="lg" style="margin-top:16px"><span><em class="s1"></em><span data-uz="Mashqlar" data-ru="Упражнения">Упражнения</span></span><span><em class="s2"></em><span data-uz="Yangi material" data-ru="Новый материал">Новый материал</span></span><span><em class="s3"></em><span data-uz="Asar" data-ru="Произведение">Произведение</span></span></div>
+        </div>
+        <div class="chart">
+          <div class="ch-head"><b data-uz="Dars tuzilishi" data-ru="Структура урока">Структура урока</b><small data-uz="daqiqalarda" data-ru="в минутах">в минутах</small></div>
+          <div class="row"><div class="rt"><b>Start · Abituriyent</b><span>40 min</span></div><div class="bar"><i class="s1" style="width:25%"></i><i class="s2" style="width:37.5%"></i><i class="s3" style="width:37.5%"></i></div><div class="rt"><span>10 · 15 · 15</span></div></div>
+          <div class="row"><div class="rt"><b>Pro</b><span>60 min</span></div><div class="bar"><i class="s1" style="width:25%"></i><i class="s2" style="width:33.3%"></i><i class="s3" style="width:41.7%"></i></div><div class="rt"><span>15 · 20 · 25</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASTUR (ebony band) -->
+<section id="path" class="band">
+  <svg class="dk band-staff" aria-hidden="true"><use href="#d-staff"/></svg>
+  <div class="wrap">
+    <span class="label" data-uz="Dastur" data-ru="Программа">Программа</span>
+    <h2><span data-uz="Fortepiano kursi:" data-ru="Курс фортепиано:">Курс фортепиано:</span> <em class="u" data-uz="to'rt bosqich" data-ru="четыре этапа">четыре этапа</em></h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><h3 data-uz="Klaviatura va qo'l qo'yish" data-ru="Клавиатура и постановка рук">Клавиатура и постановка рук</h3><p data-uz="Notalarning klaviaturadagi joyi, to'g'ri o'tirish, barmoq raqamlari, bir qo'lda oddiy ohanglar." data-ru="Расположение нот на клавиатуре, правильная посадка, аппликатура, простые мелодии одной рукой.">Расположение нот на клавиатуре, правильная посадка, аппликатура, простые мелодии одной рукой.</p></div>
+      <div class="step"><span class="n">2</span><h3 data-uz="Nota o'qish va ritm" data-ru="Чтение нот и ритм">Чтение нот и ритм</h3><p data-uz="Skripka va bas kalitlari, nota davomiyligi, metronom bilan chalish, ikki qo'lni birlashtirish." data-ru="Скрипичный и басовый ключи, длительности, игра с метрономом, соединение двух рук.">Скрипичный и басовый ключи, длительности, игра с метрономом, соединение двух рук.</p></div>
+      <div class="step"><span class="n">3</span><h3 data-uz="Texnika va repertuar" data-ru="Техника и репертуар">Техника и репертуар</h3><p data-uz="Gammalar, akkordlar, arpejio va pedal. Klassika va zamonaviy asarlar — o'quvchining didiga qarab." data-ru="Гаммы, аккорды, арпеджио и педаль. Классика и современные пьесы — по вкусу ученика.">Гаммы, аккорды, арпеджио и педаль. Классика и современные пьесы — по вкусу ученика.</p></div>
+      <div class="step"><span class="n">4</span><h3 data-uz="Sahna va imtihon" data-ru="Сцена и экзамен">Сцена и экзамен</h3><p data-uz="Yoddan chalish, konsertga tayyorgarlik, mini-konsertlar va kvartal imtihon, bosqich sertifikati." data-ru="Игра наизусть, подготовка к концерту, мини-концерты и квартальный экзамен, сертификат уровня.">Игра наизусть, подготовка к концерту, мини-концерты и квартальный экзамен, сертификат уровня.</p></div>
+    </div>
+    <div class="finale">
+      <b>1</b>
+      <div><h3 data-uz="Birinchi darsdayoq — birinchi melodiya" data-ru="Уже на первом уроке — первая мелодия">Уже на первом уроке — первая мелодия</h3><p data-uz="Sinov darsida o'qituvchi qo'lni to'g'ri qo'yishni ko'rsatadi va siz oddiy ohangni chalasiz. So'ngra dastur va formatni birga tanlaysiz." data-ru="На пробном уроке преподаватель покажет постановку рук, и вы сыграете простую мелодию. Затем вместе выберете программу и формат.">На пробном уроке преподаватель покажет постановку рук, и вы сыграете простую мелодию. Затем вместе выберете программу и формат.</p></div>
+      <a href="#signup" class="btn btn-primary"><span data-uz="Boshlash" data-ru="Начать">Начать</span><svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- O'QITUVCHILAR -->
+<section id="teacher">
+  <div class="wrap teacher">
+    <span class="label" data-uz="O'qituvchilar" data-ru="Преподаватели">Преподаватели</span>
+    <h2><span data-uz="Fortepiano" data-ru="Преподаватели">Преподаватели</span> <em class="u" data-uz="o'qituvchilari" data-ru="фортепиано">фортепиано</em></h2>
+    <p class="lead" style="text-align:center" data-uz="Ikkala o'qituvchi ham individual ishlaydi. Sinov darsida qulay vaqt va o'qituvchini administrator bilan kelishib olasiz." data-ru="Оба преподавателя работают индивидуально. На пробном уроке вы согласуете удобное время и преподавателя с администратором.">Оба преподавателя работают индивидуально. На пробном уроке вы согласуете удобное время и преподавателя с администратором.</p>
+    <div class="teachers">
+      <div class="card tcard">
+        <!-- Rasm bo'lsa: <img class="avatar" src="data:image/jpeg;base64,..." alt="Nazokatxon Soxibjonova"> -->
+        <div class="avatar ph" aria-hidden="true">NS</div>
+        <h3>Nazokatxon Soxibjonova</h3>
+        <span class="t-role" data-uz="Fortepiano o'qituvchisi" data-ru="Преподаватель фортепиано">Преподаватель фортепиано</span>
+        <!-- TASDIQLANG: bio o'qituvchi bilan kelishilsin -->
+        <p class="bio" data-uz="Bolalar va kattalar bilan individual shug'ullanadi. Darslarda qo'l qo'yish va nota o'qishga alohida e'tibor beradi, repertuarni o'quvchining qiziqishidan kelib chiqib tanlaydi." data-ru="Занимается индивидуально с детьми и взрослыми. На уроках уделяет особое внимание постановке рук и чтению нот, репертуар подбирает по интересам ученика.">Занимается индивидуально с детьми и взрослыми. На уроках уделяет особое внимание постановке рук и чтению нот, репертуар подбирает по интересам ученика.</p>
+      </div>
+      <div class="card tcard">
+        <!-- Rasm bo'lsa: <img class="avatar" src="data:image/jpeg;base64,..." alt="Temur Polonchiyev"> -->
+        <div class="avatar ph" aria-hidden="true">TP</div>
+        <h3>Temur Polonchiyev</h3>
+        <span class="t-role" data-uz="Fortepiano o'qituvchisi" data-ru="Преподаватель фортепиано">Преподаватель фортепиано</span>
+        <!-- TASDIQLANG: bio o'qituvchi bilan kelishilsin -->
+        <p class="bio" data-uz="Boshlang'ich bosqichdan sahnaga tayyorgarlikgacha olib boradi. Texnika, ritm va asarni yoddan ishonchli chalishga urg'u beradi; o'quvchilarni mini-konsertlarga tayyorlaydi." data-ru="Ведёт от начального уровня до подготовки к сцене. Делает упор на технику, ритм и уверенную игру наизусть; готовит учеников к мини-концертам.">Ведёт от начального уровня до подготовки к сцене. Делает упор на технику, ритм и уверенную игру наизусть; готовит учеников к мини-концертам.</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>200+</b><span data-uz="O'quvchi maktabda" data-ru="Учеников в школе">Учеников в школе</span></div>
+      <div class="stat"><b>20+</b><span data-uz="Yil tajriba" data-ru="Лет опыта">Лет опыта</span></div>
+      <div class="stat"><b>5+</b><span data-uz="Yoshdan qabul qilamiz" data-ru="Лет — принимаем с этого возраста">Лет — принимаем с этого возраста</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NARXLAR: faqat eng arzon narx ("...so'mdan"), egasi qarori 2026-11-03. To'liq narxlar README'da -->
+<section id="plans" style="padding-top:0">
+  <div class="wrap">
+    <div class="card c-peach from-band">
+      <svg class="dk from-deco" aria-hidden="true"><use href="#d-notes"/></svg>
+      <div class="from-text">
+        <span class="label" data-uz="Narxlar" data-ru="Цены">Цены</span>
+        <h2><span data-uz="Bir dars —" data-ru="Урок —">Урок —</span> <em class="u" data-uz="qulay narxda" data-ru="по доступной цене">по доступной цене</em></h2>
+        <p class="lead" data-uz="Darslar individual, haftasiga 2 marta. Formatlar: Start (40 daqiqa), Pro (60 daqiqa) va Abituriyent (40 daqiqa, kirish imtihoniga tayyorgarlik)." data-ru="Занятия индивидуальные, 2 раза в неделю. Форматы: Start (40 минут), Pro (60 минут) и Абитуриент (40 минут, подготовка к вступительным экзаменам).">Занятия индивидуальные, 2 раза в неделю. Форматы: Start (40 минут), Pro (60 минут) и Абитуриент (40 минут, подготовка к вступительным экзаменам).</p>
+        <p class="price-note" data-uz="Eng arzon narx — yillik abonementda. Boshqa to'lov variantlarini administrator aytib beradi. Birinchi sinov darsi bepul." data-ru="Самая выгодная цена — при годовом абонементе. Другие варианты оплаты подскажет администратор. Первый пробный урок бесплатный.">Самая выгодная цена — при годовом абонементе. Другие варианты оплаты подскажет администратор. Первый пробный урок бесплатный.</p>
+      </div>
+      <div class="from-box">
+        <small data-uz="1 dars narxi" data-ru="Стоимость урока">Стоимость урока</small>
+        <div class="from-num"><span class="pre" data-uz="" data-ru="от">от</span><b>70 000</b><span data-uz="so'mdan" data-ru="сум">сум</span></div>
+        <small data-uz="yillik abonementda" data-ru="при годовом абонементе">при годовом абонементе</small>
+        <a href="#signup" class="btn btn-primary"><span data-uz="Bepul sinov darsiga yozilish" data-ru="Записаться на бесплатный урок">Записаться на бесплатный урок</span><svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAVOL-JAVOB -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="label" data-uz="Savol-javob" data-ru="Вопросы и ответы">Вопросы и ответы</span>
+      <h2><span data-uz="Ko'p so'raladigan" data-ru="Частые">Частые</span> <em class="u" data-uz="savollar" data-ru="вопросы">вопросы</em></h2>
+    </div>
+    <div class="faq">
+      <details open><summary data-uz="Uyda fortepiano bo'lmasa, o'rganish mumkinmi?" data-ru="Можно ли учиться, если дома нет фортепиано?">Можно ли учиться, если дома нет фортепиано?</summary><p data-uz="Ha. Boshlang'ich bosqichda maktabdagi cholg'uda shug'ullanish yetadi. Uyda mashq qilish uchun oddiy sintezator (61 tugmali) ham yetarli — o'qituvchi tanlashda maslahat beradi." data-ru="Да. На начальном этапе достаточно заниматься на инструменте в школе. Для домашних занятий подойдёт и простой синтезатор (61 клавиша) — преподаватель поможет с выбором.">Да. На начальном этапе достаточно заниматься на инструменте в школе. Для домашних занятий подойдёт и простой синтезатор (61 клавиша) — преподаватель поможет с выбором.</p></details>
+      <details><summary data-uz="Necha yoshdan qabul qilinadi?" data-ru="С какого возраста принимаете?">С какого возраста принимаете?</summary><p data-uz="5 yoshdan. Kattalar uchun yosh chegarasi yo'q — dastur har bir o'quvchining yoshi va maqsadiga moslanadi." data-ru="С 5 лет. Для взрослых возрастных ограничений нет — программа подстраивается под возраст и цель каждого ученика.">С 5 лет. Для взрослых возрастных ограничений нет — программа подстраивается под возраст и цель каждого ученика.</p></details>
+      <details><summary data-uz="Darslar guruhda yoki yakka?" data-ru="Занятия в группе или индивидуально?">Занятия в группе или индивидуально?</summary><p data-uz="Barcha fortepiano darslari individual: o'qituvchi faqat siz bilan ishlaydi. Haftada 2 marta, oyiga 8 ta dars — Start (40 daqiqa) yoki Pro (60 daqiqa) formatida." data-ru="Все уроки фортепиано индивидуальные: преподаватель работает только с вами. 2 раза в неделю, 8 уроков в месяц — в формате Start (40 минут) или Pro (60 минут).">Все уроки фортепиано индивидуальные: преподаватель работает только с вами. 2 раза в неделю, 8 уроков в месяц — в формате Start (40 минут) или Pro (60 минут).</p></details>
+      <details><summary data-uz="Sinov darsi qanday o'tadi?" data-ru="Как проходит пробный урок?">Как проходит пробный урок?</summary><p data-uz="O'qituvchi bilan tanishasiz, cholg'u oldiga o'tirasiz, to'g'ri o'tirish va qo'l qo'yishni o'rganasiz va oddiy ohangni chalasiz. So'ngra o'qituvchi darajangizga qarab dastur va formatni taklif qiladi." data-ru="Вы познакомитесь с преподавателем, сядете за инструмент, освоите посадку и постановку рук и сыграете простую мелодию. Затем преподаватель предложит программу и формат по вашему уровню.">Вы познакомитесь с преподавателем, сядете за инструмент, освоите посадку и постановку рук и сыграете простую мелодию. Затем преподаватель предложит программу и формат по вашему уровню.</p></details>
+      <details><summary data-uz="O'zim bilan nima olib kelay?" data-ru="Что взять с собой?">Что взять с собой?</summary><p data-uz="Hech narsa: fortepiano, nota daftarlari va materiallar maktabda. Tirnoqlar qisqa bo'lsa, chalish qulayroq bo'ladi." data-ru="Ничего: фортепиано, нотные тетради и материалы есть в школе. Короткие ногти сделают игру удобнее.">Ничего: фортепиано, нотные тетради и материалы есть в школе. Короткие ногти сделают игру удобнее.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- YOZILISH + KONTAKTLAR -->
+<section id="signup" class="cta">
+  <div class="wrap">
+    <div class="cta-in" id="contacts">
+      <svg class="dk cta-deco sq" aria-hidden="true"><use href="#d-piano"/></svg>
+      <div>
+        <span class="label" data-uz="Hoziroq boshlang" data-ru="Начните сейчас">Начните сейчас</span>
+        <h2><span data-uz="Bepul sinov darsiga" data-ru="Готовы к бесплатному пробному">Готовы к бесплатному пробному</span> <em class="u" data-uz="tayyormisiz?" data-ru="уроку?">уроку?</em></h2>
+        <p data-uz="Ism va raqamingizni qoldiring — administrator 15 daqiqa ichida qo'ng'iroq qilib, sizga qulay kun va vaqtni kelishib oladi." data-ru="Оставьте имя и номер — администратор перезвонит в течение 15 минут и согласует удобный день и время.">Оставьте имя и номер — администратор перезвонит в течение 15 минут и согласует удобный день и время.</p>
+        <div class="cta-contacts">
+          <a href="tel:+998772604040">+998 77 260 40 40</a>
+          <a href="https://instagram.com/royal.musicschool.uz" target="_blank" rel="noopener">@royal.musicschool.uz</a>
+          <span data-uz="Andijon, Bobur shox ko'chasi, 10" data-ru="Андижан, ул. Бобур шох, 10">Андижан, ул. Бобур шох, 10</span>
+          <span data-uz="Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)" data-ru="Ориентир: ТЦ XOLIS, 3-й этаж (со стороны Mobil Olami)">Ориентир: ТЦ XOLIS, 3-й этаж (со стороны Mobil Olami)</span>
+          <span data-uz="Du–Sha 09:00–20:00" data-ru="Пн–Сб 09:00–20:00">Пн–Сб 09:00–20:00</span>
+        </div>
+      </div>
+      <form class="lead" id="leadForm" novalidate>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label for="fName"><span data-uz="Ismingiz" data-ru="Ваше имя">Ваше имя</span><input id="fName" name="name" type="text" autocomplete="name" required data-ph-uz="Masalan, Dilnoza" data-ph-ru="Например, Дильноза" placeholder="Например, Дильноза"></label>
+        <label for="fPhone"><span data-uz="Telefon raqamingiz" data-ru="Номер телефона">Номер телефона</span><span class="phone-wrap">
+            <span class="phone-pre" id="fPhonePre">+998</span>
+            <input id="fPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="90 123 45 67" maxlength="12" aria-describedby="fPhonePre">
+          </span></label>
+        <label for="fPlan"><span data-uz="Qiziqtirgan format" data-ru="Интересующий формат">Интересующий формат</span>
+          <select id="fPlan" name="plan">
+            <option value="Start 40" data-uz="Start — 40 min" data-ru="Start — 40 мин">Start — 40 мин</option>
+            <option value="Pro 60" selected data-uz="Pro — 60 min" data-ru="Pro — 60 мин">Pro — 60 мин</option>
+            <option value="Abituriyent 40" data-uz="Abituriyent — 40 min" data-ru="Абитуриент — 40 мин">Абитуриент — 40 мин</option>
+            <option value="Bilmayman" data-uz="Hali bilmayman" data-ru="Пока не знаю">Пока не знаю</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-primary" id="submitBtn"><span data-uz="Bepul sinov darsiga yozilish" data-ru="Записаться на бесплатный пробный урок">Записаться на бесплатный пробный урок</span><svg><use href="#i-arrow"/></svg></button>
+        <p class="form-msg" id="formMsg" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="foot-keys" aria-hidden="true" focusable="false">
+    <defs><pattern id="kp" width="140" height="42" patternUnits="userSpaceOnUse">
+      <rect class="kw" width="140" height="42"/>
+      <path class="kl" d="M.75 0v42M20 0v42M40 0v42M60 0v42M80 0v42M100 0v42M120 0v42M0 41.25h140"/>
+      <path class="kb" d="M13 0h14v24a2 2 0 0 1-2 2H15a2 2 0 0 1-2-2zM33 0h14v24a2 2 0 0 1-2 2H35a2 2 0 0 1-2-2zM73 0h14v24a2 2 0 0 1-2 2H75a2 2 0 0 1-2-2zM93 0h14v24a2 2 0 0 1-2 2H95a2 2 0 0 1-2-2zM113 0h14v24a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2z"/>
+    </pattern></defs>
+    <rect width="100%" height="100%" fill="url(#kp)"/>
+  </svg>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#top" class="logo"><img src="data:image/png;base64,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" alt="">ROYAL <span>music school</span></a>
+        <p class="about" data-uz="Andijondagi musiqa maktabi: vokal, fortepiano, skripka, gitara, fleyta, baraban, xoreografiya va aktyorlik mahorati." data-ru="Музыкальная школа в Андижане: вокал, фортепиано, скрипка, гитара, флейта, барабаны, хореография и актёрское мастерство.">Музыкальная школа в Андижане: вокал, фортепиано, скрипка, гитара, флейта, барабаны, хореография и актёрское мастерство.</p>
+      </div>
+      <div>
+        <h4 data-uz="Yo'nalishlar" data-ru="Направления">Направления</h4>
+        <ul>
+          <li><a href="royal-vokal.html" data-uz="Vokal" data-ru="Вокал">Вокал</a></li>
+          <li><a href="gitara.html" data-uz="Gitara" data-ru="Гитара">Гитара</a></li>
+          <li><a href="#top" data-uz="Fortepiano" data-ru="Фортепиано">Фортепиано</a></li>
+          <li><a href="skripka.html" data-uz="Skripka" data-ru="Скрипка">Скрипка</a></li>
+          <li><a href="baraban.html" data-uz="Baraban" data-ru="Барабаны">Барабаны</a></li>
+          <li><a href="#contacts" data-uz="Xoreografiya" data-ru="Хореография">Хореография</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-uz="Maktab" data-ru="Школа">Школа</h4>
+        <ul>
+          <li><a href="#teacher" data-uz="O'qituvchilar" data-ru="Преподаватели">Преподаватели</a></li>
+          <li><a href="#plans" data-uz="Narxlar" data-ru="Цены">Цены</a></li>
+          <li><a href="#faq" data-uz="Savollar" data-ru="Вопросы">Вопросы</a></li>
+          <li><a href="#signup" data-uz="Yozilish" data-ru="Записаться">Записаться</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-uz="Kontaktlar" data-ru="Контакты">Контакты</h4>
+        <ul>
+          <li><a href="tel:+998772604040">+998 77 260 40 40</a></li>
+          <li><a href="https://instagram.com/royal.musicschool.uz" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=Royal+Music+School+Andijon+Bobur+shox+10" target="_blank" rel="noopener" data-uz="Xaritada ochish" data-ru="Открыть на карте">Открыть на карте</a></li>
+          <li data-uz="Du–Sha 09:00–20:00" data-ru="Пн–Сб 09:00–20:00">Пн–Сб 09:00–20:00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 ROYAL music school. <span data-uz="Barcha huquqlar himoyalangan." data-ru="Все права защищены.">Все права защищены.</span></span>
+      <span data-uz="Andijon, Bobur shox ko'chasi, 10 · Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)" data-ru="Андижан, ул. Бобур шох, 10 · Ориентир: ТЦ XOLIS, 3-й этаж (со стороны Mobil Olami)">Андижан, ул. Бобур шох, 10 · Ориентир: ТЦ XOLIS, 3-й этаж (со стороны Mobil Olami)</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a class="btn btn-line" href="tel:+998772604040"><svg><use href="#i-phone"/></svg><span data-uz="Qo'ng'iroq qilish" data-ru="Позвонить">Позвонить</span></a>
+  <a class="btn btn-primary" href="#signup"><span data-uz="Bepul sinov darsi" data-ru="Бесплатный урок">Бесплатный урок</span></a>
+</div>
+
+<script>
+/* ===== LANG ===== */
+var currentLang = 'uz';
+function setLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-uz]').forEach(function(el){
+    var v = el.getAttribute('data-' + lang); if (v !== null) el.textContent = v;
+  });
+  document.querySelectorAll('[data-ph-uz]').forEach(function(el){
+    el.placeholder = el.getAttribute('data-ph-' + lang) || '';
+  });
+  document.getElementById('langUz').classList.toggle('active', lang === 'uz');
+  document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+  try { localStorage.setItem('royal-lang', lang); } catch(e){}
+}
+try { var saved = localStorage.getItem('royal-lang'); if (saved === 'ru') setLang('ru'); } catch(e){}
+
+/* ===== THEME ===== */
+function isDarkNow(){
+  var t = document.documentElement.getAttribute('data-theme');
+  if (t) return t === 'dark';
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+function paintThemeBtn(){ document.getElementById('themeBtn').textContent = isDarkNow() ? '🌙' : '☀️'; }
+function toggleTheme(){
+  document.documentElement.setAttribute('data-theme', isDarkNow() ? 'light' : 'dark');
+  paintThemeBtn();
+}
+paintThemeBtn();
+
+/* ===== MENU ===== */
+function toggleMenu(){ var o = document.getElementById('navLinks').classList.toggle('open'); var b = document.querySelector('.burger'); if (b) b.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+document.querySelectorAll('.nav-links a').forEach(function(a){ a.addEventListener('click', function(){ document.getElementById('navLinks').classList.remove('open'); var b = document.querySelector('.burger'); if (b) b.setAttribute('aria-expanded', 'false'); }); });
+
+/* ===== MOBILE ACTION BAR ===== */
+(function(){
+  var bar = document.getElementById('mbar');
+  if (!bar || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    bar.classList.toggle('hide', seen.size > 0);
+  }, { threshold: 0.1 });
+  ['heroForm', 'signup'].forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+})();
+
+/* ===== LEAD FORMS ===== */
+(function(){
+  // Arizalar Google Apps Script orqali Telegram'ga (RoyalMusicBot) boradi (integrations/telegram-apps-script).
+  // Bu yerda faqat skriptning /exec manzili turadi; bot tokeni sahifada YO'Q.
+  var LEAD_URL = 'https://script.google.com/macros/s/AKfycbyNODST5byuMIdbhtoQH-HYRLrfJC2YsQU3qjbhFmqW9jlFP98ha4EtcUle9t1_pGhQjw/exec';
+  var T = {
+    uz:{ need:'Ism va telefon raqamini kiriting.', phone:"Telefon raqamini to'liq kiriting: +998 dan keyin 9 ta raqam (masalan, 90 123 45 67).", sending:'Yuborilmoqda...', ok:"Rahmat! Administrator tez orada qo'ng'iroq qiladi.", err:"Yuborilmadi. Iltimos, qo'ng'iroq qiling:", call:"Onlayn yozilish tez orada ishga tushadi. Hozircha qo'ng'iroq qiling — administrator sizni bepul sinov darsiga yozib qo'yadi:" },
+    ru:{ need:'Введите имя и номер телефона.', phone:'Введите номер полностью: 9 цифр после +998 (например, 90 123 45 67).', sending:'Отправка...', ok:'Спасибо! Администратор скоро перезвонит.', err:'Не отправилось. Пожалуйста, позвоните:', call:'Онлайн-запись скоро заработает. Пока позвоните — администратор запишет вас на бесплатный пробный урок:' }
+  };
+  /* Telefon: +998 doim turadi (alohida belgi), foydalanuvchi faqat 9 raqam kiritadi: 90 123 45 67.
+     To'liq raqam (+998 bilan) yopishtirilsa yoki avtoto'ldirilsa, 998 olib tashlanadi. */
+  function phoneDigits(v){ var d = String(v).replace(/\D/g, ''); if (d.length > 9 && d.indexOf('998') === 0) d = d.slice(3); return d.slice(0, 9); }
+  function fmtPhone(d){ return [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(' '); }
+  function wirePhone(inp){
+    inp.addEventListener('input', function(){
+      var before = inp.value.slice(0, inp.selectionStart || 0).replace(/\D/g, '').length;
+      var v = fmtPhone(phoneDigits(inp.value)), i = 0, n = 0;
+      inp.value = v;
+      while (i < v.length && n < before){ if (/\d/.test(v.charAt(i))) n++; i++; }
+      try { inp.setSelectionRange(i, i); } catch(err){}
+    });
+  }
+  async function send(payload){
+    if (!LEAD_URL) return false;
+    try {
+      // text/plain — "oddiy" so'rov: Apps Script CORS preflight'ni qo'llamaydi.
+      var res = await fetch(LEAD_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+      if (!res.ok) return false;
+      var data = await res.json().catch(function(){ return null; });
+      return !!(data && data.ok);
+    } catch(err){ return false; }
+  }
+  function say(msg, text, cls, withPhone){
+    msg.className = msg.className.replace(/\b(ok|err|call)\b/g, '').trim();
+    msg.textContent = text;
+    if (cls) msg.classList.add(cls);
+    if (withPhone){
+      msg.appendChild(document.createTextNode(' '));
+      var a = document.createElement('a'); a.href = 'tel:+998772604040'; a.className = 'call-link'; a.textContent = '+998 77 260 40 40';
+      msg.appendChild(a);
+    }
+  }
+  function wire(form, msg, btn, formName){
+    wirePhone(form.phone);
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var t = T[currentLang];
+      if (!LEAD_URL){ say(msg, t.call, 'call', true); return; }
+      var name = form.name.value.trim(), digits = phoneDigits(form.phone.value);
+      var plan = form.plan ? form.plan.value : '';
+      if (!name || !digits){ say(msg, t.need, 'err'); (name ? form.phone : form.name).focus(); return; }
+      if (digits.length !== 9){ say(msg, t.phone, 'err'); form.phone.focus(); return; }
+      var label = btn.innerHTML; btn.textContent = t.sending; btn.disabled = true;
+      var ok = await send({ name:name, phone:'+998' + digits, course:'Fortepiano', plan:plan, form:formName, lang:currentLang,
+        page:royalPage(), website: form.website ? form.website.value : '' });
+      btn.disabled = false; btn.innerHTML = label;
+      if (ok){ say(msg, t.ok, 'ok'); form.reset(); }
+      else say(msg, t.err, 'err', true);
+    });
+  }
+  wire(document.getElementById('leadForm'), document.getElementById('formMsg'), document.getElementById('submitBtn'), 'bottom');
+  wire(document.getElementById('heroForm'), document.getElementById('heroMsg'), document.getElementById('heroBtn'), 'hero');
+})();
+
+/* ===== HERO: KLAVIATURA ===== */
+(function(){
+  var START = 60, COUNT = 24; // C4 .. B5
+  var SOLF = ['Do','Do♯','Re','Re♯','Mi','Fa','Fa♯','Sol','Sol♯','La','La♯','Si'];
+  var LAT  = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  var BLACK = {1:1,3:1,6:1,8:1,10:1};
+  var KEYMAP = { a:60, w:61, s:62, e:63, d:64, f:65, t:66, g:67, y:68, h:69, u:70, j:71, k:72, o:73, l:74, p:75, ';':76 };
+  // Melodiyalar: [midi, davomiylik (beat)]
+  var MEL = {
+    twinkle: [[60,1],[60,1],[67,1],[67,1],[69,1],[69,1],[67,2],[65,1],[65,1],[64,1],[64,1],[62,1],[62,1],[60,2]],
+    ode:     [[64,1],[64,1],[65,1],[67,1],[67,1],[65,1],[64,1],[62,1],[60,1],[60,1],[62,1],[64,1],[62,1.5],[60,.5],[60,2]],
+    elise:   [[76,.5],[75,.5],[76,.5],[75,.5],[76,.5],[71,.5],[74,.5],[72,.5],[69,1.5],[60,.5],[64,.5],[69,.5],[71,1.5],[64,.5],[68,.5],[71,.5],[72,2]],
+    jingle:  [[64,1],[64,1],[64,2],[64,1],[64,1],[64,2],[64,1],[67,1],[60,1.5],[62,.5],[64,4],[65,1],[65,1],[65,1.5],[65,.5],[65,1],[64,1],[64,1],[64,.5],[64,.5],[64,1],[62,1],[62,1],[64,1],[62,2],[67,2]],
+    bday:    [[67,.75],[67,.25],[69,1],[67,1],[72,1],[71,2],[67,.75],[67,.25],[69,1],[67,1],[74,1],[72,2],[67,.75],[67,.25],[79,1],[76,1],[72,1],[71,1],[69,2],[77,.75],[77,.25],[76,1],[72,1],[74,1],[72,2]]
+  };
+  var S = {
+    uz:{ free:'Erkin rejim', press:'tugmani bosing', mel:'Melodiya', next:'navbatdagi tugmani bosing', done:'Ajoyib!', doneSub:'birinchi melodiyangiz tayyor', doneFoot:'Darsda — haqiqiy fortepianoda', listen:'Eshitilmoqda…', hz:'Hz' },
+    ru:{ free:'Свободный режим', press:'нажмите клавишу', mel:'Мелодия', next:'нажмите подсвеченную клавишу', done:'Отлично!', doneSub:'первая мелодия сыграна', doneFoot:'На уроке — на настоящем фортепиано', listen:'Воспроизведение…', hz:'Гц' }
+  };
+  var keysEl = document.getElementById('keys'), keyEl = {};
+  var ncLabel = document.getElementById('ncLabel'), ncNote = document.getElementById('ncNote'), ncSub = document.getElementById('ncSub'), ncFoot = document.getElementById('ncFoot');
+  var prog = document.getElementById('kbProg'), progBar = document.getElementById('kbProgBar');
+  var modeFree = document.getElementById('modeFree'), modeMel = document.getElementById('modeMel'), melSel = document.getElementById('melSel'), demoBtn = document.getElementById('demoBtn');
+  var mode = 'free', seq = MEL.twinkle, idx = 0, finished = false, playing = false, timers = [];
+
+  function t(){ return S[currentLang] || S.uz; }
+  function setTxt(el, uz, ru){ el.setAttribute('data-uz', uz); el.setAttribute('data-ru', ru); el.textContent = currentLang === 'ru' ? ru : uz; }
+  function label(m){ return LAT[m % 12] + (Math.floor(m / 12) - 1); }
+  function freq(m){ return 440 * Math.pow(2, (m - 69) / 12); }
+
+  // --- klaviatura chizish
+  var whites = [];
+  for (var m = START; m < START + COUNT; m++) if (!BLACK[m % 12]) whites.push(m);
+  var ww = 100 / whites.length;
+  whites.forEach(function(m){
+    var k = document.createElement('button'); k.type = 'button'; k.className = 'wk'; k.dataset.midi = m; k.setAttribute('aria-label', label(m));
+    k.innerHTML = '<i>' + (m % 12 === 0 ? label(m) : '') + '</i>';
+    keysEl.appendChild(k); keyEl[m] = k;
+  });
+  for (var b = START; b < START + COUNT; b++) if (BLACK[b % 12]) {
+    var below = whites.indexOf(b - 1); if (below < 0) continue;
+    var k2 = document.createElement('button'); k2.type = 'button'; k2.className = 'bk'; k2.dataset.midi = b; k2.setAttribute('aria-label', label(b));
+    k2.style.left = ((below + 1) * ww - 2) + '%';
+    keysEl.appendChild(k2); keyEl[b] = k2;
+  }
+
+  // --- ovoz (Web Audio, oddiy "fortepiano" sintez)
+  var actx = null;
+  function tone(m){
+    try {
+      if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      var f = freq(m), now = actx.currentTime, out = actx.createGain();
+      out.connect(actx.destination);
+      out.gain.setValueAtTime(0.0001, now);
+      out.gain.exponentialRampToValueAtTime(0.45, now + 0.012);
+      out.gain.exponentialRampToValueAtTime(0.12, now + 0.35);
+      out.gain.exponentialRampToValueAtTime(0.0001, now + 1.6);
+      [[1, 1, 'triangle'], [2, .28, 'sine'], [3, .10, 'sine'], [4, .05, 'sine']].forEach(function(h){
+        var o = actx.createOscillator(), g = actx.createGain();
+        o.type = h[2]; o.frequency.value = f * h[0]; g.gain.value = h[1];
+        o.connect(g); g.connect(out); o.start(now); o.stop(now + 1.7);
+      });
+    } catch(e){}
+  }
+
+  function flash(m, ms){
+    var k = keyEl[m]; if (!k) return;
+    k.classList.add('on'); setTimeout(function(){ k.classList.remove('on'); }, ms || 180);
+  }
+  function showNote(m){
+    ncNote.textContent = SOLF[m % 12];
+    setTxt(ncSub, label(m) + ' · ' + Math.round(freq(m)) + ' Hz', label(m) + ' · ' + Math.round(freq(m)) + ' Гц');
+  }
+  function clearNext(){ Object.keys(keyEl).forEach(function(k){ keyEl[k].classList.remove('next'); }); }
+  function paintNext(){
+    clearNext();
+    if (mode !== 'mel' || finished || idx >= seq.length) return;
+    keyEl[seq[idx][0]].classList.add('next');
+  }
+  function paintProg(){
+    prog.hidden = mode !== 'mel';
+    progBar.style.width = (idx / seq.length * 100) + '%';
+    if (mode === 'mel' && !finished) setTxt(ncFoot, t().mel + ' · ' + idx + ' / ' + seq.length, S.ru.mel + ' · ' + idx + ' / ' + seq.length);
+  }
+
+  function press(m){
+    if (!keyEl[m]) return;
+    tone(m); flash(m); showNote(m);
+    if (mode === 'mel' && !finished && !playing){
+      if (m === seq[idx][0]){
+        idx++;
+        if (idx >= seq.length){
+          finished = true; clearNext(); progBar.style.width = '100%';
+          setTxt(ncLabel, S.uz.done, S.ru.done);
+          ncNote.textContent = '✓';
+          setTxt(ncSub, S.uz.doneSub, S.ru.doneSub);
+          setTxt(ncFoot, S.uz.doneFoot, S.ru.doneFoot);
+          keysEl.classList.add('celebrate'); setTimeout(function(){ keysEl.classList.remove('celebrate'); }, 900);
+        } else { paintNext(); paintProg(); }
+      }
+    }
+  }
+
+  function resetMel(){ idx = 0; finished = false; setTxt(ncLabel, 'Hozirgi nota', 'Текущая нота'); ncNote.textContent = '—'; setTxt(ncSub, S.uz.next, S.ru.next); paintNext(); paintProg(); }
+  function setMode(m){
+    mode = m; stopDemo();
+    modeFree.classList.toggle('on', m === 'free'); modeMel.classList.toggle('on', m === 'mel');
+    if (m === 'mel') resetMel();
+    else { clearNext(); prog.hidden = true; setTxt(ncLabel, 'Hozirgi nota', 'Текущая нота'); ncNote.textContent = '—'; setTxt(ncSub, S.uz.press, S.ru.press); setTxt(ncFoot, S.uz.free, S.ru.free); }
+  }
+  modeFree.addEventListener('click', function(){ setMode('free'); });
+  modeMel.addEventListener('click', function(){ setMode('mel'); });
+  melSel.addEventListener('change', function(){ seq = MEL[melSel.value] || MEL.twinkle; if (mode === 'mel') resetMel(); else stopDemo(); });
+
+  // --- demo (eshitish)
+  function stopDemo(){ timers.forEach(clearTimeout); timers = []; playing = false; demoBtn.classList.remove('busy'); clearNext(); if (mode === 'mel' && !finished) paintNext(); }
+  demoBtn.addEventListener('click', function(){
+    if (playing){ stopDemo(); return; }
+    stopDemo(); playing = true; demoBtn.classList.add('busy');
+    var beat = 420, at = 0, wasFoot = ncFoot.textContent;
+    setTxt(ncFoot, S.uz.listen, S.ru.listen); clearNext();
+    seq.forEach(function(n){
+      timers.push(setTimeout(function(){ tone(n[0]); flash(n[0], Math.min(n[1] * beat - 40, 500)); showNote(n[0]); }, at));
+      at += n[1] * beat;
+    });
+    timers.push(setTimeout(function(){ playing = false; demoBtn.classList.remove('busy'); if (mode === 'mel' && !finished) { paintNext(); paintProg(); } else setTxt(ncFoot, S.uz.free, S.ru.free); }, at + 200));
+  });
+
+  // --- hodisalar
+  keysEl.addEventListener('pointerdown', function(e){
+    var k = e.target.closest('.wk,.bk'); if (!k) return;
+    e.preventDefault(); press(+k.dataset.midi);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    var tg = e.target; if (tg && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(tg.tagName) && tg.closest('form, .lang')) return;
+    var m = KEYMAP[e.key.toLowerCase()]; if (m){ e.preventDefault(); press(m); }
+  });
+})();
+</script>
+</body>
+</html>

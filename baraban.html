@@ -591,6 +591,26 @@ form.lead .btn,.hero-form .btn{white-space:normal;text-align:center;line-height:
 
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
+<script>
+(function () {
+  var REF = [[/(^|\.)(chatgpt\.com|openai\.com)$/, 'chatgpt.com'], [/(^|\.)perplexity\.ai$/, 'perplexity'], [/^gemini\.google\./, 'gemini'],
+    [/(^|\.)copilot\.microsoft\.com$/, 'copilot'], [/(^|\.)claude\.ai$/, 'claude'], [/(^|\.)instagram\.com$/, 'instagram'],
+    [/(^|\.)(t\.me|telegram\.org)$/, 'telegram'], [/(^|\.)facebook\.com$/, 'facebook'], [/(^|\.)google\./, 'google'], [/(^|\.)yandex\./, 'yandex'], [/(^|\.)bing\.com$/, 'bing']];
+  try {
+    var src = new URLSearchParams(location.search).get('utm_source');
+    if (!src && document.referrer) {
+      var h = new URL(document.referrer).hostname;
+      if (h && h !== location.hostname) for (var i = 0; i < REF.length; i++) if (REF[i][0].test(h)) { src = REF[i][1]; break; }
+    }
+    if (src && !sessionStorage.getItem('royal_src')) sessionStorage.setItem('royal_src', src.slice(0, 40));
+  } catch (e) {}
+  window.royalPage = function () {
+    var p = location.href.split('#')[0];
+    try { var s = sessionStorage.getItem('royal_src'); if (s && p.indexOf('utm_source=') < 0) p += (p.indexOf('?') < 0 ? '?' : '&') + 'utm_source=' + encodeURIComponent(s); } catch (e) {}
+    return p;
+  };
+})();
+</script>
 <link rel="canonical" href="https://royal-art.uz/baraban.html">
 <link rel="icon" type="image/png" href="img/logo.png">
 <meta property="og:type" content="website">
@@ -1117,7 +1137,7 @@ document.querySelectorAll('.nav-links a').forEach(function(a){ a.addEventListene
       if (digits.length !== 9){ say(msg, t.phone, 'err'); form.phone.focus(); return; }
       var label = btn.innerHTML; btn.textContent = t.sending; btn.disabled = true;
       var ok = await send({ name:name, phone:'+998' + digits, course:'Baraban', plan:plan, form:formName, lang:currentLang,
-        page:location.href.split('#')[0], website: form.website ? form.website.value : '' });
+        page:royalPage(), website: form.website ? form.website.value : '' });
       btn.disabled = false; btn.innerHTML = label;
       if (ok){ say(msg, t.ok, 'ok'); form.reset(); }
       else say(msg, t.err, 'err', true);

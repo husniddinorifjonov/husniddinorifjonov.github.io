@@ -358,6 +358,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:900px){.studio{grid-template-columns:1fr}.studio-art{min-height:240px}}
 @media (max-width:560px){.studio-text{padding:28px 20px 26px}.chips{gap:2px 14px}.chips li{font-size:13.5px}.studio-art{min-height:210px}}
 
+/* ===== KO'P SO'RALADIGAN SAVOLLAR ===== */
+.faq-list{display:grid;gap:12px;max-width:900px}
+.faq-item{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.faq-item summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;font:700 16.5px/1.35 'Montserrat',sans-serif;border-radius:var(--radius)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--terra-soft);color:var(--terra-text);font:600 21px/1 'Inter',sans-serif;transition:transform .2s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 22px 20px;color:var(--muted);max-width:72ch}
+@media (max-width:560px){.faq-item summary{padding:16px 16px;font-size:15.5px}.faq-item p{padding:0 16px 18px}}
+
 /* ===== PLANS ===== */
 .plan-group{display:grid;grid-template-columns:.9fr 1fr 1fr;gap:20px}
 .plan-group + .plan-group{margin-top:20px}
@@ -584,6 +594,26 @@ footer li a:hover{color:var(--ink)}
   .js .rv{transform:none}
 }
 </style>
+<script>
+(function () {
+  var REF = [[/(^|\.)(chatgpt\.com|openai\.com)$/, 'chatgpt.com'], [/(^|\.)perplexity\.ai$/, 'perplexity'], [/^gemini\.google\./, 'gemini'],
+    [/(^|\.)copilot\.microsoft\.com$/, 'copilot'], [/(^|\.)claude\.ai$/, 'claude'], [/(^|\.)instagram\.com$/, 'instagram'],
+    [/(^|\.)(t\.me|telegram\.org)$/, 'telegram'], [/(^|\.)facebook\.com$/, 'facebook'], [/(^|\.)google\./, 'google'], [/(^|\.)yandex\./, 'yandex'], [/(^|\.)bing\.com$/, 'bing']];
+  try {
+    var src = new URLSearchParams(location.search).get('utm_source');
+    if (!src && document.referrer) {
+      var h = new URL(document.referrer).hostname;
+      if (h && h !== location.hostname) for (var i = 0; i < REF.length; i++) if (REF[i][0].test(h)) { src = REF[i][1]; break; }
+    }
+    if (src && !sessionStorage.getItem('royal_src')) sessionStorage.setItem('royal_src', src.slice(0, 40));
+  } catch (e) {}
+  window.royalPage = function () {
+    var p = location.href.split('#')[0];
+    try { var s = sessionStorage.getItem('royal_src'); if (s && p.indexOf('utm_source=') < 0) p += (p.indexOf('?') < 0 ? '?' : '&') + 'utm_source=' + encodeURIComponent(s); } catch (e) {}
+    return p;
+  };
+})();
+</script>
 <link rel="canonical" href="https://royal-art.uz/">
 <link rel="icon" type="image/png" href="img/logo.png">
 <meta property="og:type" content="website">
@@ -596,6 +626,7 @@ footer li a:hover{color:var(--ink)}
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "EducationalOrganization"], "@id": "https://royal-art.uz/#school", "name": "ROYAL music school", "alternateName": ["ROYAL MS", "Музыкальная школа ROYAL"], "description": "Andijondagi musiqa va raqs maktabi: vokal, fortepiano, skripka, gitara, baraban, raqs. 5 yoshdan, birinchi sinov darsi bepul. Музыкальная школа в Андижане.", "url": "https://royal-art.uz/", "logo": "https://royal-art.uz/img/logo.png", "image": "https://royal-art.uz/img/hero-1.jpg", "telephone": "+998772604040", "address": {"@type": "PostalAddress", "streetAddress": "Bobur shox ko'chasi, 10 (XOLIS savdo markazi, 3-qavat)", "addressLocality": "Andijon", "addressCountry": "UZ"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "opens": "09:00", "closes": "20:00", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]}], "sameAs": ["https://instagram.com/royal.musicschool.uz"], "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Kurslar", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Vokal kursi", "url": "https://royal-art.uz/royal-vokal.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Fortepiano kursi", "url": "https://royal-art.uz/fortepiano.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Skripka kursi", "url": "https://royal-art.uz/skripka.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Gitara kursi", "url": "https://royal-art.uz/gitara.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Baraban kursi", "url": "https://royal-art.uz/baraban.html"}}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "uz", "mainEntity": [{"@type": "Question", "name": "ROYAL music school qayerda joylashgan?", "acceptedAnswer": {"@type": "Answer", "text": "Andijon, Bobur shox ko'chasi, 10 — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–20:00 ishlaymiz. Telefon: +998 77 260 40 40."}}, {"@type": "Question", "name": "Qanday kurslar bor?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa — vokal, fortepiano, skripka, gitara va baraban, yakka tartibda. Raqs — bolalar raqslari, milliy, arabcha va kavkazcha raqs, K-POP, hip-hop, sheyping va zumba, guruhlarda. Yana kirish imtihonlariga tayyorlov (Abituriyent), LITTLE STARS loyihasi va ovoz yozish studiyasi bor."}}, {"@type": "Question", "name": "Necha yoshdan qabul qilinadi? Kattalar ham o'qiy oladimi?", "acceptedAnswer": {"@type": "Answer", "text": "5 yoshdan boshlab qabul qilamiz. Kattalar ham o'qiydi: musiqa darslari yakka tartibda o'tadi, raqsda esa alohida kattalar guruhlari bor."}}, {"@type": "Question", "name": "Birinchi dars pullikmi?", "acceptedAnswer": {"@type": "Answer", "text": "Yo'q, birinchi sinov darsi bepul. Unda yo'nalish va o'qituvchini tanlashga yordam beramiz."}}, {"@type": "Question", "name": "Darslar narxi qancha?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa (yakka tartibda, oyiga 8 dars): Start — 800 000 so'm/oy (dars 40 daqiqa), Pro — 1 200 000 so'm/oy (dars 60 daqiqa), Abituriyent — 800 000 so'm/oy. Raqs (guruhda, oyiga 12 dars): bolalar — 360 000, kattalar — 420 000 so'm/oy. Yillik abonementda musiqa darsi 70 000, raqs darsi 20 000 so'mdan."}}, {"@type": "Question", "name": "Darslar qanday o'tadi?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa darslari yakka tartibda, haftada 2 marta, 40 yoki 60 daqiqa. Raqs — guruhlarda, haftada 3 marta. O'rganganlarni oylik va kvartal mini-konsertlarda sahnada ko'rsatamiz."}}, {"@type": "Question", "name": "Kirish imtihonlariga tayyorlaysizlarmi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha, Abituriyent tarifi bor: vokal, cholg'u ijrochiligi va musiqa nazariyasi bo'yicha musiqa kolleji, litsey, pedagogika institutlari va konservatoriya imtihonlariga tayyorgarlik — solfedjio va komissiya oldida sinov tinglovlar bilan."}}, {"@type": "Question", "name": "Ovoz yozish studiyasi bormi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha. Qo'shiq va cover yozish, minus ustiga qo'shiq, cholg'u yozish, reklama va videolar uchun ovozlashtirish, podkast, audiokitob, aranjirovka, mixing va mastering. Narx va vaqtni administrator bilan kelishasiz."}}, {"@type": "Question", "name": "Qanday yozilish mumkin?", "acceptedAnswer": {"@type": "Answer", "text": "Saytdagi formaga ism va telefoningizni qoldiring — administrator qo'ng'iroq qilib, qulay vaqtni kelishib oladi. Yoki qo'ng'iroq qiling: +998 77 260 40 40. Instagram: @royal.musicschool.uz."}}]}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1322,6 +1353,57 @@ footer li a:hover{color:var(--ink)}
   </div>
 </dialog>
 
+<!-- ===== KO'P SO'RALADIGAN SAVOLLAR (2026-11-04). Javoblar faqat saytdagi va README'dagi faktlardan (narxlar — "Tariflar" bo'limi bilan bir xil;
+     narx o'zgarsa, shu yerda ham yangilang). deploy-site.py shu bo'limdan FAQPage schema va llms.txt yasaydi ===== -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow" data-uz="Savol-javob" data-ru="Вопросы и ответы">Savol-javob</span>
+        <h2 class="sec-title"><span data-uz="Ko'p so'raladigan" data-ru="Частые">Ko'p so'raladigan</span> <em class="u" data-uz="savollar" data-ru="вопросы">savollar</em></h2>
+      </div>
+    </div>
+    <div class="faq-list rv">
+      <details class="faq-item">
+        <summary data-uz="ROYAL music school qayerda joylashgan?" data-ru="Где находится ROYAL music school?">ROYAL music school qayerda joylashgan?</summary>
+        <p data-uz="Andijon, Bobur shox ko&#x27;chasi, 10 — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–20:00 ishlaymiz. Telefon: +998 77 260 40 40." data-ru="Андижан, ул. Бобур шох, 10 — ТЦ XOLIS, 3 этаж (со стороны Mobil Olami). Работаем с понедельника по субботу, 09:00–20:00. Телефон: +998 77 260 40 40.">Andijon, Bobur shox ko&#x27;chasi, 10 — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–20:00 ishlaymiz. Telefon: +998 77 260 40 40.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Qanday kurslar bor?" data-ru="Какие есть курсы?">Qanday kurslar bor?</summary>
+        <p data-uz="Musiqa — vokal, fortepiano, skripka, gitara va baraban, yakka tartibda. Raqs — bolalar raqslari, milliy, arabcha va kavkazcha raqs, K-POP, hip-hop, sheyping va zumba, guruhlarda. Yana kirish imtihonlariga tayyorlov (Abituriyent), LITTLE STARS loyihasi va ovoz yozish studiyasi bor." data-ru="Музыка — вокал, фортепиано, скрипка, гитара и барабаны, индивидуально. Танцы — детские танцы, национальный, арабский и кавказский танец, K-POP, хип-хоп, шейпинг и зумба, в группах. Также есть подготовка к вступительным экзаменам (Абитуриент), проект LITTLE STARS и студия звукозаписи.">Musiqa — vokal, fortepiano, skripka, gitara va baraban, yakka tartibda. Raqs — bolalar raqslari, milliy, arabcha va kavkazcha raqs, K-POP, hip-hop, sheyping va zumba, guruhlarda. Yana kirish imtihonlariga tayyorlov (Abituriyent), LITTLE STARS loyihasi va ovoz yozish studiyasi bor.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Necha yoshdan qabul qilinadi? Kattalar ham o&#x27;qiy oladimi?" data-ru="С какого возраста принимаете? Могут ли учиться взрослые?">Necha yoshdan qabul qilinadi? Kattalar ham o&#x27;qiy oladimi?</summary>
+        <p data-uz="5 yoshdan boshlab qabul qilamiz. Kattalar ham o&#x27;qiydi: musiqa darslari yakka tartibda o&#x27;tadi, raqsda esa alohida kattalar guruhlari bor." data-ru="Принимаем с 5 лет. Взрослые тоже учатся: музыкальные занятия проходят индивидуально, а в танцах есть отдельные взрослые группы.">5 yoshdan boshlab qabul qilamiz. Kattalar ham o&#x27;qiydi: musiqa darslari yakka tartibda o&#x27;tadi, raqsda esa alohida kattalar guruhlari bor.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Birinchi dars pullikmi?" data-ru="Первый урок платный?">Birinchi dars pullikmi?</summary>
+        <p data-uz="Yo&#x27;q, birinchi sinov darsi bepul. Unda yo&#x27;nalish va o&#x27;qituvchini tanlashga yordam beramiz." data-ru="Нет, первый пробный урок бесплатный. На нём поможем выбрать направление и преподавателя.">Yo&#x27;q, birinchi sinov darsi bepul. Unda yo&#x27;nalish va o&#x27;qituvchini tanlashga yordam beramiz.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Darslar narxi qancha?" data-ru="Сколько стоят занятия?">Darslar narxi qancha?</summary>
+        <p data-uz="Musiqa (yakka tartibda, oyiga 8 dars): Start — 800 000 so&#x27;m/oy (dars 40 daqiqa), Pro — 1 200 000 so&#x27;m/oy (dars 60 daqiqa), Abituriyent — 800 000 so&#x27;m/oy. Raqs (guruhda, oyiga 12 dars): bolalar — 360 000, kattalar — 420 000 so&#x27;m/oy. Yillik abonementda musiqa darsi 70 000, raqs darsi 20 000 so&#x27;mdan." data-ru="Музыка (индивидуально, 8 уроков в месяц): Start — 800 000 сум/мес (урок 40 минут), Pro — 1 200 000 сум/мес (урок 60 минут), Абитуриент — 800 000 сум/мес. Танцы (в группе, 12 занятий в месяц): дети — 360 000, взрослые — 420 000 сум/мес. С годовым абонементом урок музыки — от 70 000, танцев — от 20 000 сум.">Musiqa (yakka tartibda, oyiga 8 dars): Start — 800 000 so&#x27;m/oy (dars 40 daqiqa), Pro — 1 200 000 so&#x27;m/oy (dars 60 daqiqa), Abituriyent — 800 000 so&#x27;m/oy. Raqs (guruhda, oyiga 12 dars): bolalar — 360 000, kattalar — 420 000 so&#x27;m/oy. Yillik abonementda musiqa darsi 70 000, raqs darsi 20 000 so&#x27;mdan.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Darslar qanday o&#x27;tadi?" data-ru="Как проходят занятия?">Darslar qanday o&#x27;tadi?</summary>
+        <p data-uz="Musiqa darslari yakka tartibda, haftada 2 marta, 40 yoki 60 daqiqa. Raqs — guruhlarda, haftada 3 marta. O&#x27;rganganlarni oylik va kvartal mini-konsertlarda sahnada ko&#x27;rsatamiz." data-ru="Музыкальные занятия — индивидуально, 2 раза в неделю, по 40 или 60 минут. Танцы — в группах, 3 раза в неделю. Выученное показываем на сцене на ежемесячных и квартальных мини-концертах.">Musiqa darslari yakka tartibda, haftada 2 marta, 40 yoki 60 daqiqa. Raqs — guruhlarda, haftada 3 marta. O&#x27;rganganlarni oylik va kvartal mini-konsertlarda sahnada ko&#x27;rsatamiz.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Kirish imtihonlariga tayyorlaysizlarmi?" data-ru="Готовите к вступительным экзаменам?">Kirish imtihonlariga tayyorlaysizlarmi?</summary>
+        <p data-uz="Ha, Abituriyent tarifi bor: vokal, cholg&#x27;u ijrochiligi va musiqa nazariyasi bo&#x27;yicha musiqa kolleji, litsey, pedagogika institutlari va konservatoriya imtihonlariga tayyorgarlik — solfedjio va komissiya oldida sinov tinglovlar bilan." data-ru="Да, есть тариф «Абитуриент»: подготовка к экзаменам в музыкальные колледжи, лицеи, педагогические институты и консерваторию по вокалу, исполнительству и теории музыки — с сольфеджио и пробными прослушиваниями перед комиссией.">Ha, Abituriyent tarifi bor: vokal, cholg&#x27;u ijrochiligi va musiqa nazariyasi bo&#x27;yicha musiqa kolleji, litsey, pedagogika institutlari va konservatoriya imtihonlariga tayyorgarlik — solfedjio va komissiya oldida sinov tinglovlar bilan.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Ovoz yozish studiyasi bormi?" data-ru="Есть ли студия звукозаписи?">Ovoz yozish studiyasi bormi?</summary>
+        <p data-uz="Ha. Qo&#x27;shiq va cover yozish, minus ustiga qo&#x27;shiq, cholg&#x27;u yozish, reklama va videolar uchun ovozlashtirish, podkast, audiokitob, aranjirovka, mixing va mastering. Narx va vaqtni administrator bilan kelishasiz." data-ru="Да. Запись песен и каверов, песня под минус, запись инструментов, озвучка рекламы и видео, подкасты, аудиокниги, аранжировка, сведение и мастеринг. Цену и время согласуете с администратором.">Ha. Qo&#x27;shiq va cover yozish, minus ustiga qo&#x27;shiq, cholg&#x27;u yozish, reklama va videolar uchun ovozlashtirish, podkast, audiokitob, aranjirovka, mixing va mastering. Narx va vaqtni administrator bilan kelishasiz.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-uz="Qanday yozilish mumkin?" data-ru="Как записаться?">Qanday yozilish mumkin?</summary>
+        <p data-uz="Saytdagi formaga ism va telefoningizni qoldiring — administrator qo&#x27;ng&#x27;iroq qilib, qulay vaqtni kelishib oladi. Yoki qo&#x27;ng&#x27;iroq qiling: +998 77 260 40 40. Instagram: @royal.musicschool.uz." data-ru="Оставьте имя и телефон в форме на сайте — администратор перезвонит и согласует удобное время. Или позвоните: +998 77 260 40 40. Instagram: @royal.musicschool.uz.">Saytdagi formaga ism va telefoningizni qoldiring — administrator qo&#x27;ng&#x27;iroq qilib, qulay vaqtni kelishib oladi. Yoki qo&#x27;ng&#x27;iroq qiling: +998 77 260 40 40. Instagram: @royal.musicschool.uz.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ===== YOZILISH + ALOQA ===== -->
 <section class="section" id="signup">
   <div class="wrap signup">
@@ -1454,6 +1536,7 @@ footer li a:hover{color:var(--ink)}
           <li><a href="#stars">LITTLE STARS</a></li>
           <li><a href="#studio" data-uz="Ovoz yozish studiyasi" data-ru="Студия звукозаписи">Ovoz yozish studiyasi</a></li>
           <li><a href="#plans" data-uz="Tariflar" data-ru="Тарифы">Tariflar</a></li>
+          <li><a href="#faq" data-uz="Savol-javob" data-ru="Вопросы и ответы">Savol-javob</a></li>
           <li><a href="#signup" data-uz="Yozilish" data-ru="Запись">Yozilish</a></li>
         </ul>
       </div>
@@ -1745,7 +1828,7 @@ footer li a:hover{color:var(--ink)}
     var plan = [sel[1], chosenPlan ? chosenPlan.uz : ''].filter(Boolean).join(' · ');
     var label = btn.innerHTML; btn.textContent = t.sending; btn.disabled = true;
     var ok = await send({ name:name, phone:phone, course:sel[0], plan:plan, form:'sayt', lang:lang,
-      page:location.href.split('#')[0], website:form.website.value });
+      page:royalPage(), website:form.website.value });
     btn.disabled = false; btn.innerHTML = label;
     if (ok){ say(t.ok, 'ok'); form.reset(); chosenPlan = null; paintChosen(); }
     else say(t.err, 'err', true);

@@ -1541,6 +1541,9 @@ function pickStyle(key, from){
   });
   function fromHash(){
     var k = ''; try { k = decodeURIComponent(location.hash.slice(1)).toLowerCase(); } catch(err){}
+    // #tanla-arabcha (asosiy saytdan): yo'nalish tanlanadi, sahifa tepadan ochiladi — bunday id yo'q, brauzer pastga sakramaydi.
+    // #arabcha (reklama havolasi) — avvalgidek shu kartaga tushadi.
+    k = k.replace(/^tanla-/, '');
     if (Object.prototype.hasOwnProperty.call(STYLE_PLAN, k)) pickStyle(k);
   }
   window.addEventListener('hashchange', fromHash);

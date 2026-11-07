@@ -1,4 +1,4 @@
-# ROYAL music school — sayt
+# ROYAL MUSIC SCHOOL — sayt
 
 https://royal-art.uz/ (ruscha: https://royal-art.uz/ru/)
 

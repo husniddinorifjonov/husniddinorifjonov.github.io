@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<!--
+  ROYAL MUSIC SCHOOL — Vakansiyalar (ish o'rinlari) sahifasi, 2026-11-13.
+  Egasi: "umumiy bitta tayyorlab ariza qoldiradigan joyga yo'nalishlarni tanlash imkonini ber" — bitta sahifa, arizada bir nechta yo'nalish tanlanadi.
+  Dizayn: gitara.html (asosiy sayt uslubi) — tokenlar va "ASOSIY SAYT USLUBI" qatlami o'sha yerdan, palitra o'zgarmagan.
+  Bloklar ranglari: hero paneli — shalfey, hero'dagi karta — navy, muhr — terrakota, missiya — shaftoli, talablar — qum va shalfey, qabul — navy, ariza — navy.
+  Faktlar faqat README va lendinglardan: manzil, ish vaqti, dars formatlari, mini-konsertlar, asoschi va uning maqsadi (README "Kontaktlar", deploy-site.py FOUNDER).
+  Talablar, ish jadvali, maosh — "suhbatda kelishiladi" (egasi 2026-11-13). Yangi to'ldirilmagan joy qo'shilsa, unga data-todo atributini
+  qo'ying (punktir ramka): deploy-site.py data-todo qolgan sahifani ommaviy saytga chiqarmaydi.
+  Har yo'nalishning o'z havolasi: vakansiya.html#gitara — sahifa o'sha kartada ochiladi, yo'nalish arizada belgilanadi.
+  Forma: LEAD_URL (Apps Script) ga type:'vakansiya'. Avval GET /exec: javobda jobs:true bo'lmasa (eski skript) ariza YUBORILMAYDI —
+  aks holda eski skript uni o'quvchi lidi qilib CRM'ga yozardi; o'rniga telefon raqami ko'rsatiladi. Yangi Code.gs vakansiyani faqat Telegram'ga yuboradi.
+-->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vakansiyalar: musiqa va raqs o&#x27;qituvchisi, Andijon — ROYAL MUSIC SCHOOL</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="ROYAL MUSIC SCHOOL (Andijon) jamoasiga o&#x27;qituvchilar: vokal, fortepiano, skripka, gitara, baraban, fleyta, raqs, aktyorlik mahorati. Yo&#x27;nalishni tanlab, onlayn ariza qoldiring.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* Uslub: asosiy sayt (index.html) palitrasi va bezaklari — gitara.html dan ko'chirilgan (tokenlar, asosiy qatlam, mobil blok).
+   Pastda "VAKANSIYA" qatlami: yo'nalish tanlagich, missiya, yo'nalish kartalari, talablar, ariza formasi. */
+:root{
+  --paper:#FBF6F0; --surface:#FFFFFF; --tint:#F4EADF; --tint-2:#E0D2C2;
+  --ink:#1D2740; --ink-soft:#5B6170; --ink-faint:#868B97;
+  --line:#EADFD2;
+  --acc:#B65335; --acc-deep:#9E4529; --acc-soft:#F6DED2; --on-acc:#FFFFFF; --acc-lite:#EBB59A; --acc-text:#B65335;
+  --peach:#EBB59A; --peach-soft:#F8E6DA;
+  --sage:#8BA383; --sage-deep:#56724F; --on-sage:#FFFFFF; --sage-soft:#E3EADF; --sage-text:#3F5A3A;
+  --navy:#1F2B45; --navy-deep:#17203A; --on-navy:#FFFFFF; --on-navy-soft:#C9D1E0; --navy-card:rgba(255,255,255,.06);
+  --hero-bg:linear-gradient(135deg,#F8ECE1 0%,#F3E0D0 100%);
+  --fb-1:#3A2418; --fb-2:#1E120B;
+  --key-white:#FFFFFF; --key-black:#1D2740;
+  --ph-bg:#F1E2D5; --ph-stripe:rgba(182,83,53,.06); --ph-icon:rgba(182,83,53,.42);
+  --logo-bg:#FFFFFF; --logo-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.04);
+  --shadow:0 18px 40px -18px rgba(0,0,0,.22); --shadow-sm:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.04);
+  --ok:#3F5A3A; --err:#B3261E;
+  --f:'Inter','Segoe UI',Helvetica,Arial,sans-serif; --fh:'Montserrat','Inter',sans-serif; --fc:'Caveat',cursive;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121A2B; --surface:#1A2338; --tint:#172036; --tint-2:#34405E;
+    --ink:#F3EEE8; --ink-soft:#A3ABBD; --ink-faint:#7D8699;
+    --line:#26314A;
+    --acc:#EE8A67; --acc-deep:#F5A083; --acc-soft:#3A2A2C; --on-acc:#121A2B; --acc-lite:#EBB59A; --acc-text:#F08E6B;
+    --peach:#5A3B33; --peach-soft:#262230;
+    --sage:#4C6247; --sage-deep:#A8BFA1; --on-sage:#121A2B; --sage-soft:#1D2B29; --sage-text:#B7CDB0;
+    --navy:#0B111E; --navy-deep:#070B14; --on-navy:#F3EEE8; --on-navy-soft:#A3ABBD; --navy-card:rgba(255,255,255,.05);
+    --hero-bg:linear-gradient(135deg,#1A2236 0%,#211F30 100%);
+    --fb-1:#2E1D14; --fb-2:#170E09;
+    --key-white:#D9D3CB; --key-black:#0B111E;
+    --ph-bg:#222C44; --ph-stripe:rgba(240,142,107,.06); --ph-icon:rgba(240,142,107,.5);
+    --logo-bg:transparent; --logo-shadow:none;
+    --shadow:0 18px 40px -18px rgba(0,0,0,.6); --shadow-sm:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.18);
+    --ok:#B7CDB0; --err:#FF8A80;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121A2B; --surface:#1A2338; --tint:#172036; --tint-2:#34405E;
+  --ink:#F3EEE8; --ink-soft:#A3ABBD; --ink-faint:#7D8699;
+  --line:#26314A;
+  --acc:#EE8A67; --acc-deep:#F5A083; --acc-soft:#3A2A2C; --on-acc:#121A2B; --acc-lite:#EBB59A; --acc-text:#F08E6B;
+  --peach:#5A3B33; --peach-soft:#262230;
+  --sage:#4C6247; --sage-deep:#A8BFA1; --on-sage:#121A2B; --sage-soft:#1D2B29; --sage-text:#B7CDB0;
+  --navy:#0B111E; --navy-deep:#070B14; --on-navy:#F3EEE8; --on-navy-soft:#A3ABBD; --navy-card:rgba(255,255,255,.05);
+  --hero-bg:linear-gradient(135deg,#1A2236 0%,#211F30 100%);
+  --fb-1:#2E1D14; --fb-2:#170E09;
+  --key-white:#D9D3CB; --key-black:#0B111E;
+  --ph-bg:#222C44; --ph-stripe:rgba(240,142,107,.06); --ph-icon:rgba(240,142,107,.5);
+  --logo-bg:transparent; --logo-shadow:none;
+  --shadow:0 18px 40px -18px rgba(0,0,0,.6); --shadow-sm:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.18);
+  --ok:#B7CDB0; --err:#FF8A80;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-weight:500;margin:0;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+@media (max-width:640px){section{padding-block:52px}}
+.label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+h2{font-size:clamp(28px,3.6vw,40px)}
+.lead{color:var(--ink-soft);font-size:15px;max-width:52ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500;font-size:14px;padding:12px 20px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,transform .15s;font-family:var(--f);white-space:nowrap}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+.btn-primary{background:var(--acc);color:var(--on-acc)}
+.btn-primary:hover{background:var(--acc-deep);transform:translateY(-1px)}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-line:hover{border-color:var(--ink)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.card{background:var(--surface);border-radius:20px;border:1px solid var(--line)}
+.card.tint{background:var(--tint);border-color:transparent}
+
+/* rasm joyi: rasm bo'lmasa chiziqli fon va fayl nomi ko'rinadi (index.html dagi .media kabi) */
+.media{position:relative;overflow:hidden;background-color:var(--ph-bg);background-image:repeating-linear-gradient(135deg,var(--ph-stripe) 0 12px,transparent 12px 24px)}
+.media::before{content:"";position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-26px 0 0 -17px;background:var(--ph-icon);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='3'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='m21 15-5-5L5 21'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='3'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='m21 15-5-5L5 21'/%3E%3C/svg%3E") center/contain no-repeat}
+.media::after{content:attr(data-ph);position:absolute;left:10px;right:10px;top:50%;margin-top:14px;text-align:center;font-size:11px;font-weight:600;line-height:1.3;letter-spacing:.03em;color:var(--ink-faint)}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+/* NAV */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(12px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:1;min-width:0;font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
+.logo img{width:38px;height:38px;object-fit:contain;flex-shrink:0;margin:-3px 0;border-radius:9px;background:var(--logo-bg);box-shadow:var(--logo-shadow)}
+.logo span{color:var(--ink-faint);font-weight:500}
+.logo .logo-t{display:flex;flex-direction:column;align-items:flex-start;gap:0;line-height:1.25;min-width:0}
+.logo .brand{color:var(--ink);font-weight:600}
+footer .logo{font-size:17px}
+@media (max-width:760px){nav .logo{font-size:13px}}
+@media (max-width:560px){nav .logo{font-size:12px;gap:8px}.nav-in{gap:8px}.nav-right{gap:6px}.lang button{padding:7px 8px}.theme-btn,.burger{width:32px;height:32px}}
+.nav-links{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--ink-soft);white-space:nowrap}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.lang button{background:none;border:0;color:var(--ink-soft);font-family:var(--f);font-size:12px;font-weight:600;padding:8px 11px;cursor:pointer}
+.lang button.active{background:var(--navy);color:var(--on-navy)}
+.theme-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:14px;display:grid;place-items:center}
+.nav-cta{padding:9px 16px}
+.burger{display:none;width:36px;height:36px;background:none;border:0;cursor:pointer;flex-direction:column;justify-content:center;gap:5px;padding:7px}
+.burger span{display:block;height:2px;background:var(--ink);border-radius:2px}
+@media (max-width:1100px){
+  .nav-links{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 0}
+  .nav-links.open{display:flex}
+  .nav-links a{display:block;padding:14px max(16px,env(safe-area-inset-left,0px))}
+  .burger{display:flex}
+  .nav-cta{display:none}
+}
+
+/* HERO */
+.hero{padding-block:56px 72px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding-block:40px 56px}.hero::before{display:none}}
+.hero h1{font-size:clamp(36px,4.8vw,58px);max-width:14ch}
+.hero-desc{margin-top:18px;color:var(--ink-soft);font-size:15px;max-width:44ch}
+.hero-form{margin-top:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:8px;max-width:560px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px;align-items:center}
+.hero-form input{min-width:0;width:100%;border:1px solid var(--line);background:var(--paper);border-radius:10px;font:inherit;font-size:14px;color:var(--ink);padding:11px 14px}
+.hero-form input:focus{outline:none;border-color:var(--acc)}
+.hero-form .btn{padding:11px 16px;font-size:13px}
+@media (max-width:900px){.hero-form{grid-template-columns:1fr 1fr}.hero-form .btn{grid-column:1 / -1}}
+@media (max-width:560px){.hero-form{grid-template-columns:1fr}.hero-form .btn{width:100%}}
+.hero-msg{margin-top:10px;font-size:13px;min-height:18px;color:var(--ink-soft)}
+.hero-msg.ok{color:var(--ok)} .hero-msg.err{color:var(--err)}
+/* telefon: +998 doim turadi, foydalanuvchi 9 raqam kiritadi */
+.phone-wrap{position:relative;display:block;min-width:0}
+.phone-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);padding-right:8px;border-right:1.5px solid var(--line);font-size:14px;font-weight:600;line-height:1;color:var(--ink);pointer-events:none}
+.phone-wrap input{padding-left:62px!important;letter-spacing:.02em}
+
+/* hero mock */
+.mock{position:relative;padding:82px 28px 0 0;max-width:520px;margin-left:auto}
+@media (max-width:900px){.mock{margin-left:0;max-width:100%;padding:0}}
+.kb-card{background:var(--surface);border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow);padding:20px;position:relative}
+.kb-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-right:190px;min-height:40px}
+.kb-head b{font-weight:600;font-size:14px}
+.kb-head small{font-size:12px;color:var(--ink-faint)}
+@media (max-width:900px){.kb-head{padding-right:0}}
+.range{height:30px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;background:var(--tint);color:var(--ink-soft);transition:background .2s,color .2s}
+.range.on{background:var(--acc);color:var(--on-acc)}
+.kb-hint{margin-top:12px;font-size:12px;color:var(--ink-faint)}
+.note-card{position:absolute;top:0;right:0;width:200px;background:var(--acc);color:var(--on-acc);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);overflow:hidden;z-index:3}
+.note-card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 58%,rgba(255,255,255,.10) 58% 70%,transparent 70% 78%,rgba(255,255,255,.10) 78%);pointer-events:none}
+.note-card > *{position:relative;z-index:1}
+.nc-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;font-weight:600}
+.nc-note{font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums;min-height:30px}
+.nc-note small{display:inline-block;font-size:11px;font-weight:500;opacity:.85;margin-left:6px;letter-spacing:0}
+.nc-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;opacity:.9;margin-top:4px;font-weight:500}
+/* telefonda karta grif ustida turadi; relative — ::after bezagi karta ichida qolsin */
+@media (max-width:900px){.mock{display:flex;flex-direction:column}.note-card{position:relative;order:-1;width:100%;margin-bottom:12px}}
+
+/* WHY card */
+.why{padding:44px;display:grid;gap:40px}
+@media (max-width:640px){.why{padding:28px}}
+.why-top{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end}
+@media (max-width:800px){.why-top{grid-template-columns:1fr;gap:16px}}
+.why-top h2{margin-top:12px;max-width:18ch}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+@media (max-width:800px){.feats{grid-template-columns:1fr;gap:24px}}
+.feat{display:grid;gap:12px;align-content:start}
+.feat h3{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.feat p{font-size:13px;color:var(--ink-soft);max-width:30ch}
+
+/* BENTO */
+.center{text-align:center;display:grid;justify-items:center;gap:10px;margin-bottom:36px}
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:800px){.bento{grid-template-columns:1fr}}
+.b{padding:32px;display:grid;align-content:space-between;gap:24px;min-height:220px}
+.b .big{font-size:clamp(48px,6vw,72px);font-weight:600;color:var(--acc);letter-spacing:-.04em;line-height:1}
+.b h3{font-size:20px;max-width:16ch}
+.b p{font-size:13px;color:var(--ink-soft);max-width:34ch}
+.b.photo{grid-column:2;grid-row:1 / span 2;padding:0;min-height:0;border-radius:20px;overflow:hidden}
+.b.photo img{object-position:50% 42%}
+@media (max-width:800px){.b.photo{grid-column:auto;grid-row:auto;aspect-ratio:1 / 1}}
+.flow{display:flex;align-items:center;gap:14px}
+.flow .node{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--acc);border:1px solid var(--line)}
+.flow .node.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.flow .node svg{width:22px;height:22px}
+.flow .dots{flex:1;max-width:120px;height:0;border-top:2px dashed var(--tint-2)}
+.b.wide{grid-column:1/-1;grid-template-columns:1fr 1.3fr;align-items:center;gap:32px}
+@media (max-width:800px){.b.wide{grid-template-columns:1fr}}
+.chart{background:var(--surface);border-radius:14px;border:1px solid var(--line);padding:20px 22px;display:grid;gap:18px}
+.chart .ch-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.chart .ch-head b{font-weight:600;font-size:13px}
+.chart .ch-head small{font-size:11px;color:var(--ink-faint)}
+.row{display:grid;gap:8px}
+.row .rt{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft)}
+.row .rt b{color:var(--ink);font-weight:600}
+.bar{display:flex;height:12px;border-radius:999px;overflow:hidden;gap:3px}
+.bar i{display:block;height:100%}
+.s1{background:var(--acc-lite)} .s2{background:var(--acc)} .s3{background:var(--sage-deep)}
+.lg{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12px;color:var(--ink-soft)}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.lg em{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* STEPS band */
+.band{background:var(--navy);color:var(--on-navy)}
+.band .label{color:var(--on-navy-soft)}
+.band h2{margin-top:10px;max-width:22ch}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.step{background:var(--navy-card);border-radius:16px;padding:24px 22px;display:grid;gap:8px;align-content:start;border:1px solid rgba(255,255,255,.06)}
+.step .n{font-size:40px;font-weight:600;color:rgba(234,242,243,.35);letter-spacing:-.04em;line-height:1}
+.step h3{font-size:16px;font-weight:600;margin-top:10px}
+.step p{font-size:13px;color:var(--on-navy-soft)}
+.finale{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;background:var(--navy-card);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px 24px}
+.finale b{font-size:40px;font-weight:600;color:var(--acc-lite);letter-spacing:-.04em;line-height:1}
+.finale div{flex:1;min-width:240px}
+.finale h3{font-size:16px;font-weight:600}
+.finale p{font-size:13px;color:var(--on-navy-soft);margin-top:4px;max-width:60ch}
+.band .btn-primary{background:var(--acc-lite);color:#1F2B45}
+.band .btn-primary:hover{background:#F3C7B0}
+
+/* FAQ */
+.faq{max-width:760px;margin:0 auto}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:500;font-size:16px;display:flex;justify-content:space-between;gap:20px;align-items:center;letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--acc);font-size:22px;line-height:1;flex-shrink:0;font-weight:400}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 18px;color:var(--ink-soft);font-size:14px;max-width:62ch}
+
+/* CTA band */
+.cta{padding-block:0}
+.cta-in{background:var(--navy);color:var(--on-navy);border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center}
+@media (max-width:900px){.cta-in{grid-template-columns:1fr;padding:32px 24px}}
+.cta-in .label{color:var(--on-navy-soft)}
+.cta-in h2{margin-top:10px;max-width:16ch}
+.cta-in p{color:var(--on-navy-soft);font-size:14px;margin-top:12px;max-width:44ch}
+.cta-contacts{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 24px;font-size:14px}
+.cta-contacts a{text-decoration:none;font-weight:500}
+.cta-contacts a:hover{color:var(--acc-lite)}
+form.lead{background:var(--surface);color:var(--ink);border-radius:18px;padding:24px;display:grid;gap:12px}
+form.lead label{display:grid;gap:6px;font-size:12px;font-weight:600;color:var(--ink-soft)}
+form.lead input,form.lead select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px}
+form.lead input:focus,form.lead select:focus{border-color:var(--acc);outline:none}
+.form-msg{font-size:13px;color:var(--ink-soft);min-height:18px}
+.form-msg.ok{color:var(--ok)} .form-msg.err{color:var(--err)}
+.form-msg.call,.hero-msg.call{color:var(--ink);font-size:14px;line-height:1.5}
+.call-link{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-weight:600;color:var(--acc);text-decoration:none;border-bottom:1.5px solid currentColor;white-space:nowrap}
+.call-link::before{content:"\260E";font-size:13px}
+
+/* FOOTER */
+footer{padding-block:56px 32px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+@media (max-width:800px){.foot{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.foot{grid-template-columns:1fr}}
+.foot h4{margin:0 0 14px;font-size:13px;font-weight:600}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:13px;color:var(--ink-soft)}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--acc)}
+.foot .about{font-size:13px;color:var(--ink-soft);max-width:30ch;margin-top:14px}
+.copy{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--ink-soft)}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+
+/* ===== ASOSIY SAYT USLUBI (index.html dan): shriftlar, eyebrow, aksent chiziq, rangli plitkalar, bezaklar ===== */
+h1,h2{font-family:var(--fh);font-weight:800;letter-spacing:-.025em;line-height:1.08;isolation:isolate}
+h3{font-family:var(--fh);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(28px,3.4vw,42px)}
+.hero h1{font-size:clamp(34px,4.6vw,56px);max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--acc-text)}
+.label{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--acc-text)}
+.label::before{content:"";width:22px;height:2px;border-radius:2px;background:currentColor}
+.u{position:relative;display:inline-block;font-style:normal;color:var(--acc-text)}
+.u::after{content:"";position:absolute;left:-2%;right:-2%;bottom:-.16em;height:.3em;background:var(--peach);z-index:-1;opacity:.9;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 14C40 5 90 3 130 7s50 6 67-2' fill='none' stroke='black' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 14C40 5 90 3 130 7s50 6 67-2' fill='none' stroke='black' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.band .u,.cta-in .u{color:var(--acc-lite)}
+.band .u::after,.cta-in .u::after{background:var(--acc-lite);opacity:.3}
+.band .label,.cta-in .label{color:var(--acc-lite)}
+.hand{font-family:var(--fc);font-weight:600}
+.dk{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-8px) rotate(var(--r,0deg))}}
+.btn{border-radius:999px;font-weight:600;min-height:46px;padding:10px 22px}
+.btn-line{border-width:1.5px;border-color:var(--tint-2);background:var(--surface)}
+.nav-cta{min-height:40px}
+.logo .brand-short,footer .logo{font-family:var(--fh);font-weight:800;letter-spacing:.04em}
+footer .logo span{font-family:var(--f);font-weight:500;letter-spacing:0}
+.lang,.theme-btn{border-radius:999px}
+.hero-form{border-radius:18px;box-shadow:var(--shadow-sm);border-color:transparent;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);max-width:500px}
+.hero-form .btn{grid-column:1 / -1}
+.hero-form input,form.lead input,form.lead select{border-radius:12px;border:1.5px solid var(--tint-2)}
+.hero-form input:focus,form.lead input:focus,form.lead select:focus{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 18%,transparent)}
+.phone-pre{border-right-color:var(--tint-2)}
+/* hero: shaftoli panel, notalar, blob, muhr */
+.hero{padding-block:12px 64px}
+.hero-grid.panel{background:var(--hero-bg);border-radius:32px;padding:56px 56px 60px;position:relative;isolation:isolate;overflow:hidden}
+.hero-notes{position:absolute;left:50%;top:16px;width:150px;height:120px;color:var(--acc);pointer-events:none;z-index:0}
+.hero-notes svg{position:absolute;animation:bob 7s ease-in-out infinite}
+.hero-notes .n1{left:0;top:26px;width:56px;height:56px;--r:-12deg;opacity:.5}
+.hero-notes .n2{left:66px;top:0;width:28px;height:42px;--r:10deg;opacity:.4;animation-delay:-2.3s}
+.hero-notes .n3{left:104px;top:34px;width:30px;height:60px;--r:6deg;opacity:.45;color:var(--sage-deep);stroke-width:2;animation-delay:-4.6s}
+.mock{isolation:isolate}
+.mock .blob{position:absolute;z-index:-1;aspect-ratio:1;height:auto;pointer-events:none}
+.mock .b1{width:62%;left:-16%;bottom:-18%;color:var(--peach)}
+.mock .b2{width:44%;right:-10%;top:-4%;color:var(--sage);opacity:.45}
+.kb-card{border-color:transparent;box-shadow:var(--shadow)}
+.note-card{box-shadow:var(--shadow)}
+.nc-note{font-family:var(--fh);font-weight:800}
+.stamp{position:absolute;right:-22px;bottom:-46px;z-index:4;width:104px;height:104px;border-radius:50%;display:grid;place-items:center;padding:12px;text-align:center;font-size:21px;line-height:1;transform:rotate(-10deg);box-shadow:var(--shadow);background:var(--sage-deep);color:var(--on-sage)}
+@media (min-width:901px){.mock .kb-hint{padding-right:64px}}
+/* ishonch kartasi: rangli doirachalar */
+.trust-card{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-radius:22px;box-shadow:var(--shadow-sm);margin-top:20px}
+.trust-item{display:flex;align-items:center;gap:14px;padding:20px 22px;min-width:0}
+.trust-item + .trust-item{border-left:1px solid var(--line)}
+.trust-item b{display:block;font:700 15px/1.3 var(--fh)}
+.trust-item div span{display:block;font-size:13px;color:var(--ink-soft);line-height:1.4;margin-top:2px}
+.bubble{width:48px;height:48px;flex:none;border-radius:50%;display:grid;place-items:center}
+.bubble svg{width:22px;height:22px}
+.b-terra{background:var(--acc-soft);color:var(--acc-text)}
+.b-sage{background:var(--sage-soft);color:var(--sage-text)}
+.b-peach{background:var(--peach-soft);color:var(--acc-text);box-shadow:inset 0 0 0 1.5px var(--peach)}
+.b-navy{background:var(--navy);color:#FFFFFF}
+/* kartalar */
+.why{position:relative;overflow:hidden;isolation:isolate;border-color:transparent;box-shadow:var(--shadow-sm)}
+.why-deco{position:absolute;right:28px;top:-18px;width:84px;height:134px;color:var(--peach);opacity:.9;transform:rotate(14deg);z-index:-1;stroke-width:2.2}
+.c-peach{background:var(--peach-soft);border-color:transparent}
+.c-sage{background:var(--sage-soft);border-color:transparent}
+.b .big{font-family:var(--fh);font-weight:800;color:var(--acc-text)}
+.b h3{max-width:22ch}
+.b.photo{border:0}
+.pnote{position:absolute;left:16px;bottom:16px;z-index:2;margin:0;background:var(--surface);color:var(--ink);border-radius:14px;padding:6px 14px;font-size:22px;line-height:1.1;transform:rotate(-3deg);box-shadow:var(--shadow)}
+.flow .node.n-terra{background:var(--acc-soft);color:var(--acc-text);border-color:transparent}
+.flow .node.n-sage{background:var(--surface);color:var(--sage-text)}
+.flow .node.dark{background:var(--navy);color:#FFFFFF;border-color:transparent}
+.flow .dots{border-top-color:var(--sage)}
+.center.has-staff{position:relative;isolation:isolate}
+.sec-staff{position:absolute;right:0;top:-34px;width:400px;height:86px;z-index:-1;color:var(--sage);opacity:.55;stroke-width:1.6;pointer-events:none}
+/* dastur bloki: navy, rangli raqamlar, nota yo'li */
+.band{position:relative;overflow:hidden;isolation:isolate}
+.band-staff{position:absolute;right:0;top:36px;width:520px;height:120px;color:var(--acc-lite);opacity:.16;z-index:-1;stroke-width:1.6;pointer-events:none}
+.step{border-top:3px solid var(--sc,#EBB59A)}
+.step .n{font-family:var(--fh);font-weight:800;color:var(--sc,#EBB59A)}
+.step:nth-child(1){--sc:#EBB59A} .step:nth-child(2){--sc:#EE8A67} .step:nth-child(3){--sc:#A8BFA1} .step:nth-child(4){--sc:#C9D1E0}
+.finale b{font-family:var(--fh);font-weight:800}
+/* o'qituvchi: blob, gitara nishoni, rangli raqam kartalari */
+.t-art{position:relative;isolation:isolate;margin-bottom:8px}
+.t-art .avatar{margin-bottom:0;display:block}
+.t-art .blob{position:absolute;width:150%;left:-25%;top:-16%;z-index:-1;aspect-ratio:1;height:auto;color:var(--peach);opacity:.6}
+.art-badge{position:absolute;left:-20px;top:14%;z-index:2;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--acc-text);box-shadow:var(--shadow)}
+.art-badge .dk{width:24px;height:38px;stroke-width:3}
+.stat{background:var(--surface);border-radius:18px;padding:18px 14px 16px;box-shadow:var(--shadow-sm)}
+.stat b{font-family:var(--fh);font-weight:800;color:var(--acc-text)}
+.stat:nth-child(2) b{color:var(--sage-deep)}
+.stat:nth-child(3) b{color:var(--ink)}
+/* narx: shaftoli karta */
+.from-band{position:relative;overflow:hidden;isolation:isolate}
+.from-deco{position:absolute;left:44%;bottom:-26px;width:130px;height:130px;color:var(--acc);opacity:.13;transform:rotate(-12deg);z-index:-1;stroke-width:2.2;pointer-events:none}
+.from-box{box-shadow:var(--shadow-sm)}
+.from-num b{font-family:var(--fh);font-weight:800;color:var(--acc-text)}
+/* yozilish: navy, gitara silueti */
+.cta-in{position:relative;overflow:hidden;isolation:isolate}
+.cta-deco{position:absolute;left:-26px;bottom:-70px;width:170px;height:272px;color:var(--acc-lite);opacity:.12;transform:rotate(-18deg);z-index:-1;stroke-width:1.8;pointer-events:none}
+/* footer: pianino klavishlari */
+footer{background:var(--tint);margin-top:72px;padding-block:0 32px}
+.foot-keys{display:block;width:100%;height:42px;margin-bottom:48px}
+.foot-keys .kw{fill:var(--key-white)}
+.foot-keys .kl{fill:none;stroke:var(--tint-2);stroke-width:1.5}
+.foot-keys .kb{fill:var(--key-black)}
+@media (max-width:1000px){.trust-card{grid-template-columns:1fr 1fr}.trust-item:nth-child(3){border-left:0}.trust-item:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:900px){.hero{padding-block:8px 48px}.hero-grid.panel{padding:30px 20px 26px;border-radius:24px;gap:28px}.hero-notes{left:auto;right:10px;top:6px;transform:scale(.6);transform-origin:top right}.stamp{display:none}}
+@media (max-width:1000px){.sec-staff{display:none}}
+@media (max-width:640px){.band-staff{display:none}.why-deco{right:12px;top:-28px;width:60px;height:96px}}
+@media (max-width:560px){.hero-form{grid-template-columns:1fr}.hero-notes{display:none}.trust-card{grid-template-columns:1fr}.trust-item + .trust-item{border-left:0;border-top:1px solid var(--line)}.trust-item{padding:14px 16px}.bubble{width:42px;height:42px}.pnote{font-size:19px;left:12px;bottom:12px}.stat{padding:12px 6px}.art-badge{width:48px;height:48px;left:-12px}.art-badge .dk{width:20px;height:32px}}
+@media (prefers-reduced-motion: reduce){.hero-notes svg{animation:none!important}}
+
+/* ===== MOBILE / RESPONSIVE ===== */
+.brand-short{display:none}
+.nav-links .m-only{display:none}
+.cta-in > *,.hero-grid > *,.why-top > *,.b.wide > *{min-width:0}
+form.lead .btn,.hero-form .btn{white-space:normal;text-align:center;line-height:1.3}
+@media (max-width:900px){
+  .nav-links .m-only{display:block;padding:10px max(16px,env(safe-area-inset-left,0px)) 14px}
+  .nav-links .m-only .btn{display:flex;width:100%;color:var(--on-acc);padding:14px 18px;white-space:normal}
+}
+@media (max-width:900px){
+  .hero-form input,form.lead input,form.lead select{font-size:16px}
+  .phone-pre{font-size:16px}
+  .phone-wrap input{padding-left:68px!important}
+  .lang button{min-height:40px;min-width:40px}
+  .theme-btn,.burger{width:40px;height:40px}
+  .kb-ctl .range{height:36px}
+}
+@media (max-width:760px){
+  .foot ul{gap:0}
+  .foot ul a,.foot ul li{display:inline-block;padding-block:7px}
+  .copy{flex-direction:column}
+  .stats{grid-template-columns:repeat(3,1fr);gap:10px}
+  .stat b{font-size:30px}
+  .stat span{font-size:12px}
+}
+@media (max-width:560px){
+  nav .logo{font-size:13px}
+  nav .logo .brand{display:none}
+  nav .logo .brand-short{display:inline;color:var(--ink);font-weight:700;letter-spacing:.03em}
+  nav .logo .logo-t{flex-direction:column;gap:0;line-height:1.25}
+  .why{padding:24px 18px}
+  .b{padding:24px;min-height:0}
+  .b.photo{padding:0}
+  .finale .btn{width:100%}
+  .cta-in{padding:28px 18px;border-radius:20px}
+  form.lead{padding:18px}
+  .kb-card{padding:16px}
+}
+.nav-links .m-theme{display:none}
+.m-theme-btn{background:none;border:0;padding:14px 0;font:inherit;font-size:14px;font-weight:500;color:var(--ink-soft);cursor:pointer;text-align:left;width:100%}
+@media (max-width:400px){
+  nav .theme-btn{display:none}
+  .nav-links .m-theme{display:block;padding-block:0}
+  nav .logo .logo-t span:last-child{font-size:11px;letter-spacing:.02em}
+  .logo .logo-t{overflow:hidden}
+  .logo .logo-t span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+}
+/* sticky mobile action bar */
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;gap:8px;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);transition:transform .25s}
+  .mbar .btn{flex:1;min-height:46px;white-space:normal;line-height:1.25;padding:10px 12px}
+  .mbar .btn-line{background:var(--surface)}
+  .mbar.hide{transform:translateY(115%)}
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+/* ===== VAKANSIYA sahifasi ===== */
+.hero-grid.panel{background:var(--sage-soft)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero-cta .btn{white-space:normal;text-align:center}
+.hero-note{margin-top:16px;font-size:13px;color:var(--ink-soft);display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.hero-note .call-link{margin-top:0}
+@media (max-width:560px){.hero-cta .btn{width:100%}}
+/* hero: yo'nalish tanlagich ("jamoa akkordi") */
+.mock .kb-head{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding-right:160px}
+@media (max-width:900px){.mock .kb-head{flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 12px;padding-right:0}}
+.pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
+.pick button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:0;min-height:74px;padding:10px 6px;border-radius:12px;border:1.5px solid var(--tint-2);background:var(--paper);color:var(--ink);font:600 13px/1.2 var(--f);cursor:pointer;text-align:center;transition:background .15s,border-color .15s,color .15s,transform .1s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.pick button svg{width:24px;height:24px;flex:none;color:var(--acc-text)}
+.pick button span{min-width:0;max-width:100%}
+.pick button:hover{border-color:var(--acc)}
+.pick button:active{transform:scale(.97)}
+.pick button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.pick button[aria-pressed="true"] svg{color:var(--on-acc)}
+.pick-go{margin-top:14px}
+@media (max-width:900px){.pick-go{width:100%}}
+.note-card{background:var(--navy);color:var(--on-navy)}
+.nc-note{font-size:22px;min-height:30px}
+.stamp{background:var(--acc);color:var(--on-acc);font-size:20px}
+@media (max-width:420px){.pick{gap:6px}.pick button{min-height:70px;padding:8px 4px;font-size:12px}}
+@media (max-width:350px){.pick{grid-template-columns:repeat(2,minmax(0,1fr))}.pick button:last-child{grid-column:1 / -1}}
+/* missiya */
+.mission{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px 56px;align-items:center;padding:48px;position:relative;overflow:hidden;isolation:isolate}
+.mission h2{margin-top:12px}
+.mission .lead{margin-top:14px}
+.m-fig{margin:0}
+.m-quote{margin:0;font:700 clamp(19px,2.2vw,26px)/1.42 var(--fh);letter-spacing:-.01em;color:var(--ink);text-wrap:pretty}
+.m-quote::before{content:"\201C";display:block;height:34px;font:800 76px/1 var(--fh);color:var(--acc-text)}
+.m-who{display:flex;align-items:center;gap:14px;margin-top:22px}
+.m-who b{display:block;font:700 15px/1.3 var(--fh)}
+.m-who .m-role{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
+.m-sign{font-size:26px;color:var(--acc-text);line-height:1;margin-top:4px;display:block}
+.m-deco{position:absolute;right:-6px;bottom:-34px;width:116px;height:232px;color:var(--acc);opacity:.12;transform:rotate(12deg);z-index:-1;stroke-width:1.8;pointer-events:none}
+@media (max-width:900px){.mission{grid-template-columns:1fr;padding:30px 22px}}
+/* yo'nalish kartalari */
+.vacs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.vacs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.vacs{grid-template-columns:1fr}}
+.vac{display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;padding:24px;border-radius:20px;background:var(--surface);box-shadow:var(--shadow-sm);border:1.5px solid transparent;scroll-margin-top:96px;transition:border-color .2s,box-shadow .2s}
+.v-ic{width:58px;height:58px;border-radius:16px;display:grid;place-items:center}
+.v-ic svg{width:32px;height:32px}
+.vac h3{font-size:18px;line-height:1.25}
+.v-meta{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+.v-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:4px}
+.v-link{font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;border-bottom:1.5px solid var(--tint-2);padding-block:6px 2px}
+.v-link:hover{color:var(--acc-text);border-color:currentColor}
+.v-pick{min-height:42px;padding:8px 18px;font-size:13px;margin-left:auto}
+.vac.on{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 14%,transparent),var(--shadow-sm)}
+.vac.on .v-pick{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.vac.flash{animation:vflash 1.6s ease}
+@keyframes vflash{0%,100%{box-shadow:var(--shadow-sm)}25%{box-shadow:0 0 0 10px color-mix(in srgb,var(--acc) 24%,transparent),var(--shadow-sm)}}
+/* talablar va sharoit */
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:800px){.terms{grid-template-columns:1fr}}
+.term{padding:32px;display:grid;gap:18px;align-content:start;border-color:transparent}
+.term h3{font-size:20px;display:flex;align-items:center;gap:12px}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ticks li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;font-size:14.5px;line-height:1.5}
+.ticks li svg{width:22px;height:22px;margin-top:1px;color:var(--sage-deep)}
+.ticks .t-txt{min-width:0}
+@media (max-width:560px){.term{padding:24px 20px}}
+/* egasidan kutilayotgan joylar (data-todo): punktir ramka; deploy-site.py ularni saytga chiqarmaydi */
+[data-todo]{outline:1.5px dashed var(--acc);outline-offset:5px;border-radius:6px}
+li[data-todo] .t-txt,p[data-todo]{color:var(--acc-text);font-weight:600}
+.band [data-todo]{outline-color:var(--acc-lite)}
+.step[data-todo]{outline-offset:-1px;border-radius:16px}
+.band-go{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.band-go p{font-size:14px;color:var(--on-navy-soft);max-width:52ch}
+/* ariza formasi */
+@media (min-width:901px){.cta-in.apply{grid-template-columns:minmax(0,1fr) minmax(0,520px)}}
+form.lead{max-width:none;font-size:14px}
+form.lead textarea{width:100%;padding:12px 14px;border:1.5px solid var(--tint-2);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;line-height:1.5;resize:vertical;min-height:88px}
+form.lead textarea:focus{border-color:var(--acc);outline:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 18%,transparent)}
+.f-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:560px){.f-row{grid-template-columns:1fr}}
+.opt{font-weight:500;color:var(--ink-faint)}
+fieldset.dirs{border:0;margin:0;padding:0;min-width:0}
+fieldset.dirs legend{font-size:12px;font-weight:600;color:var(--ink-soft);padding:0;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+form.lead label.chip{position:relative;display:inline-flex;gap:0;font-size:13px;color:var(--ink)}
+form.lead .chip input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;opacity:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:7px 13px;border-radius:999px;border:1.5px solid var(--tint-2);background:var(--paper);font-weight:600;line-height:1.2;transition:background .15s,border-color .15s,color .15s}
+.chip:hover span{border-color:var(--acc)}
+.chip input:checked + span{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.chip input:checked + span::before{content:"\2713"}
+.chip input:focus-visible + span{outline:2px solid var(--acc);outline-offset:2px}
+form.lead.bad-dirs .chip span{border-color:var(--err)}
+@media (max-width:900px){form.lead textarea{font-size:16px}.chip span{min-height:40px}}
+@media (max-width:560px){.cta-in.apply{padding:28px 16px}}
+</style>
+<style>.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px;font-size:14px;line-height:1.4;color:var(--ink-soft)}.crumbs a{color:inherit;text-decoration:underline;text-decoration-color:var(--tint-2);text-underline-offset:3px}.crumbs a:hover{color:var(--acc-text)}.crumbs [aria-current]{color:var(--ink)}</style><style>.qf{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 48px;padding:36px 40px;align-items:start}.qf h2{font-size:clamp(22px,2.4vw,28px);margin:10px 0 12px}.qf .sum{color:var(--ink-soft);font-size:15px;line-height:1.65;margin:0}.qf dl{display:grid;grid-template-columns:1fr 1fr;column-gap:28px;margin:0}.qf dl div{min-width:0;padding:13px 0;border-top:1px solid var(--line)}.qf dl div:nth-child(-n+2){border-top:0;padding-top:2px}.qf dt{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 4px}.qf dd{margin:0;font-size:15px;line-height:1.45;color:var(--ink)}.qf dd a{color:var(--acc-text);font-weight:600;text-decoration:none}.qf dd a:hover{text-decoration:underline}@media (max-width:820px){.qf{grid-template-columns:1fr;padding:26px 22px;gap:18px}}@media (max-width:560px){.qf dl{grid-template-columns:1fr}.qf dl div,.qf dl div:nth-child(2){display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line)}.qf dl div:first-child{border-top:0;padding-top:4px}.qf dt{margin:0;line-height:1.35}.qf dd{font-size:14.5px}}</style>
+<script>
+(function () {
+  var LANG = 'uz', ALT = '/ru/vakansiya.html';
+  try { localStorage.setItem('royal-lang', LANG); } catch (e) {}
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.lang button, #langUz, #langRu'); if (!b) return;
+    var to = b.getAttribute('data-lang') || (b.id === 'langRu' ? 'ru' : 'uz');
+    if (to === LANG) return;
+    e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+    try { localStorage.setItem('royal-lang', to); } catch (x) {}
+    location.href = ALT + location.hash;
+  }, true);
+})();
+</script>
+<script>
+(function () {
+  var REF = [[/(^|\.)(chatgpt\.com|openai\.com)$/, 'chatgpt.com'], [/(^|\.)perplexity\.ai$/, 'perplexity'], [/^gemini\.google\./, 'gemini'],
+    [/(^|\.)copilot\.microsoft\.com$/, 'copilot'], [/(^|\.)claude\.ai$/, 'claude'], [/(^|\.)instagram\.com$/, 'instagram'],
+    [/(^|\.)(t\.me|telegram\.org)$/, 'telegram'], [/(^|\.)facebook\.com$/, 'facebook'], [/(^|\.)google\./, 'google'], [/(^|\.)yandex\./, 'yandex'], [/(^|\.)bing\.com$/, 'bing']];
+  try {
+    var src = new URLSearchParams(location.search).get('utm_source');
+    if (!src && document.referrer) {
+      var h = new URL(document.referrer).hostname;
+      if (h && h !== location.hostname) for (var i = 0; i < REF.length; i++) if (REF[i][0].test(h)) { src = REF[i][1]; break; }
+    }
+    if (src && !sessionStorage.getItem('royal_src')) sessionStorage.setItem('royal_src', src.slice(0, 40));
+  } catch (e) {}
+  window.royalPage = function () {
+    var p = location.href.split('#')[0];
+    try { var s = sessionStorage.getItem('royal_src'); if (s && p.indexOf('utm_source=') < 0) p += (p.indexOf('?') < 0 ? '?' : '&') + 'utm_source=' + encodeURIComponent(s); } catch (e) {}
+    return p;
+  };
+})();
+</script>
+<link rel="canonical" href="https://royal-art.uz/vakansiya.html">
+<link rel="alternate" hreflang="uz" href="https://royal-art.uz/vakansiya.html">
+<link rel="alternate" hreflang="ru" href="https://royal-art.uz/ru/vakansiya.html">
+<link rel="alternate" hreflang="x-default" href="https://royal-art.uz/vakansiya.html">
+<link rel="icon" type="image/png" href="img/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ROYAL MUSIC SCHOOL">
+<meta property="og:title" content="Vakansiyalar: musiqa va raqs o&#x27;qituvchisi, Andijon — ROYAL MUSIC SCHOOL">
+<meta property="og:description" content="ROYAL MUSIC SCHOOL (Andijon) jamoasiga o&#x27;qituvchilar: vokal, fortepiano, skripka, gitara, baraban, fleyta, raqs, aktyorlik mahorati. Yo&#x27;nalishni tanlab, onlayn ariza qoldiring.">
+<meta property="og:url" content="https://royal-art.uz/vakansiya.html">
+<meta property="og:image" content="https://royal-art.uz/img/hero-1.jpg">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Bosh sahifa", "item": "https://royal-art.uz/"}, {"@type": "ListItem", "position": 2, "name": "Vakansiyalar", "item": "https://royal-art.uz/vakansiya.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "EducationalOrganization"], "@id": "https://royal-art.uz/#school", "name": "ROYAL MUSIC SCHOOL", "alternateName": ["Royal Music School", "ROYAL MS", "Музыкальная школа ROYAL"], "description": "Andijondagi musiqa va raqs maktabi: vokal, fortepiano, skripka, gitara, baraban, raqs. Bolalar va kattalar uchun, 5 yoshdan. Birinchi sinov darsi bepul.", "url": "https://royal-art.uz/", "logo": "https://royal-art.uz/img/logo.png", "image": "https://royal-art.uz/img/hero-1.jpg", "telephone": "+998772604040", "address": {"@type": "PostalAddress", "streetAddress": "O'zbegim MFY, Bobur shox ko'chasi, 28-uy (XOLIS savdo markazi, 3-qavat)", "addressLocality": "Andijon", "addressCountry": "UZ"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "opens": "09:00", "closes": "21:00", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]}], "sameAs": ["https://instagram.com/royal.musicschool.uz"], "founder": {"@type": "Person", "name": "Husniddin Orifjonov", "jobTitle": "Asoschi, vokal ijrochisi va pedagog", "description": "ROYAL MUSIC SCHOOL asoschisi, professional vokal ijrochisi va pedagog. O'zbekiston davlat konservatoriyasi bakalavri, Gnesinlar nomidagi Rossiya musiqa akademiyasi magistri. Andijon davlat pedagogika instituti dotsenti, Moskva davlat pedagogika universiteti (MPGU) PhD izlanuvchisi.", "alumniOf": [{"@type": "CollegeOrUniversity", "name": "O'zbekiston davlat konservatoriyasi"}, {"@type": "CollegeOrUniversity", "name": "Gnesinlar nomidagi Rossiya musiqa akademiyasi"}], "affiliation": [{"@type": "CollegeOrUniversity", "name": "Andijon davlat pedagogika instituti"}, {"@type": "CollegeOrUniversity", "name": "Moskva davlat pedagogika universiteti (MPGU)"}]}}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-3.3 3.6-5.5 8-5.5s8 2.2 8 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></g></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8L12 3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></g></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></g></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></g></symbol>
+  <!-- asosiy saytdagi chiziqli bezaklar (index.html: i-blob1/2, d-*); d-flute va d-mask — shu sahifa uchun chizilgan -->
+  <symbol id="i-blob1" viewBox="0 0 200 200"><path fill="currentColor" stroke="none" d="M143.2 41.9c12.2 8.5 21.2 21.8 26.4 36.8 5.2 15 6.6 31.7.7 45.3-5.9 13.6-19.1 24.1-33.3 32.5-14.2 8.4-29.4 14.7-45.4 15.9-16 1.2-32.8-2.7-45.1-12.8-12.3-10.1-20.1-26.4-22.1-43.2-2-16.8 1.8-34.1 10.7-47.5 8.9-13.4 22.9-22.9 37.1-30.6 14.2-7.7 28.6-13.6 42.4-11.4 13.8 2.2 16.4 6.5 28.6 15Z"/></symbol>
+  <symbol id="i-blob2" viewBox="0 0 200 200"><path fill="currentColor" stroke="none" d="M138.9 49.2c12.6 5.4 24.5 15.6 30 28.9 5.5 13.3 4.7 29.7-1.5 43.3-6.2 13.6-17.8 24.4-30.9 33.3-13.1 8.9-27.7 15.9-42.9 16.7-15.2.8-31-4.6-43.3-14.8-12.3-10.2-21.1-25.2-23.9-41.3-2.8-16.1.4-33.3 9.2-46.5 8.8-13.2 23.2-22.4 37.3-27.1 14.1-4.7 27.9-4.9 41.3-2.9 13.4 2 12.1 5 24.7 10.4Z"/></symbol>
+  <symbol id="d-mic" viewBox="0 0 48 48"><rect x="17" y="3" width="14" height="23" rx="7"/><path d="M17 11h14M17 17h14"/><path d="M10 21a14 14 0 0 0 28 0"/><path d="M24 35v8M16 45h16"/></symbol>
+  <symbol id="d-piano" viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" rx="3"/><path d="M12 39V25M20 39V25M28 39V9M36 39V25"/><path d="M9.5 9h5v16h-5zM17.5 9h5v16h-5zM33.5 9h5v16h-5z" fill="currentColor"/></symbol>
+  <symbol id="d-violin" viewBox="0 0 40 64"><circle cx="20" cy="5" r="3"/><path d="M18.5 8v18M21.5 8v18"/><path d="M20 25C13 25 10 28 10.5 32 11 35.5 14 36.5 14 39 14 41 9 43 9 50 9 57 14 61 20 61 26 61 31 57 31 50 31 43 26 41 26 39 26 36.5 29 35.5 29.5 32 30 28 27 25 20 25Z"/><path d="M15.5 42c1.5 1.5-1 4 .5 6M24.5 42c-1.5 1.5 1 4-.5 6M16.5 51h7"/></symbol>
+  <symbol id="d-guitar" viewBox="0 0 40 64"><rect x="16.5" y="2" width="7" height="9" rx="2"/><path d="M14 4.5h2.5M14 8.5h2.5M23.5 4.5H26M23.5 8.5H26"/><path d="M18.5 11v18M21.5 11v18M18.5 16h3M18.5 21h3M18.5 26h3"/><path d="M20 29C14 29 11 32 11 36.5 11 39.5 13 40.5 13 42 13 43.5 8 45.5 8 51.5 8 58 13.5 62 20 62 26.5 62 32 58 32 51.5 32 45.5 27 43.5 27 42 27 40.5 29 39.5 29 36.5 29 32 26 29 20 29Z"/><circle cx="20" cy="45" r="4.5"/><path d="M15.5 55h9"/></symbol>
+  <symbol id="d-drum" viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="17" ry="5.5"/><path d="M7 24v13c0 3 7.6 5.5 17 5.5s17-2.5 17-5.5V24"/><path d="M13 29v12M24 30v12.5M35 29v12"/><path d="M11 3l13 17M37 3 24 20"/><circle cx="10" cy="2.5" r="1.8" fill="currentColor"/><circle cx="38" cy="2.5" r="1.8" fill="currentColor"/></symbol>
+  <symbol id="d-flute" viewBox="0 0 48 48"><g transform="rotate(-40 24 24)"><rect x="1" y="20.5" width="46" height="7" rx="3.5"/><path d="M9 20.5v7"/><ellipse cx="5.2" cy="24" rx="1.2" ry="1.8" fill="currentColor"/><g fill="currentColor" stroke="none"><circle cx="17" cy="24" r="1.5"/><circle cx="23" cy="24" r="1.5"/><circle cx="29" cy="24" r="1.5"/><circle cx="35" cy="24" r="1.5"/><circle cx="41" cy="24" r="1.5"/></g></g></symbol>
+  <symbol id="d-tutu" viewBox="0 0 48 64"><circle cx="24" cy="8" r="4"/><path d="M24 12.5V26M24 16c-4 0-8-3-9-8M24 16c4 0 8-3 9-8M11 30l3.25-3 3.25 3 3.25-3 3.25 3 3.25-3 3.25 3 3.25-3 3.25 3M12.5 27.5c4-2 19-2 23 0M22 30l-1 13 1 13M26 30l1 13-1 13M21 57.5h2M25 57.5h2"/></symbol>
+  <symbol id="d-dancer" viewBox="0 0 48 64"><circle cx="27" cy="8" r="4.2"/><path d="M26 13.5c-1.5 6-2 11-1 18M26 17c-5 0-10-3-13-9M26 17c4 2 9 2 14-1M25 31.5c-3 7-6 13-6 22l-4 1M25 31.5c5 3 10 3 15-1"/></symbol>
+  <symbol id="d-mask" viewBox="0 0 48 48"><path d="M8 8c9.5 3.4 22.5 3.4 32 0v14a16 16 0 0 1-32 0Z"/><path d="M15 18.5h5M28 18.5h5M17.5 28c3.7 3 9.3 3 13 0"/></symbol>
+  <symbol id="d-note" viewBox="0 0 32 48"><ellipse cx="11" cy="38" rx="6.5" ry="4.6" transform="rotate(-20 11 38)" fill="currentColor"/><path d="M17 37V5c1 7 11 9 9 19"/></symbol>
+  <symbol id="d-notes" viewBox="0 0 48 48"><ellipse cx="11" cy="38" rx="6" ry="4.3" transform="rotate(-20 11 38)" fill="currentColor"/><ellipse cx="35" cy="33" rx="6" ry="4.3" transform="rotate(-20 35 33)" fill="currentColor"/><path d="M16.6 37V10M40.6 32V5"/><path d="M16.6 10 40.6 5" stroke-width="5"/></symbol>
+  <symbol id="d-clef" viewBox="0 0 32 64"><path d="M11 52C13 56 18 56 18 50L16 8C16 3 22 3 21 9 20 15 7 22 7 33 7 40 12 44 17 44 22 44 25 41 25 37 25 33 22 30 18 30 14 30 12 33 12.5 36 13 38.5 15 39.5 17 39.5"/><circle cx="11" cy="51.5" r="2.6" fill="currentColor"/></symbol>
+  <symbol id="d-staff" viewBox="0 0 560 120"><path d="M0 30C180 16 380 44 560 30M0 40C180 26 380 54 560 40M0 50C180 36 380 64 560 50M0 60C180 46 380 74 560 60M0 70C180 56 380 84 560 70" stroke-width="1.4"/><use href="#d-clef" x="4" y="12" width="40" height="80"/><g fill="currentColor" stroke="none"><ellipse cx="90" cy="46" rx="6.5" ry="4.6" transform="rotate(-20 90 46)"/><ellipse cx="160" cy="41" rx="6.5" ry="4.6" transform="rotate(-20 160 41)"/><ellipse cx="250" cy="59" rx="6.5" ry="4.6" transform="rotate(-20 250 59)"/><ellipse cx="300" cy="55" rx="6.5" ry="4.6" transform="rotate(-20 300 55)"/><ellipse cx="400" cy="44" rx="6.5" ry="4.6" transform="rotate(-20 400 44)"/><ellipse cx="490" cy="58" rx="6.5" ry="4.6" transform="rotate(-20 490 58)"/></g><path d="M96 45V15M166 40V12c1 6 9 8 7 17M256 58V26M306 54V22M394 45v30M496 57V27c1 6 9 8 7 17"/><path d="M256 26 306 22" stroke-width="5"/></symbol>
+</svg>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="./" class="logo"><img src="/img/x/logo.png" alt=""><span class="logo-t"><span class="brand-short">ROYAL</span><span class="brand" data-uz="ROYAL MUSIC SCHOOL —" data-ru="ROYAL MUSIC SCHOOL —">ROYAL MUSIC SCHOOL —</span><span data-uz="VAKANSIYALAR" data-ru="ВАКАНСИИ">VAKANSIYALAR</span></span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#yonalishlar" data-uz="Yo'nalishlar" data-ru="Направления">Yo'nalishlar</a></li>
+      <li><a href="#missiya" data-uz="Missiya" data-ru="Миссия">Missiya</a></li>
+      <li><a href="#talablar" data-uz="Talablar" data-ru="Требования">Talablar</a></li>
+      <li><a href="#qabul" data-uz="Qabul tartibi" data-ru="Как проходит отбор">Qabul tartibi</a></li>
+      <li><a href="#contacts" data-uz="Kontaktlar" data-ru="Контакты">Kontaktlar</a></li>
+      <li class="m-only m-theme"><button type="button" class="m-theme-btn" onclick="toggleTheme()"><span data-uz="Yorug' / qorong'i rejim" data-ru="Светлая / тёмная тема">Yorug' / qorong'i rejim</span></button></li>
+      <li class="m-only"><a href="#ariza" class="btn btn-primary" data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Til" data-aria-uz="Til" data-aria-ru="Язык">
+        <button type="button" id="langUz" class="active" onclick="setLang('uz')">UZ</button>
+        <button type="button" id="langRu" onclick="setLang('ru')">RU</button>
+      </div>
+      <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Yorug' / qorong'i rejim" data-aria-uz="Yorug' / qorong'i rejim" data-aria-ru="Светлая / тёмная тема">☀️</button>
+      <a href="#ariza" class="btn btn-primary nav-cta" data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</a>
+      <button type="button" class="burger" aria-label="Menyu" data-aria-uz="Menyu" data-aria-ru="Меню" aria-expanded="false" aria-controls="navLinks" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+  <div class="hero-grid panel">
+    <div class="hero-notes" aria-hidden="true"><svg class="dk n1"><use href="#d-notes"/></svg><svg class="dk n2"><use href="#d-note"/></svg><svg class="dk n3"><use href="#d-clef"/></svg></div>
+    <div>
+      <div class="crumbs" role="navigation" aria-label="Sahifa yo'li" data-aria-uz="Sahifa yo'li" data-aria-ru="Путь по сайту"><a href="./" data-uz="Bosh sahifa" data-ru="Главная">Bosh sahifa</a><span aria-hidden="true">›</span><span aria-current="page" data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</span></div>
+      <h1><span data-uz="ROYAL jamoasiga" data-ru="Станьте частью">ROYAL jamoasiga</span> <em data-uz="qo'shiling" data-ru="команды ROYAL">qo'shiling</em></h1>
+      <p class="hero-desc" data-uz="Andijondagi ROYAL MUSIC SCHOOL jamoasiga musiqa, raqs va aktyorlik mahorati o'qituvchilarini taklif qilamiz. Yo'nalishingizni tanlang, tajribangiz haqida yozing — ariza bir necha daqiqada yuboriladi." data-ru="ROYAL MUSIC SCHOOL в Андижане приглашает в команду преподавателей музыки, танцев и актёрского мастерства. Выберите направление, расскажите о своём опыте — заявка займёт пару минут.">Andijondagi ROYAL MUSIC SCHOOL jamoasiga musiqa, raqs va aktyorlik mahorati o'qituvchilarini taklif qilamiz. Yo'nalishingizni tanlang, tajribangiz haqida yozing — ariza bir necha daqiqada yuboriladi.</p>
+      <div class="hero-cta" id="heroCta">
+        <a href="#ariza" class="btn btn-primary"><span data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</span><svg><use href="#i-arrow"/></svg></a>
+        <a href="#yonalishlar" class="btn btn-line"><span data-uz="Yo'nalishlarni ko'rish" data-ru="Смотреть направления">Yo'nalishlarni ko'rish</span></a>
+      </div>
+      <p class="hero-note"><span data-uz="Savolingiz bo'lsa:" data-ru="Есть вопросы?">Savolingiz bo'lsa:</span><a class="call-link" href="tel:+998772604040">+998 77 260 40 40</a></p>
+    </div>
+
+    <!-- HERO VISUAL: yo'nalish tanlagich. Har yo'nalish — bitta nota (pentatonika), tanlanganlari "jamoa akkordi" bo'lib chalinadi.
+         Tanlov kartalar va ariza formasi bilan bir xil (bitta holat). -->
+    <div class="mock">
+      <svg class="blob b1" aria-hidden="true"><use href="#i-blob1"/></svg>
+      <svg class="blob b2" aria-hidden="true"><use href="#i-blob2"/></svg>
+      <div class="kb-card">
+        <div class="kb-head"><b data-uz="Yo'nalishingizni tanlang" data-ru="Выберите направление">Yo'nalishingizni tanlang</b><small data-uz="Bir nechtasini ham tanlash mumkin" data-ru="Можно выбрать несколько">Bir nechtasini ham tanlash mumkin</small></div>
+        <div class="pick" id="pick" role="group" aria-label="Yo'nalishlar" data-aria-uz="Yo'nalishlar" data-aria-ru="Направления">
+          <button type="button" data-d="vokal" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-mic"/></svg><span data-uz="Vokal" data-ru="Вокал">Vokal</span></button>
+          <button type="button" data-d="fortepiano" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-piano"/></svg><span data-uz="Fortepiano" data-ru="Фортепиано">Fortepiano</span></button>
+          <button type="button" data-d="skripka" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-violin"/></svg><span data-uz="Skripka" data-ru="Скрипка">Skripka</span></button>
+          <button type="button" data-d="gitara" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-guitar"/></svg><span data-uz="Gitara" data-ru="Гитара">Gitara</span></button>
+          <button type="button" data-d="baraban" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-drum"/></svg><span data-uz="Baraban" data-ru="Барабаны">Baraban</span></button>
+          <button type="button" data-d="fleyta" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-flute"/></svg><span data-uz="Fleyta" data-ru="Флейта">Fleyta</span></button>
+          <button type="button" data-d="raqs-bolalar" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-tutu"/></svg><span data-uz="Raqs (bolalar)" data-ru="Танцы (дети)">Raqs (bolalar)</span></button>
+          <button type="button" data-d="raqs-kattalar" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-dancer"/></svg><span data-uz="Raqs (kattalar)" data-ru="Танцы (взрослые)">Raqs (kattalar)</span></button>
+          <button type="button" data-d="aktyorlik" aria-pressed="false"><svg class="dk" aria-hidden="true"><use href="#d-mask"/></svg><span data-uz="Aktyorlik" data-ru="Актёрское мастерство">Aktyorlik</span></button>
+        </div>
+        <p class="kb-hint" data-uz="Har bir yo'nalish — jamoa akkordidagi bitta nota: bosing va eshiting. Tanlaganingiz arizaga o'zi tushadi." data-ru="Каждое направление — нота в аккорде команды: нажмите и послушайте. Выбор сам попадёт в анкету.">Har bir yo'nalish — jamoa akkordidagi bitta nota: bosing va eshiting. Tanlaganingiz arizaga o'zi tushadi.</p>
+        <a href="#ariza" class="btn btn-primary pick-go"><span data-uz="Tanlanganlar bilan ariza" data-ru="Заявка с выбранными">Tanlanganlar bilan ariza</span><svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="note-card" aria-live="polite">
+        <span class="nc-label" data-uz="Jamoa akkordi" data-ru="Аккорд команды">Jamoa akkordi</span>
+        <div class="nc-note"><span id="ncNote">—</span></div>
+        <div class="nc-foot" style="margin-top:14px"><span id="ncFoot" data-uz="Yo'nalish tanlang" data-ru="Выберите направление">Yo'nalish tanlang</span><span>♪ ROYAL</span></div>
+      </div>
+      <div class="stamp hand" aria-hidden="true" data-uz="Sizni kutamiz!" data-ru="Ждём вас!">Sizni kutamiz!</div>
+    </div>
+  </div>
+  <div class="trust-card">
+    <div class="trust-item"><span class="bubble b-terra"><svg><use href="#i-pin"/></svg></span><div><b data-uz="XOLIS savdo markazi" data-ru="ТЦ XOLIS">XOLIS savdo markazi</b><span data-uz="Andijon, 3-qavat" data-ru="Андижан, 3 этаж">Andijon, 3-qavat</span></div></div>
+    <div class="trust-item"><span class="bubble b-sage"><svg><use href="#i-clock"/></svg></span><div><b data-uz="Du–Sha 09:00–21:00" data-ru="Пн–Сб 09:00–21:00">Du–Sha 09:00–21:00</b><span data-uz="Maktab ish vaqti" data-ru="Часы работы школы">Maktab ish vaqti</span></div></div>
+    <div class="trust-item"><span class="bubble b-peach"><svg><use href="#i-music"/></svg></span><div><b data-uz="8 yo'nalish" data-ru="8 направлений">8 yo'nalish</b><span data-uz="Musiqa, raqs, aktyorlik" data-ru="Музыка, танцы, актёрское мастерство">Musiqa, raqs, aktyorlik</span></div></div>
+    <div class="trust-item"><span class="bubble b-navy"><svg><use href="#i-mic"/></svg></span><div><b data-uz="Mini-konsertlar" data-ru="Мини-концерты">Mini-konsertlar</b><span data-uz="Oylik va kvartal" data-ru="Ежемесячные и квартальные">Oylik va kvartal</span></div></div>
+  </div>
+  </div>
+</header>
+
+<!-- MISSIYA: matn — asoschining maqsadi (egasi 2026-11-07 da bergan, README "Kontaktlar" → Asoschi; deploy-site.py FOUNDER). RU — tarjima.
+     Egasi 2026-11-13 da missiya sifatida tasdiqladi ("Ha, qolsin"). -->
+<section id="missiya" style="padding-top:0">
+  <div class="wrap">
+    <div class="card c-peach mission">
+      <svg class="dk m-deco" aria-hidden="true"><use href="#d-clef"/></svg>
+      <div>
+        <span class="label" data-uz="Missiya" data-ru="Миссия">Missiya</span>
+        <h2><span data-uz="Biz nima uchun" data-ru="Ради чего">Biz nima uchun</span> <em class="u" data-uz="ishlaymiz" data-ru="мы работаем">ishlaymiz</em></h2>
+        <p class="lead" data-uz="Jamoamizga shu maqsadni baham ko'radigan, o'z ishini sevadigan o'qituvchilarni taklif qilamiz." data-ru="Мы приглашаем в команду преподавателей, которые разделяют эту цель и любят своё дело.">Jamoamizga shu maqsadni baham ko'radigan, o'z ishini sevadigan o'qituvchilarni taklif qilamiz.</p>
+      </div>
+      <figure class="m-fig">
+        <blockquote class="m-quote" data-uz="Zamonaviy va sifatli musiqa ta'limini rivojlantirish, bolalar va kattalarning ijodiy salohiyatini ochish, professional san'at ta'limi uchun keng imkoniyatlar yaratish." data-ru="Развивать современное и качественное музыкальное образование, раскрывать творческий потенциал детей и взрослых, создавать широкие возможности для профессионального художественного образования.">Zamonaviy va sifatli musiqa ta'limini rivojlantirish, bolalar va kattalarning ijodiy salohiyatini ochish, professional san'at ta'limi uchun keng imkoniyatlar yaratish.</blockquote>
+        <figcaption class="m-who"><span class="bubble b-terra"><svg><use href="#i-user"/></svg></span><span><b>Husniddin Orifjonov</b><span class="m-role" data-uz="ROYAL MUSIC SCHOOL asoschisi, professional vokal ijrochisi va pedagog" data-ru="Основатель ROYAL MUSIC SCHOOL, профессиональный вокалист и педагог">ROYAL MUSIC SCHOOL asoschisi, professional vokal ijrochisi va pedagog</span></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- NEGA ROYAL: faqat maktab haqidagi faktlar (dars formatlari, raqs guruhlari, mini-konsertlar — lendinglardagidek) -->
+<section id="nega" style="padding-top:0">
+  <div class="wrap">
+    <div class="card why">
+      <svg class="dk why-deco" aria-hidden="true"><use href="#d-violin"/></svg>
+      <div class="why-top">
+        <div>
+          <span class="label" data-uz="Nega ROYAL" data-ru="Почему ROYAL">Nega ROYAL</span>
+          <h2><span data-uz="Biz bilan" data-ru="Преподавайте">Biz bilan</span> <em class="u" data-uz="dars bering" data-ru="вместе с нами">dars bering</em></h2>
+        </div>
+        <p class="lead" data-uz="ROYAL MUSIC SCHOOL — Andijondagi musiqa va raqs maktabi. 5 yoshli bolalardan kattalargacha o'qitamiz: musiqa — yakka tartibda, raqs — guruhlarda, natija esa sahnada ko'rinadi." data-ru="ROYAL MUSIC SCHOOL — школа музыки и танцев в Андижане. Учим детей с 5 лет и взрослых: музыку — индивидуально, танцы — в группах, а результат видно на сцене.">ROYAL MUSIC SCHOOL — Andijondagi musiqa va raqs maktabi. 5 yoshli bolalardan kattalargacha o'qitamiz: musiqa — yakka tartibda, raqs — guruhlarda, natija esa sahnada ko'rinadi.</p>
+      </div>
+      <div class="feats">
+        <div class="feat"><span class="bubble b-terra"><svg><use href="#i-user"/></svg></span><h3 data-uz="Yakka darslar" data-ru="Индивидуальные уроки">Yakka darslar</h3><p data-uz="Musiqa darslari individual: Start (40 daqiqa) yoki Pro (60 daqiqa), haftasiga 2 marta. Har bir o'quvchi bilan alohida ishlaysiz." data-ru="Музыкальные уроки индивидуальные: Start (40 минут) или Pro (60 минут), 2 раза в неделю. Вы работаете с каждым учеником отдельно.">Musiqa darslari individual: Start (40 daqiqa) yoki Pro (60 daqiqa), haftasiga 2 marta. Har bir o'quvchi bilan alohida ishlaysiz.</p></div>
+        <div class="feat"><span class="bubble b-sage"><svg><use href="#i-users"/></svg></span><h3 data-uz="Raqs — guruhlarda" data-ru="Танцы — в группах">Raqs — guruhlarda</h3><p data-uz="Raqs darslari guruhda: haftada 3 marta, 90 daqiqadan. Bolalar guruhlari 5 yoshdan, kattalar uchun 7 yo'nalish." data-ru="Танцы проходят в группах: 3 раза в неделю по 90 минут. Детские группы — с 5 лет, для взрослых — 7 направлений.">Raqs darslari guruhda: haftada 3 marta, 90 daqiqadan. Bolalar guruhlari 5 yoshdan, kattalar uchun 7 yo'nalish.</p></div>
+        <div class="feat"><span class="bubble b-peach"><svg><use href="#i-star"/></svg></span><h3 data-uz="Sahna" data-ru="Сцена">Sahna</h3><p data-uz="O'quvchilar oylik va kvartal mini-konsertlarda chiqishadi — mehnatingiz natijasi sahnada ko'rinadi." data-ru="Ученики выступают на ежемесячных и квартальных мини-концертах — результат вашей работы виден на сцене.">O'quvchilar oylik va kvartal mini-konsertlarda chiqishadi — mehnatingiz natijasi sahnada ko'rinadi.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YO'NALISHLAR: har karta id si = langar (vakansiya.html#gitara). Formatlar — lendinglar va README "Narxlar" dan. -->
+<section id="yonalishlar" style="padding-top:0">
+  <div class="wrap">
+    <div class="center has-staff">
+      <svg class="dk sec-staff" aria-hidden="true"><use href="#d-staff"/></svg>
+      <span class="label" data-uz="Yo'nalishlar" data-ru="Направления">Yo'nalishlar</span>
+      <h2><span data-uz="Qaysi yo'nalishda" data-ru="В каком направлении">Qaysi yo'nalishda</span> <em class="u" data-uz="dars berasiz?" data-ru="вы преподаёте?">dars berasiz?</em></h2>
+      <p class="lead" data-uz="«Tanlash» tugmasi yo'nalishni arizaga qo'shadi. Bir nechtasini tanlashingiz mumkin." data-ru="Кнопка «Выбрать» добавит направление в анкету. Можно выбрать несколько.">«Tanlash» tugmasi yo'nalishni arizaga qo'shadi. Bir nechtasini tanlashingiz mumkin.</p>
+    </div>
+    <div class="vacs">
+      <article class="vac" id="vokal">
+        <span class="v-ic b-terra"><svg class="dk" aria-hidden="true"><use href="#d-mic"/></svg></span>
+        <h3 data-uz="Vokal o'qituvchisi" data-ru="Преподаватель вокала">Vokal o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Yakka darslar, haftasiga 2 marta: Start (40 daqiqa), Pro (60 daqiqa) va Abituriyent — kirish imtihoniga tayyorgarlik." data-ru="Индивидуальные уроки 2 раза в неделю: Start (40 минут), Pro (60 минут) и Abituriyent — подготовка к вступительным экзаменам.">Yakka darslar, haftasiga 2 marta: Start (40 daqiqa), Pro (60 daqiqa) va Abituriyent — kirish imtihoniga tayyorgarlik.</p>
+        <div class="v-foot"><a class="v-link" href="royal-vokal.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="vokal" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="fortepiano">
+        <span class="v-ic b-sage"><svg class="dk" aria-hidden="true"><use href="#d-piano"/></svg></span>
+        <h3 data-uz="Fortepiano o'qituvchisi" data-ru="Преподаватель фортепиано">Fortepiano o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Yakka darslar, haftasiga 2 marta: Start (40 daqiqa), Pro (60 daqiqa) va Abituriyent — kirish imtihoniga tayyorgarlik." data-ru="Индивидуальные уроки 2 раза в неделю: Start (40 минут), Pro (60 минут) и Abituriyent — подготовка к вступительным экзаменам.">Yakka darslar, haftasiga 2 marta: Start (40 daqiqa), Pro (60 daqiqa) va Abituriyent — kirish imtihoniga tayyorgarlik.</p>
+        <div class="v-foot"><a class="v-link" href="fortepiano.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="fortepiano" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="skripka">
+        <span class="v-ic b-peach"><svg class="dk" aria-hidden="true"><use href="#d-violin"/></svg></span>
+        <h3 data-uz="Skripka o'qituvchisi" data-ru="Преподаватель скрипки">Skripka o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa)." data-ru="Индивидуальные уроки 2 раза в неделю: Start (40 минут) или Pro (60 минут).">Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa).</p>
+        <div class="v-foot"><a class="v-link" href="skripka.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="skripka" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="gitara">
+        <span class="v-ic b-navy"><svg class="dk" aria-hidden="true"><use href="#d-guitar"/></svg></span>
+        <h3 data-uz="Gitara o'qituvchisi" data-ru="Преподаватель гитары">Gitara o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa)." data-ru="Индивидуальные уроки 2 раза в неделю: Start (40 минут) или Pro (60 минут).">Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa).</p>
+        <div class="v-foot"><a class="v-link" href="gitara.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="gitara" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="baraban">
+        <span class="v-ic b-terra"><svg class="dk" aria-hidden="true"><use href="#d-drum"/></svg></span>
+        <h3 data-uz="Baraban o'qituvchisi" data-ru="Преподаватель по барабанам">Baraban o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa)." data-ru="Индивидуальные уроки 2 раза в неделю: Start (40 минут) или Pro (60 минут).">Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa).</p>
+        <div class="v-foot"><a class="v-link" href="baraban.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="baraban" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="fleyta">
+        <span class="v-ic b-sage"><svg class="dk" aria-hidden="true"><use href="#d-flute"/></svg></span>
+        <h3 data-uz="Fleyta o'qituvchisi" data-ru="Преподаватель флейты">Fleyta o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa)." data-ru="Индивидуальные уроки 2 раза в неделю: Start (40 минут) или Pro (60 минут).">Yakka darslar, haftasiga 2 marta: Start (40 daqiqa) yoki Pro (60 daqiqa).</p>
+        <div class="v-foot"><button type="button" class="btn btn-line v-pick" data-d="fleyta" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="raqs-bolalar">
+        <span class="v-ic b-peach"><svg class="dk" aria-hidden="true"><use href="#d-tutu"/></svg></span>
+        <h3 data-uz="Bolalar raqsi o'qituvchisi" data-ru="Хореограф детских групп">Bolalar raqsi o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Guruhda, 5 yoshdan, haftada 3 marta 90 daqiqadan. Body ballet, mumtoz, xalq sahna, o'zbek milliy, zamonaviy raqs, jahon raqslari, lezginka." data-ru="В группе, с 5 лет, 3 раза в неделю по 90 минут. Боди-балет, классический, народно-сценический, узбекский национальный, современный танец, танцы народов мира, лезгинка.">Guruhda, 5 yoshdan, haftada 3 marta 90 daqiqadan. Body ballet, mumtoz, xalq sahna, o'zbek milliy, zamonaviy raqs, jahon raqslari, lezginka.</p>
+        <div class="v-foot"><a class="v-link" href="raqs-bolalar.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="raqs-bolalar" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="raqs-kattalar">
+        <span class="v-ic b-navy"><svg class="dk" aria-hidden="true"><use href="#d-dancer"/></svg></span>
+        <h3 data-uz="Kattalar raqsi o'qituvchisi" data-ru="Хореограф для взрослых">Kattalar raqsi o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Guruhda, haftada 3 marta 90 daqiqadan. Milliy, arabcha, kavkazcha, K-POP, hip-hop, sheyping, zumba." data-ru="В группе, 3 раза в неделю по 90 минут. Национальный, арабский, кавказский танец, K-POP, хип-хоп, шейпинг, зумба.">Guruhda, haftada 3 marta 90 daqiqadan. Milliy, arabcha, kavkazcha, K-POP, hip-hop, sheyping, zumba.</p>
+        <div class="v-foot"><a class="v-link" href="raqs-kattalar.html" data-uz="Kurs sahifasi" data-ru="Страница курса">Kurs sahifasi</a><button type="button" class="btn btn-line v-pick" data-d="raqs-kattalar" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+      <article class="vac" id="aktyorlik">
+        <span class="v-ic b-terra"><svg class="dk" aria-hidden="true"><use href="#d-mask"/></svg></span>
+        <h3 data-uz="Aktyorlik mahorati o'qituvchisi" data-ru="Преподаватель актёрского мастерства">Aktyorlik mahorati o'qituvchisi</h3>
+        <p class="v-meta" data-uz="Dars formati va jadvali suhbatda kelishiladi." data-ru="Формат и расписание занятий обсудим на собеседовании.">Dars formati va jadvali suhbatda kelishiladi.</p>
+        <div class="v-foot"><button type="button" class="btn btn-line v-pick" data-d="aktyorlik" aria-pressed="false"><span data-uz="Tanlash" data-ru="Выбрать">Tanlash</span></button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TALABLAR VA SHAROIT: talablar, jadval va maosh — "suhbatda" (egasi 2026-11-13: "\"Suhbatda\" deb yoz"). Manzil va ish vaqti — README. -->
+<section id="talablar" style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="label" data-uz="Talablar va sharoit" data-ru="Требования и условия">Talablar va sharoit</span>
+      <h2><span data-uz="Kimni" data-ru="Кого мы">Kimni</span> <em class="u" data-uz="izlaymiz" data-ru="ищем">izlaymiz</em></h2>
+    </div>
+    <div class="terms">
+      <div class="card tint term">
+        <h3><span class="bubble b-terra"><svg><use href="#i-check"/></svg></span><span data-uz="Talablar" data-ru="Требования">Talablar</span></h3>
+        <ul class="ticks">
+          <li><svg><use href="#i-check"/></svg><span class="t-txt" data-uz="Tajriba va ma'lumot bo'yicha talablar suhbatda aniqlanadi." data-ru="Требования к опыту и образованию обсудим на собеседовании.">Tajriba va ma'lumot bo'yicha talablar suhbatda aniqlanadi.</span></li>
+          <li><svg><use href="#i-check"/></svg><span class="t-txt" data-uz="Ijro yoki dars videongiz bo'lsa, arizaga havolasini qo'shing. Bu majburiy emas." data-ru="Если есть видео вашего выступления или урока, добавьте ссылку в анкету. Это не обязательно.">Ijro yoki dars videongiz bo'lsa, arizaga havolasini qo'shing. Bu majburiy emas.</span></li>
+        </ul>
+      </div>
+      <div class="card c-sage term">
+        <h3><span class="bubble b-sage" style="background:var(--surface)"><svg><use href="#i-star"/></svg></span><span data-uz="Sharoitlar" data-ru="Условия">Sharoitlar</span></h3>
+        <ul class="ticks">
+          <li><svg><use href="#i-pin"/></svg><span class="t-txt" data-uz="Ish joyi: Andijon, Bobur shox ko'chasi, 28-uy — XOLIS savdo markazi, 3-qavat." data-ru="Место работы: Андижан, ул. Бобур шох, 28 — ТЦ XOLIS, 3 этаж.">Ish joyi: Andijon, Bobur shox ko'chasi, 28-uy — XOLIS savdo markazi, 3-qavat.</span></li>
+          <li><svg><use href="#i-clock"/></svg><span class="t-txt" data-uz="Maktab ish vaqti: Du–Sha 09:00–21:00." data-ru="Часы работы школы: Пн–Сб 09:00–21:00.">Maktab ish vaqti: Du–Sha 09:00–21:00.</span></li>
+          <li><svg><use href="#i-check"/></svg><span class="t-txt" data-uz="Ish jadvali (kunlar va soatlar) suhbatda kelishiladi." data-ru="График (дни и часы) обсудим на собеседовании.">Ish jadvali (kunlar va soatlar) suhbatda kelishiladi.</span></li>
+          <li><svg><use href="#i-check"/></svg><span class="t-txt" data-uz="Maosh suhbatda kelishiladi." data-ru="Оплата — по договорённости на собеседовании.">Maosh suhbatda kelishiladi.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QABUL TARTIBI (navy band): 1–2-qadam — forma qanday ishlashi, 3–4-qadam — suhbat va kelishuv (egasi 2026-11-13: "suhbatda") -->
+<section id="qabul" class="band">
+  <svg class="dk band-staff" aria-hidden="true"><use href="#d-staff"/></svg>
+  <div class="wrap">
+    <span class="label" data-uz="Qabul tartibi" data-ru="Как проходит отбор">Qabul tartibi</span>
+    <h2><span data-uz="Ishga qabul" data-ru="Как мы">Ishga qabul</span> <em class="u" data-uz="qanday o'tadi" data-ru="принимаем на работу">qanday o'tadi</em></h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><h3 data-uz="Ariza" data-ru="Заявка">Ariza</h3><p data-uz="Formada yo'nalish, tajriba va, bo'lsa, video havolasini yuborasiz." data-ru="В анкете укажите направление, опыт и, если есть, ссылку на видео.">Formada yo'nalish, tajriba va, bo'lsa, video havolasini yuborasiz.</p></div>
+      <div class="step"><span class="n">2</span><h3 data-uz="Ko'rib chiqish" data-ru="Рассмотрение">Ko'rib chiqish</h3><p data-uz="Ariza darhol maktab rahbariyatiga yetadi. Mos kelsangiz, ko'rsatgan raqamingizga qo'ng'iroq qilamiz." data-ru="Заявка сразу попадает к руководству школы. Если вы нам подходите, мы позвоним по указанному номеру.">Ariza darhol maktab rahbariyatiga yetadi. Mos kelsangiz, ko'rsatgan raqamingizga qo'ng'iroq qilamiz.</p></div>
+      <div class="step"><span class="n">3</span><h3 data-uz="Suhbat" data-ru="Собеседование">Suhbat</h3><p data-uz="Vaqtini telefonda kelishamiz. Suhbatda talablar, ish jadvali va maoshni gaplashamiz." data-ru="Время согласуем по телефону. На собеседовании обсудим требования, график и оплату.">Vaqtini telefonda kelishamiz. Suhbatda talablar, ish jadvali va maoshni gaplashamiz.</p></div>
+      <div class="step"><span class="n">4</span><h3 data-uz="Ishni boshlash" data-ru="Начало работы">Ishni boshlash</h3><p data-uz="Kelishsak, ish boshlash kuni va dars jadvalini birga belgilaymiz." data-ru="Если договоримся, вместе определим дату выхода и расписание уроков.">Kelishsak, ish boshlash kuni va dars jadvalini birga belgilaymiz.</p></div>
+    </div>
+    <div class="band-go">
+      <a href="#ariza" class="btn btn-primary"><span data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</span><svg><use href="#i-arrow"/></svg></a>
+      <p data-uz="Savollar bo'lsa, qo'ng'iroq qiling: +998 77 260 40 40." data-ru="Если есть вопросы, звоните: +998 77 260 40 40.">Savollar bo'lsa, qo'ng'iroq qiling: +998 77 260 40 40.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARIZA + KONTAKTLAR. Forma: type:'vakansiya' → Apps Script → faqat Telegram (CRM'ga emas). -->
+<section id="ariza" class="cta" style="padding-top:72px">
+  <div class="wrap">
+    <div class="cta-in apply" id="contacts">
+      <svg class="dk cta-deco" aria-hidden="true"><use href="#d-violin"/></svg>
+      <div>
+        <span class="label" data-uz="Ariza" data-ru="Анкета">Ariza</span>
+        <h2><span data-uz="Ariza" data-ru="Оставьте">Ariza</span> <em class="u" data-uz="qoldiring" data-ru="заявку">qoldiring</em></h2>
+        <p data-uz="Formani to'ldiring — arizangiz to'g'ridan-to'g'ri maktab rahbariyatiga boradi. Savollaringiz bo'lsa, qo'ng'iroq qiling yoki Instagram'da yozing." data-ru="Заполните анкету — она попадёт напрямую к руководству школы. Если есть вопросы, позвоните или напишите в Instagram.">Formani to'ldiring — arizangiz to'g'ridan-to'g'ri maktab rahbariyatiga boradi. Savollaringiz bo'lsa, qo'ng'iroq qiling yoki Instagram'da yozing.</p>
+        <div class="cta-contacts">
+          <a href="tel:+998772604040">+998 77 260 40 40</a>
+          <a href="https://instagram.com/royal.musicschool.uz" target="_blank" rel="noopener">@royal.musicschool.uz</a>
+          <span data-uz="Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy" data-ru="г. Андижан, МСГ Узбегим, ул. Бобур шох, 28">Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy</span>
+          <span data-uz="Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)" data-ru="Ориентир: ТЦ XOLIS, 3-й этаж (со стороны Mobil Olami)">Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)</span>
+          <span data-uz="Du–Sha 09:00–21:00" data-ru="Пн–Сб 09:00–21:00">Du–Sha 09:00–21:00</span>
+        </div>
+      </div>
+      <form class="lead" id="jobForm" novalidate>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="f-row">
+          <label for="jName"><span data-uz="Ism va familiya" data-ru="Имя и фамилия">Ism va familiya</span>
+            <input id="jName" name="name" type="text" autocomplete="name" required maxlength="60" data-ph-uz="Masalan, Dilnoza Karimova" data-ph-ru="Например, Дильноза Каримова" placeholder="Masalan, Dilnoza Karimova">
+          </label>
+          <label for="jPhone"><span data-uz="Telefon raqamingiz" data-ru="Номер телефона">Telefon raqamingiz</span>
+            <span class="phone-wrap">
+              <span class="phone-pre" id="jPhonePre">+998</span>
+              <input id="jPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="90 123 45 67" maxlength="12" aria-describedby="jPhonePre">
+            </span>
+          </label>
+        </div>
+        <fieldset class="dirs" id="jDirs">
+          <legend><span data-uz="Yo'nalish" data-ru="Направление">Yo'nalish</span> <span class="opt" data-uz="(bir nechtasini tanlash mumkin)" data-ru="(можно несколько)">(bir nechtasini tanlash mumkin)</span></legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="dir" value="vokal"><span data-uz="Vokal" data-ru="Вокал">Vokal</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="fortepiano"><span data-uz="Fortepiano" data-ru="Фортепиано">Fortepiano</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="skripka"><span data-uz="Skripka" data-ru="Скрипка">Skripka</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="gitara"><span data-uz="Gitara" data-ru="Гитара">Gitara</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="baraban"><span data-uz="Baraban" data-ru="Барабаны">Baraban</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="fleyta"><span data-uz="Fleyta" data-ru="Флейта">Fleyta</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="raqs-bolalar"><span data-uz="Bolalar raqsi" data-ru="Детские танцы">Bolalar raqsi</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="raqs-kattalar"><span data-uz="Kattalar raqsi" data-ru="Танцы для взрослых">Kattalar raqsi</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="aktyorlik"><span data-uz="Aktyorlik mahorati" data-ru="Актёрское мастерство">Aktyorlik mahorati</span></label>
+          </div>
+        </fieldset>
+        <label for="jExp"><span data-uz="Dars berish tajribangiz" data-ru="Опыт преподавания">Dars berish tajribangiz</span>
+          <select id="jExp" name="exp" required>
+            <option value="" data-uz="Tanlang" data-ru="Выберите">Tanlang</option>
+            <option value="Tajriba yo'q" data-uz="Tajribam yo'q (talaba yoki bitiruvchi)" data-ru="Нет опыта (студент или выпускник)">Tajribam yo'q (talaba yoki bitiruvchi)</option>
+            <option value="1 yilgacha" data-uz="1 yilgacha" data-ru="До 1 года">1 yilgacha</option>
+            <option value="1–3 yil" data-uz="1–3 yil" data-ru="1–3 года">1–3 yil</option>
+            <option value="3–5 yil" data-uz="3–5 yil" data-ru="3–5 лет">3–5 yil</option>
+            <option value="5 yildan ko'p" data-uz="5 yildan ko'p" data-ru="Более 5 лет">5 yildan ko'p</option>
+          </select>
+        </label>
+        <label for="jLink"><span><span data-uz="Video yoki portfolio havolasi" data-ru="Ссылка на видео или портфолио">Video yoki portfolio havolasi</span> <span class="opt" data-uz="(ixtiyoriy)" data-ru="(необязательно)">(ixtiyoriy)</span></span>
+          <input id="jLink" name="link" type="text" inputmode="url" autocomplete="url" maxlength="200" data-ph-uz="YouTube, Instagram yoki Telegram havolasi" data-ph-ru="Ссылка на YouTube, Instagram или Telegram" placeholder="YouTube, Instagram yoki Telegram havolasi">
+        </label>
+        <label for="jNote"><span><span data-uz="O'zingiz haqingizda qisqacha" data-ru="Коротко о себе">O'zingiz haqingizda qisqacha</span> <span class="opt" data-uz="(ixtiyoriy)" data-ru="(необязательно)">(ixtiyoriy)</span></span>
+          <textarea id="jNote" name="note" rows="3" maxlength="400" data-ph-uz="Ma'lumotingiz, qayerda dars bergansiz, qaysi kunlari ishlay olasiz" data-ph-ru="Образование, где преподавали, в какие дни можете работать" placeholder="Ma'lumotingiz, qayerda dars bergansiz, qaysi kunlari ishlay olasiz"></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary" id="jBtn"><span data-uz="Ariza yuborish" data-ru="Отправить заявку">Ariza yuborish</span><svg><use href="#i-arrow"/></svg></button>
+        <p class="form-msg" id="jMsg" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="foot-keys" aria-hidden="true" focusable="false">
+    <defs><pattern id="kp" width="140" height="42" patternUnits="userSpaceOnUse">
+      <rect class="kw" width="140" height="42"/>
+      <path class="kl" d="M.75 0v42M20 0v42M40 0v42M60 0v42M80 0v42M100 0v42M120 0v42M0 41.25h140"/>
+      <path class="kb" d="M13 0h14v24a2 2 0 0 1-2 2H15a2 2 0 0 1-2-2zM33 0h14v24a2 2 0 0 1-2 2H35a2 2 0 0 1-2-2zM73 0h14v24a2 2 0 0 1-2 2H75a2 2 0 0 1-2-2zM93 0h14v24a2 2 0 0 1-2 2H95a2 2 0 0 1-2-2zM113 0h14v24a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2z"/>
+    </pattern></defs>
+    <rect width="100%" height="100%" fill="url(#kp)"/>
+  </svg>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="./" class="logo"><img loading="lazy" decoding="async" src="/img/x/logo.png" alt="">ROYAL <span>MUSIC SCHOOL</span></a>
+        <p class="about" data-uz="Andijondagi musiqa maktabi: vokal, fortepiano, skripka, gitara, fleyta, baraban, xoreografiya va aktyorlik mahorati." data-ru="Музыкальная школа в Андижане: вокал, фортепиано, скрипка, гитара, флейта, барабаны, хореография и актёрское мастерство.">Andijondagi musiqa maktabi: vokal, fortepiano, skripka, gitara, fleyta, baraban, xoreografiya va aktyorlik mahorati.</p>
+      </div>
+      <div>
+        <h4 data-uz="Yo'nalishlar" data-ru="Направления">Yo'nalishlar</h4>
+        <ul>
+          <li><a href="royal-vokal.html" data-uz="Vokal" data-ru="Вокал">Vokal</a></li>
+          <li><a href="fortepiano.html" data-uz="Fortepiano" data-ru="Фортепиано">Fortepiano</a></li>
+          <li><a href="gitara.html" data-uz="Gitara" data-ru="Гитара">Gitara</a></li>
+          <li><a href="skripka.html" data-uz="Skripka" data-ru="Скрипка">Skripka</a></li>
+          <li><a href="baraban.html" data-uz="Baraban" data-ru="Барабаны">Baraban</a></li>
+          <li><a href="raqs-bolalar.html" data-uz="Bolalar raqslari" data-ru="Детские танцы">Bolalar raqslari</a></li>
+          <li><a href="raqs-kattalar.html" data-uz="Kattalar raqslari" data-ru="Танцы для взрослых">Kattalar raqslari</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</h4>
+        <ul>
+          <li><a href="#yonalishlar" data-uz="Yo'nalishlar" data-ru="Направления">Yo'nalishlar</a></li>
+          <li><a href="#missiya" data-uz="Missiya" data-ru="Миссия">Missiya</a></li>
+          <li><a href="#talablar" data-uz="Talablar va sharoit" data-ru="Требования и условия">Talablar va sharoit</a></li>
+          <li><a href="#ariza" data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-uz="Kontaktlar" data-ru="Контакты">Kontaktlar</h4>
+        <ul>
+          <li><a href="tel:+998772604040">+998 77 260 40 40</a></li>
+          <li><a href="https://instagram.com/royal.musicschool.uz" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=Royal+Music+School+Andijon+XOLIS+savdo+markazi" target="_blank" rel="noopener" data-uz="Xaritada ochish" data-ru="Открыть на карте">Xaritada ochish</a></li>
+          <li data-uz="Du–Sha 09:00–21:00" data-ru="Пн–Сб 09:00–21:00">Du–Sha 09:00–21:00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 ROYAL MUSIC SCHOOL. <span data-uz="Barcha huquqlar himoyalangan." data-ru="Все права защищены.">Barcha huquqlar himoyalangan.</span></span>
+      <span data-uz="Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy · Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)" data-ru="г. Андижан, МСГ Узбегим, ул. Бобур шох, 28 · Ориентир: ТЦ XOLIS, 3-й этаж (со стороны Mobil Olami)">Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy · Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a class="btn btn-line" href="tel:+998772604040"><svg><use href="#i-phone"/></svg><span data-uz="Qo'ng'iroq qilish" data-ru="Позвонить">Qo'ng'iroq qilish</span></a>
+  <a class="btn btn-primary" href="#ariza"><span data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</span></a>
+</div>
+
+<script>
+/* ===== LANG ===== */
+var currentLang = 'uz';
+function setLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-uz]').forEach(function(el){
+    var v = el.getAttribute('data-' + lang); if (v !== null) el.textContent = v;
+  });
+  document.querySelectorAll('[data-ph-uz]').forEach(function(el){
+    el.placeholder = el.getAttribute('data-ph-' + lang) || '';
+  });
+  document.querySelectorAll('[data-aria-uz]').forEach(function(el){
+    var v = el.getAttribute('data-aria-' + lang); if (v === null) return;
+    if (el.tagName === 'IMG') el.alt = v; else el.setAttribute('aria-label', v);
+  });
+  document.getElementById('langUz').classList.toggle('active', lang === 'uz');
+  document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+  try { localStorage.setItem('royal-lang', lang); } catch(e){}
+}
+try { var saved = localStorage.getItem('royal-lang'); if (saved === 'ru') setLang('ru'); } catch(e){}
+
+/* ===== THEME ===== */
+function isDarkNow(){
+  var t = document.documentElement.getAttribute('data-theme');
+  if (t) return t === 'dark';
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+function paintThemeBtn(){ document.getElementById('themeBtn').textContent = isDarkNow() ? '🌙' : '☀️'; }
+function toggleTheme(){
+  document.documentElement.setAttribute('data-theme', isDarkNow() ? 'light' : 'dark');
+  paintThemeBtn();
+}
+paintThemeBtn();
+
+/* ===== MENU ===== */
+function toggleMenu(){ var o = document.getElementById('navLinks').classList.toggle('open'); var b = document.querySelector('.burger'); if (b) b.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+document.querySelectorAll('.nav-links a').forEach(function(a){ a.addEventListener('click', function(){ document.getElementById('navLinks').classList.remove('open'); var b = document.querySelector('.burger'); if (b) b.setAttribute('aria-expanded', 'false'); }); });
+
+/* ===== MOBILE ACTION BAR ===== */
+(function(){
+  var bar = document.getElementById('mbar');
+  if (!bar || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    bar.classList.toggle('hide', seen.size > 0);
+  }, { threshold: 0.1 });
+  ['heroCta', 'ariza'].forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+})();
+
+/* ===== YO'NALISHLAR: bitta tanlov holati — hero tanlagichi, kartalar va forma bir-biriga bog'langan ===== */
+var DIRS = {  // f — "jamoa akkordi" notasi (do-pentatonika, Hz); n — nota nomi indeksi
+  'vokal':         { uz:'Vokal',              ru:'Вокал',                f:261.63, n:0 },
+  'fortepiano':    { uz:'Fortepiano',         ru:'Фортепиано',           f:293.66, n:1 },
+  'skripka':       { uz:'Skripka',            ru:'Скрипка',              f:329.63, n:2 },
+  'gitara':        { uz:'Gitara',             ru:'Гитара',               f:392.00, n:3 },
+  'baraban':       { uz:'Baraban',            ru:'Барабаны',             f:440.00, n:4 },
+  'fleyta':        { uz:'Fleyta',             ru:'Флейта',               f:523.25, n:0 },
+  'raqs-bolalar':  { uz:'Bolalar raqsi',      ru:'Детские танцы',        f:587.33, n:1 },
+  'raqs-kattalar': { uz:'Kattalar raqsi',     ru:'Танцы для взрослых',   f:659.25, n:2 },
+  'aktyorlik':     { uz:'Aktyorlik mahorati', ru:'Актёрское мастерство', f:783.99, n:3 }
+};
+var ORDER = Object.keys(DIRS);
+var picked = new Set();
+var NOTE_N = { uz:['Do','Re','Mi','Sol','La'], ru:['До','Ре','Ми','Соль','Ля'] };
+
+function setTxt(el, uz, ru){ el.setAttribute('data-uz', uz); el.setAttribute('data-ru', ru); el.textContent = currentLang === 'ru' ? ru : uz; }
+function ruCount(n){ var a = n % 10, b = n % 100; return n + ' ' + (a === 1 && b !== 11 ? 'направление' : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 'направления' : 'направлений'); }
+
+function renderPicks(){
+  var keys = ORDER.filter(function(k){ return picked.has(k); });
+  document.querySelectorAll('#pick button').forEach(function(b){ b.setAttribute('aria-pressed', picked.has(b.dataset.d) ? 'true' : 'false'); });
+  document.querySelectorAll('.vac').forEach(function(card){
+    var on = picked.has(card.id), b = card.querySelector('.v-pick');
+    card.classList.toggle('on', on);
+    if (b){ b.setAttribute('aria-pressed', on ? 'true' : 'false'); setTxt(b.querySelector('span'), on ? '✓ Tanlandi' : 'Tanlash', on ? '✓ Выбрано' : 'Выбрать'); }
+  });
+  document.querySelectorAll('#jDirs input[name="dir"]').forEach(function(i){ i.checked = picked.has(i.value); });
+  if (keys.length) document.getElementById('jobForm').classList.remove('bad-dirs');
+  // note-card: tanlangan notalar (takrorsiz, past → baland) va yo'nalishlar soni
+  var idx = [], i;
+  keys.forEach(function(k){ if (idx.indexOf(DIRS[k].n) < 0) idx.push(DIRS[k].n); });
+  idx.sort();
+  var nz = idx.map(function(j){ return NOTE_N.uz[j]; }), nr = idx.map(function(j){ return NOTE_N.ru[j]; });
+  var cut = function(a){ return a.length > 3 ? a.slice(0, 3).join(' · ') + ' +' + (a.length - 3) : a.join(' · '); };
+  setTxt(document.getElementById('ncNote'), keys.length ? cut(nz) : '—', keys.length ? cut(nr) : '—');
+  setTxt(document.getElementById('ncFoot'), keys.length ? keys.length + " ta yo'nalish" : "Yo'nalish tanlang", keys.length ? ruCount(keys.length) : 'Выберите направление');
+}
+
+/* "Jamoa akkordi": har yo'nalish — bitta nota; tanlanganda hammasi birga (arpedjio) chalinadi. Web Audio, faqat foydalanuvchi bosganda. */
+var actx = null;
+function tone(f, t, vol){
+  var o = actx.createOscillator(), o2 = actx.createOscillator(), g = actx.createGain(), g2 = actx.createGain();
+  o.type = 'triangle'; o.frequency.value = f; o2.type = 'sine'; o2.frequency.value = f * 2; g2.gain.value = 0.2;
+  o.connect(g); o2.connect(g2); g2.connect(g); g.connect(actx.destination);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.5);
+  o.start(t); o2.start(t); o.stop(t + 1.6); o2.stop(t + 1.6);
+}
+function chord(){
+  try {
+    if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === 'suspended') actx.resume();
+    var keys = ORDER.filter(function(k){ return picked.has(k); }), t0 = actx.currentTime + 0.03, vol = 0.2 / Math.sqrt(Math.max(1, keys.length));
+    keys.forEach(function(k, i){ tone(DIRS[k].f, t0 + i * 0.07, vol); });
+  } catch(e){}
+}
+function toggleDir(k, sound){
+  if (!DIRS[k]) return;
+  if (picked.has(k)) picked.delete(k); else { picked.add(k); if (sound) chord(); }
+  renderPicks();
+}
+document.getElementById('pick').addEventListener('click', function(e){ var b = e.target.closest('button[data-d]'); if (b) toggleDir(b.dataset.d, true); });
+document.querySelectorAll('.v-pick').forEach(function(b){ b.addEventListener('click', function(){ toggleDir(b.dataset.d, false); }); });
+document.querySelectorAll('#jDirs input[name="dir"]').forEach(function(i){
+  i.addEventListener('change', function(){ if (i.checked) picked.add(i.value); else picked.delete(i.value); renderPicks(); });
+});
+// Yo'nalish havolasi: vakansiya.html#gitara — karta ochiladi (brauzer o'zi o'tadi), yo'nalish arizada belgilanadi
+function fromHash(){
+  var k = ''; try { k = decodeURIComponent(location.hash.slice(1)); } catch(e){}
+  if (!DIRS[k]) return;
+  picked.add(k); renderPicks();
+  var card = document.getElementById(k);
+  if (card){ card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash'); }
+}
+window.addEventListener('hashchange', fromHash);
+renderPicks(); fromHash();
+
+/* ===== ARIZA FORMASI ===== */
+(function(){
+  // Apps Script (integrations/telegram-apps-script): type:'vakansiya' faqat Telegram'ga boradi, CRM'ga YO'Q.
+  // Avval GET /exec: yangi skript {jobs:true} qaytaradi. Eski skript bunday arizani o'quvchi lidi qilib CRM'ga yozardi —
+  // shuning uchun jobs:true bo'lmasa ariza yuborilmaydi, telefon raqami ko'rsatiladi.
+  var LEAD_URL = 'https://script.google.com/macros/s/AKfycbyNODST5byuMIdbhtoQH-HYRLrfJC2YsQU3qjbhFmqW9jlFP98ha4EtcUle9t1_pGhQjw/exec';
+  var T = {
+    uz:{ need:'Ism va telefon raqamini kiriting.', phone:"Telefon raqamini to'liq kiriting: +998 dan keyin 9 ta raqam (masalan, 90 123 45 67).", dirs:"Kamida bitta yo'nalishni tanlang.", exp:'Dars berish tajribangizni tanlang.', sending:'Yuborilmoqda...', ok:"Rahmat! Arizangiz yuborildi. Mos kelsangiz, ko'rsatgan raqamingizga qo'ng'iroq qilamiz.", err:"Yuborilmadi. Iltimos, qo'ng'iroq qiling:", off:"Onlayn ariza hozircha ishlamayapti. Iltimos, qo'ng'iroq qiling:" },
+    ru:{ need:'Введите имя и номер телефона.', phone:'Введите номер полностью: 9 цифр после +998 (например, 90 123 45 67).', dirs:'Выберите хотя бы одно направление.', exp:'Выберите опыт преподавания.', sending:'Отправка...', ok:'Спасибо! Заявка отправлена. Если вы нам подходите, мы позвоним по указанному номеру.', err:'Не отправилось. Пожалуйста, позвоните:', off:'Онлайн-заявка пока не работает. Пожалуйста, позвоните:' }
+  };
+  var form = document.getElementById('jobForm'), msg = document.getElementById('jMsg'), btn = document.getElementById('jBtn');
+  var fName = document.getElementById('jName'), fPhone = document.getElementById('jPhone'), fExp = document.getElementById('jExp');
+  var fLink = document.getElementById('jLink'), fNote = document.getElementById('jNote');
+  function phoneDigits(v){ var d = String(v).replace(/\D/g, ''); if (d.length > 9 && d.indexOf('998') === 0) d = d.slice(3); return d.slice(0, 9); }
+  function fmtPhone(d){ return [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(' '); }
+  fPhone.addEventListener('input', function(){
+    var before = fPhone.value.slice(0, fPhone.selectionStart || 0).replace(/\D/g, '').length;
+    var v = fmtPhone(phoneDigits(fPhone.value)), i = 0, n = 0;
+    fPhone.value = v;
+    while (i < v.length && n < before){ if (/\d/.test(v.charAt(i))) n++; i++; }
+    try { fPhone.setSelectionRange(i, i); } catch(err){}
+  });
+  var ready = false;
+  async function jobsReady(){
+    if (ready) return true;
+    try { var r = await fetch(LEAD_URL); var j = await r.json(); ready = !!(j && j.jobs); } catch(e){}
+    return ready;
+  }
+  async function send(payload){
+    try {
+      // text/plain — "oddiy" so'rov: Apps Script CORS preflight'ni qo'llamaydi.
+      var res = await fetch(LEAD_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+      if (!res.ok) return false;
+      var data = await res.json().catch(function(){ return null; });
+      return !!(data && data.ok);
+    } catch(err){ return false; }
+  }
+  function say(text, cls, withPhone){
+    msg.className = 'form-msg' + (cls ? ' ' + cls : '');
+    msg.textContent = text;
+    if (withPhone){
+      msg.appendChild(document.createTextNode(' '));
+      var a = document.createElement('a'); a.href = 'tel:+998772604040'; a.className = 'call-link'; a.textContent = '+998 77 260 40 40';
+      msg.appendChild(a);
+    }
+  }
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var t = T[currentLang];
+    if (!LEAD_URL){ say(t.off, 'call', true); return; }
+    var name = fName.value.trim(), digits = phoneDigits(fPhone.value), exp = fExp.value;
+    var dirs = ORDER.filter(function(k){ return picked.has(k); });
+    if (!name || !digits){ say(t.need, 'err'); (name ? fPhone : fName).focus(); return; }
+    if (digits.length !== 9){ say(t.phone, 'err'); fPhone.focus(); return; }
+    if (!dirs.length){ say(t.dirs, 'err'); form.classList.add('bad-dirs'); form.querySelector('#jDirs input').focus(); return; }
+    if (!exp){ say(t.exp, 'err'); fExp.focus(); return; }
+    var label = btn.innerHTML; btn.textContent = t.sending; btn.disabled = true;
+    var up = await jobsReady(), ok = false;
+    if (up) ok = await send({ type:'vakansiya', name:name, phone:'+998' + digits,
+      dirs: dirs.map(function(k){ return DIRS[k].uz; }).join(', '), exp:exp, link:fLink.value.trim(), note:fNote.value.trim(),
+      form:'vakansiya', lang:currentLang, page:royalPage(), website: form.website ? form.website.value : '' });
+    btn.disabled = false; btn.innerHTML = label;
+    if (ok){ say(t.ok, 'ok'); form.reset(); picked.clear(); renderPicks(); }
+    else say(up ? t.err : t.off, 'err', true);
+  });
+})();
+</script>
+</body>
+</html>

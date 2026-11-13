@@ -194,7 +194,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tab .bar{display:block;height:3px;border-radius:3px;background:color-mix(in srgb,var(--ink) 14%,transparent);overflow:hidden;margin-bottom:10px}
 .tab .bar i{display:block;height:100%;background:var(--terra);transform:scaleX(0);transform-origin:left}
 .tab .n{color:var(--ink);font-variant-numeric:tabular-nums;margin-right:6px}
-.tab .t{display:inline}
+.tab .n::after{content:"\200B"} /* raqamdan keyin qator bo'linishi mumkin: 8 ta tugmada uzun so'z (RU "Танцевальные") sig'sin, 2026-11-13 */
+.tab .t{display:inline;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:12 5 5}
 .tab.is-active{color:var(--ink)}
 .tab.is-active .bar i{animation:fill 7s linear forwards}
 .slider.is-paused .tab.is-active .bar i{animation-play-state:paused}
@@ -586,6 +587,12 @@ footer li a:hover{color:var(--ink)}
   .lang button{min-width:34px;padding:0 7px}
   .brand-name b{font-size:17px}
 }
+/* Slayder tugmalari, 8 ta slayd (2026-11-13, "Vakansiyalar" qo'shilgach): 1060px dan tor ekranda (menyu ham burger bo'ladi) yozuvlar sig'maydi — faqat raqamlar;
+   telefonda raqamlar ixchamroq, boshqaruv tugmalari 38px; 350px dan tor ekranda faqat chiziqchalar */
+@media (max-width:1060px){.tab .t{display:none}.tab{max-width:none}}
+@media (max-width:560px){.tabs{gap:4px}.tab .n{margin-right:0;font-size:12px}.tab .n::after{content:none}.slider-bar{gap:8px}.ctrls{gap:6px}}
+@media (max-width:400px){.ctrls .icon-btn{width:38px;height:38px}}
+@media (max-width:350px){.tab .n{display:none}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
@@ -642,9 +649,9 @@ footer li a:hover{color:var(--ink)}
 <meta property="og:locale" content="uz_UZ">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "EducationalOrganization"], "@id": "https://royal-art.uz/#school", "name": "ROYAL MUSIC SCHOOL", "alternateName": ["Royal Music School", "ROYAL MS", "Музыкальная школа ROYAL"], "description": "Andijondagi musiqa va raqs maktabi: vokal, fortepiano, skripka, gitara, baraban, raqs. Bolalar va kattalar uchun, 5 yoshdan. Birinchi sinov darsi bepul.", "url": "https://royal-art.uz/", "logo": "https://royal-art.uz/img/logo.png", "image": "https://royal-art.uz/img/hero-1.jpg", "telephone": "+998772604040", "address": {"@type": "PostalAddress", "streetAddress": "Bobur shox ko'chasi, 10 (XOLIS savdo markazi, 3-qavat)", "addressLocality": "Andijon", "addressCountry": "UZ"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "opens": "09:00", "closes": "21:00", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]}], "sameAs": ["https://instagram.com/royal.musicschool.uz"], "founder": {"@type": "Person", "name": "Husniddin Orifjonov", "jobTitle": "Asoschi, vokal ijrochisi va pedagog", "description": "ROYAL MUSIC SCHOOL asoschisi, professional vokal ijrochisi va pedagog. O'zbekiston davlat konservatoriyasi bakalavri, Gnesinlar nomidagi Rossiya musiqa akademiyasi magistri. Andijon davlat pedagogika instituti dotsenti, Moskva davlat pedagogika universiteti (MPGU) PhD izlanuvchisi.", "alumniOf": [{"@type": "CollegeOrUniversity", "name": "O'zbekiston davlat konservatoriyasi"}, {"@type": "CollegeOrUniversity", "name": "Gnesinlar nomidagi Rossiya musiqa akademiyasi"}], "affiliation": [{"@type": "CollegeOrUniversity", "name": "Andijon davlat pedagogika instituti"}, {"@type": "CollegeOrUniversity", "name": "Moskva davlat pedagogika universiteti (MPGU)"}]}, "hasOfferCatalog": [{"@type": "OfferCatalog", "name": "Kurslar", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Vokal kursi", "url": "https://royal-art.uz/royal-vokal.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Fortepiano kursi", "url": "https://royal-art.uz/fortepiano.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Skripka kursi", "url": "https://royal-art.uz/skripka.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Gitara kursi", "url": "https://royal-art.uz/gitara.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Baraban kursi", "url": "https://royal-art.uz/baraban.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Bolalar raqslari", "url": "https://royal-art.uz/raqs-bolalar.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Kattalar uchun raqs kurslari", "url": "https://royal-art.uz/raqs-kattalar.html"}}]}, {"@type": "OfferCatalog", "name": "Tariflar (bir oy uchun)", "itemListElement": [{"@type": "Offer", "name": "Birinchi sinov darsi", "price": 0, "priceCurrency": "UZS", "category": "Free"}, {"@type": "Offer", "name": "Musiqa kurslari — Start (40 daqiqa)", "price": 800000, "priceCurrency": "UZS", "category": "Paid", "description": "yakka tartibda, haftada 2 marta, oyiga 8 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 800000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Musiqa kurslari — Pro (60 daqiqa)", "price": 1200000, "priceCurrency": "UZS", "category": "Paid", "description": "yakka tartibda, haftada 2 marta, oyiga 8 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 1200000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Musiqa kurslari — Abituriyent (40 daqiqa)", "price": 800000, "priceCurrency": "UZS", "category": "Paid", "description": "kirish imtihonlariga tayyorgarlik, yakka tartibda, haftada 2 marta", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 800000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Bolalar raqslari (90 daqiqa)", "price": 360000, "priceCurrency": "UZS", "category": "Paid", "description": "guruhda, haftada 3 marta, oyiga 12 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 360000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Kattalar raqslari (90 daqiqa, har bir kurs uchun)", "price": 420000, "priceCurrency": "UZS", "category": "Paid", "description": "guruhda, haftada 3 marta, oyiga 12 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 420000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "EducationalOrganization"], "@id": "https://royal-art.uz/#school", "name": "ROYAL MUSIC SCHOOL", "alternateName": ["Royal Music School", "ROYAL MS", "Музыкальная школа ROYAL"], "description": "Andijondagi musiqa va raqs maktabi: vokal, fortepiano, skripka, gitara, baraban, raqs. Bolalar va kattalar uchun, 5 yoshdan. Birinchi sinov darsi bepul.", "url": "https://royal-art.uz/", "logo": "https://royal-art.uz/img/logo.png", "image": "https://royal-art.uz/img/hero-1.jpg", "telephone": "+998772604040", "address": {"@type": "PostalAddress", "streetAddress": "O'zbegim MFY, Bobur shox ko'chasi, 28-uy (XOLIS savdo markazi, 3-qavat)", "addressLocality": "Andijon", "addressCountry": "UZ"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "opens": "09:00", "closes": "21:00", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]}], "sameAs": ["https://instagram.com/royal.musicschool.uz"], "founder": {"@type": "Person", "name": "Husniddin Orifjonov", "jobTitle": "Asoschi, vokal ijrochisi va pedagog", "description": "ROYAL MUSIC SCHOOL asoschisi, professional vokal ijrochisi va pedagog. O'zbekiston davlat konservatoriyasi bakalavri, Gnesinlar nomidagi Rossiya musiqa akademiyasi magistri. Andijon davlat pedagogika instituti dotsenti, Moskva davlat pedagogika universiteti (MPGU) PhD izlanuvchisi.", "alumniOf": [{"@type": "CollegeOrUniversity", "name": "O'zbekiston davlat konservatoriyasi"}, {"@type": "CollegeOrUniversity", "name": "Gnesinlar nomidagi Rossiya musiqa akademiyasi"}], "affiliation": [{"@type": "CollegeOrUniversity", "name": "Andijon davlat pedagogika instituti"}, {"@type": "CollegeOrUniversity", "name": "Moskva davlat pedagogika universiteti (MPGU)"}]}, "hasOfferCatalog": [{"@type": "OfferCatalog", "name": "Kurslar", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Vokal kursi", "url": "https://royal-art.uz/royal-vokal.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Fortepiano kursi", "url": "https://royal-art.uz/fortepiano.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Skripka kursi", "url": "https://royal-art.uz/skripka.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Gitara kursi", "url": "https://royal-art.uz/gitara.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Baraban kursi", "url": "https://royal-art.uz/baraban.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Bolalar raqslari", "url": "https://royal-art.uz/raqs-bolalar.html"}}, {"@type": "Offer", "itemOffered": {"@type": "Course", "name": "Kattalar uchun raqs kurslari", "url": "https://royal-art.uz/raqs-kattalar.html"}}]}, {"@type": "OfferCatalog", "name": "Tariflar (bir oy uchun)", "itemListElement": [{"@type": "Offer", "name": "Birinchi sinov darsi", "price": 0, "priceCurrency": "UZS", "category": "Free"}, {"@type": "Offer", "name": "Musiqa kurslari — Start (40 daqiqa)", "price": 800000, "priceCurrency": "UZS", "category": "Paid", "description": "yakka tartibda, haftada 2 marta, oyiga 8 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 800000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Musiqa kurslari — Pro (60 daqiqa)", "price": 1200000, "priceCurrency": "UZS", "category": "Paid", "description": "yakka tartibda, haftada 2 marta, oyiga 8 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 1200000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Musiqa kurslari — Abituriyent (40 daqiqa)", "price": 800000, "priceCurrency": "UZS", "category": "Paid", "description": "kirish imtihonlariga tayyorgarlik, yakka tartibda, haftada 2 marta", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 800000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Bolalar raqslari (90 daqiqa)", "price": 360000, "priceCurrency": "UZS", "category": "Paid", "description": "guruhda, haftada 3 marta, oyiga 12 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 360000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}, {"@type": "Offer", "name": "Kattalar raqslari (90 daqiqa, har bir kurs uchun)", "price": 420000, "priceCurrency": "UZS", "category": "Paid", "description": "guruhda, haftada 3 marta, oyiga 12 dars", "priceSpecification": {"@type": "UnitPriceSpecification", "price": 420000, "priceCurrency": "UZS", "billingDuration": "P1M", "unitText": "oy"}}]}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "@id": "https://royal-art.uz/#website", "url": "https://royal-art.uz/", "name": "ROYAL MUSIC SCHOOL", "inLanguage": ["uz", "ru"], "publisher": {"@id": "https://royal-art.uz/#school"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "uz", "mainEntity": [{"@type": "Question", "name": "ROYAL MUSIC SCHOOL qayerda joylashgan?", "acceptedAnswer": {"@type": "Answer", "text": "Andijon, Bobur shox ko'chasi, 10 — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–21:00 ishlaymiz. Telefon: +998 77 260 40 40."}}, {"@type": "Question", "name": "Qanday kurslar bor?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa — vokal, fortepiano, skripka, gitara va baraban, yakka tartibda. Raqs — bolalar raqslari, milliy, arabcha va kavkazcha raqs, K-POP, hip-hop, sheyping va zumba, guruhlarda. Yana kirish imtihonlariga tayyorlov (Abituriyent), LITTLE STARS loyihasi va ovoz yozish studiyasi bor."}}, {"@type": "Question", "name": "Necha yoshdan qabul qilinadi? Kattalar ham o'qiy oladimi?", "acceptedAnswer": {"@type": "Answer", "text": "5 yoshdan boshlab qabul qilamiz. Kattalar ham o'qiydi: musiqa darslari yakka tartibda o'tadi, raqsda esa alohida kattalar guruhlari bor."}}, {"@type": "Question", "name": "Birinchi dars pullikmi?", "acceptedAnswer": {"@type": "Answer", "text": "Yo'q, birinchi sinov darsi bepul. Unda yo'nalish va o'qituvchini tanlashga yordam beramiz."}}, {"@type": "Question", "name": "Darslar narxi qancha?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa (yakka tartibda, oyiga 8 dars): Start — 800 000 so'm/oy (dars 40 daqiqa), Pro — 1 200 000 so'm/oy (dars 60 daqiqa), Abituriyent — 800 000 so'm/oy. Raqs (guruhda, oyiga 12 dars): bolalar — 360 000, kattalar — 420 000 so'm/oy. 6 oylik abonementda musiqa darsi 70 000, raqs darsi 20 000 so'mdan."}}, {"@type": "Question", "name": "Darslar qanday o'tadi?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa darslari yakka tartibda, haftada 2 marta, 40 yoki 60 daqiqa. Raqs — guruhlarda, haftada 3 marta. O'rganganlarni oylik va kvartal mini-konsertlarda sahnada ko'rsatamiz."}}, {"@type": "Question", "name": "Kirish imtihonlariga tayyorlaysizlarmi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha, Abituriyent tarifi bor: vokal, cholg'u ijrochiligi va musiqa nazariyasi bo'yicha musiqa kolleji, litsey, pedagogika institutlari va konservatoriya imtihonlariga tayyorgarlik — solfedjio va komissiya oldida sinov tinglovlar bilan."}}, {"@type": "Question", "name": "Ovoz yozish studiyasi bormi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha. Qo'shiq va cover yozish, minus ustiga qo'shiq, cholg'u yozish, reklama va videolar uchun ovozlashtirish, podkast, audiokitob, aranjirovka, mixing va mastering. Narx va vaqtni administrator bilan kelishasiz."}}, {"@type": "Question", "name": "Qanday yozilish mumkin?", "acceptedAnswer": {"@type": "Answer", "text": "Saytdagi formaga ism va telefoningizni qoldiring — administrator qo'ng'iroq qilib, qulay vaqtni kelishib oladi. Yoki qo'ng'iroq qiling: +998 77 260 40 40. Instagram: @royal.musicschool.uz."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "uz", "mainEntity": [{"@type": "Question", "name": "ROYAL MUSIC SCHOOL qayerda joylashgan?", "acceptedAnswer": {"@type": "Answer", "text": "Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–21:00 ishlaymiz. Telefon: +998 77 260 40 40."}}, {"@type": "Question", "name": "Qanday kurslar bor?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa — vokal, fortepiano, skripka, gitara va baraban, yakka tartibda. Raqs — bolalar raqslari, milliy, arabcha va kavkazcha raqs, K-POP, hip-hop, sheyping va zumba, guruhlarda. Yana kirish imtihonlariga tayyorlov (Abituriyent), LITTLE STARS loyihasi va ovoz yozish studiyasi bor."}}, {"@type": "Question", "name": "Necha yoshdan qabul qilinadi? Kattalar ham o'qiy oladimi?", "acceptedAnswer": {"@type": "Answer", "text": "5 yoshdan boshlab qabul qilamiz. Kattalar ham o'qiydi: musiqa darslari yakka tartibda o'tadi, raqsda esa alohida kattalar guruhlari bor."}}, {"@type": "Question", "name": "Birinchi dars pullikmi?", "acceptedAnswer": {"@type": "Answer", "text": "Yo'q, birinchi sinov darsi bepul. Unda yo'nalish va o'qituvchini tanlashga yordam beramiz."}}, {"@type": "Question", "name": "Darslar narxi qancha?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa (yakka tartibda, oyiga 8 dars): Start — 800 000 so'm/oy (dars 40 daqiqa), Pro — 1 200 000 so'm/oy (dars 60 daqiqa), Abituriyent — 800 000 so'm/oy. Raqs (guruhda, oyiga 12 dars): bolalar — 360 000, kattalar — 420 000 so'm/oy. 6 oylik abonementda musiqa darsi 70 000, raqs darsi 20 000 so'mdan."}}, {"@type": "Question", "name": "Darslar qanday o'tadi?", "acceptedAnswer": {"@type": "Answer", "text": "Musiqa darslari yakka tartibda, haftada 2 marta, 40 yoki 60 daqiqa. Raqs — guruhlarda, haftada 3 marta. O'rganganlarni oylik va kvartal mini-konsertlarda sahnada ko'rsatamiz."}}, {"@type": "Question", "name": "Kirish imtihonlariga tayyorlaysizlarmi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha, Abituriyent tarifi bor: vokal, cholg'u ijrochiligi va musiqa nazariyasi bo'yicha musiqa kolleji, litsey, pedagogika institutlari va konservatoriya imtihonlariga tayyorgarlik — solfedjio va komissiya oldida sinov tinglovlar bilan."}}, {"@type": "Question", "name": "Ovoz yozish studiyasi bormi?", "acceptedAnswer": {"@type": "Answer", "text": "Ha. Qo'shiq va cover yozish, minus ustiga qo'shiq, cholg'u yozish, reklama va videolar uchun ovozlashtirish, podkast, audiokitob, aranjirovka, mixing va mastering. Narx va vaqtni administrator bilan kelishasiz."}}, {"@type": "Question", "name": "Qanday yozilish mumkin?", "acceptedAnswer": {"@type": "Answer", "text": "Saytdagi formaga ism va telefoningizni qoldiring — administrator qo'ng'iroq qilib, qulay vaqtni kelishib oladi. Yoki qo'ng'iroq qiling: +998 77 260 40 40. Instagram: @royal.musicschool.uz."}}]}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -715,6 +722,7 @@ footer li a:hover{color:var(--ink)}
       <li><a href="#dance" data-uz="Raqs" data-ru="Танцы">Raqs</a></li>
       <li><a href="#slider" data-slide="slide-4" data-uz="Orkestr" data-ru="Оркестр">Orkestr</a></li>
       <li><a href="#plans" data-uz="Tariflar" data-ru="Тарифы">Tariflar</a></li>
+      <li data-job="vakansiya.html"><a href="vakansiya.html" data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</a></li>
       <li><a href="#signup" data-uz="Aloqa" data-ru="Контакты">Aloqa</a></li>
     </ul>
     <div class="nav-tools">
@@ -747,7 +755,7 @@ footer li a:hover{color:var(--ink)}
 
       <div class="slides" id="slides" aria-live="off">
         <!-- Slayd 1: ma'lumot -->
-        <article class="slide is-active" id="slide-1" role="tabpanel" aria-roledescription="slide" aria-label="1 / 7">
+        <article class="slide is-active" id="slide-1" role="tabpanel" aria-roledescription="slide" aria-label="1 / 8">
           <div class="slide-text">
             <span class="kicker k-info"><i></i><span data-uz="Ma'lumot" data-ru="Информация">Ma'lumot</span></span>
             <h2 class="display"><span data-uz="Musiqa va raqs —" data-ru="Музыка и танцы —">Musiqa va raqs —</span> <em data-uz="bolalar va kattalar uchun" data-ru="для детей и взрослых">bolalar va kattalar uchun</em></h2>
@@ -768,7 +776,7 @@ footer li a:hover{color:var(--ink)}
         </article>
 
         <!-- Slayd 2: qabul -->
-        <article class="slide" id="slide-2" role="tabpanel" aria-roledescription="slide" aria-label="2 / 7">
+        <article class="slide" id="slide-2" role="tabpanel" aria-roledescription="slide" aria-label="2 / 8">
           <div class="slide-text">
             <span class="kicker"><i></i><span data-uz="Qabul" data-ru="Набор">Qabul</span></span>
             <h2 class="display"><span data-uz="Musiqa kurslariga" data-ru="Курсы музыки:">Musiqa kurslariga</span> <em data-uz="qabul ochiq" data-ru="идёт набор">qabul ochiq</em></h2>
@@ -788,7 +796,7 @@ footer li a:hover{color:var(--ink)}
         </article>
 
         <!-- Slayd 3: yangilik -->
-        <article class="slide" id="slide-3" role="tabpanel" aria-roledescription="slide" aria-label="3 / 7">
+        <article class="slide" id="slide-3" role="tabpanel" aria-roledescription="slide" aria-label="3 / 8">
           <div class="slide-text">
             <span class="kicker"><i></i><span data-uz="Yangilik" data-ru="Новость">Yangilik</span></span>
             <h2 class="display"><span data-uz="Raqs guruhlariga" data-ru="Танцевальные группы:">Raqs guruhlariga</span> <em data-uz="qabul ochiq" data-ru="идёт набор">qabul ochiq</em></h2>
@@ -808,7 +816,7 @@ footer li a:hover{color:var(--ink)}
         </article>
 
         <!-- Slayd 4: proyekt ROYAL orchestra — professional cholg'uchilar jamoasi, tadbirlarda jonli ijro (egasi matni, 2026-11-03). O'quvchilar orkestri emas. -->
-        <article class="slide" id="slide-4" role="tabpanel" aria-roledescription="slide" aria-label="4 / 7">
+        <article class="slide" id="slide-4" role="tabpanel" aria-roledescription="slide" aria-label="4 / 8">
           <div class="slide-text">
             <span class="kicker k-proj"><i></i><span data-uz="Proyekt" data-ru="Проект">Proyekt</span></span>
             <h2 class="display">ROYAL <em>orchestra</em></h2>
@@ -827,7 +835,7 @@ footer li a:hover{color:var(--ink)}
         </article>
 
         <!-- Slayd 5: proyekt LITTLE STARS (egasi, 2026-11-03). Rasm: img/hero-6.jpg (hozircha Instagram kadri, IMG_4430) -->
-        <article class="slide" id="slide-5" role="tabpanel" aria-roledescription="slide" aria-label="5 / 7">
+        <article class="slide" id="slide-5" role="tabpanel" aria-roledescription="slide" aria-label="5 / 8">
           <div class="slide-text">
             <span class="kicker k-proj"><i></i><span data-uz="Yangi proyekt" data-ru="Новый проект">Yangi proyekt</span></span>
             <h2 class="display">LITTLE <em>STARS</em></h2>
@@ -847,7 +855,7 @@ footer li a:hover{color:var(--ink)}
         </article>
 
         <!-- Slayd 6: yangilik -->
-        <article class="slide" id="slide-6" role="tabpanel" aria-roledescription="slide" aria-label="6 / 7">
+        <article class="slide" id="slide-6" role="tabpanel" aria-roledescription="slide" aria-label="6 / 8">
           <div class="slide-text">
             <span class="kicker"><i></i><span data-uz="Yangilik" data-ru="Новость">Yangilik</span></span>
             <h2 class="display"><span data-uz="Har oy —" data-ru="Каждый месяц —">Har oy —</span> <em data-uz="mini-konsert" data-ru="мини-концерт">mini-konsert</em></h2>
@@ -869,7 +877,7 @@ footer li a:hover{color:var(--ink)}
              baland slaydga teng, shuning uchun bu yerda bio qisqa: matn uzaysa hamma slaydlar balandlashadi (375 px da 796 px dan
              oshmasin). To'liq bio va maqsad — deploy-site.py FOUNDER (schema, llms.txt). Rasm hali yo'q: haqiqiy fotosurat
              kelganda img/founder.jpg (800×1000) qo'ying. -->
-        <article class="slide" id="slide-7" role="tabpanel" aria-roledescription="slide" aria-label="7 / 7">
+        <article class="slide" id="slide-7" role="tabpanel" aria-roledescription="slide" aria-label="7 / 8">
           <div class="slide-text">
             <span class="kicker k-info"><i></i><span data-uz="Asoschi haqida" data-ru="Об основателе">Asoschi haqida</span></span>
             <h2 class="display"><span>Husniddin</span> <em>Orifjonov</em></h2>
@@ -888,17 +896,40 @@ footer li a:hover{color:var(--ink)}
             <p class="scribble hand"><span>Husniddin Orifjonov</span><svg aria-hidden="true"><use href="#i-swash"/></svg></p>
           </div>
         </article>
+
+        <!-- Slayd 8: vakansiyalar (egasi 2026-11-13: "eng yuqoridagi slaydga ham qo'sh"). Matn vakansiya.html dagi bilan bir xil; ishga qabul
+             shartlari (talab, maosh) bu yerda yozilmaydi. Rasm: img/hero-7.jpg — img/originals/fortepiano.jpeg dan 4:5 kesim (ustoz o'quvchining
+             qo'llarini klavishga qo'yadi). data-job — vakansiya sahifasi saytga chiqmaguncha deploy-site.py bu slaydni (va menyu/footer qatorini) olib tashlaydi. -->
+        <article class="slide" id="slide-8" role="tabpanel" aria-roledescription="slide" aria-label="8 / 8" data-job="vakansiya.html">
+          <div class="slide-text">
+            <span class="kicker k-proj"><i></i><span data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</span></span>
+            <h2 class="display"><span data-uz="ROYAL jamoasiga" data-ru="Станьте частью">ROYAL jamoasiga</span> <em data-uz="qo'shiling" data-ru="команды ROYAL">qo'shiling</em></h2>
+            <p class="lead" data-uz="Musiqa, raqs va aktyorlik mahorati o'qituvchilarini jamoamizga taklif qilamiz. Yo'nalishingizni tanlang va onlayn ariza qoldiring." data-ru="Приглашаем в команду преподавателей музыки, танцев и актёрского мастерства. Выберите направление и оставьте заявку онлайн.">Musiqa, raqs va aktyorlik mahorati o'qituvchilarini jamoamizga taklif qilamiz. Yo'nalishingizni tanlang va onlayn ariza qoldiring.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="vakansiya.html"><span data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+              <a class="btn btn-ghost" href="vakansiya.html#ariza" data-uz="Ariza qoldirish" data-ru="Оставить заявку">Ariza qoldirish</a>
+            </div>
+          </div>
+          <div class="slide-art">
+            <svg class="blob" aria-hidden="true"><use href="#i-blob1"/></svg>
+            <span class="art-badge" aria-hidden="true"><svg class="dk"><use href="#d-piano"/></svg></span>
+            <div class="media arch" data-ph="hero-7.jpg · 1000×1250"><img data-src="img/hero-7.jpg" alt="Fortepiano darsi: ustoz o'quvchiga qo'l qo'yishni ko'rsatmoqda" onerror="this.remove()"></div>
+            <div class="stamp s-navy" data-uz="Sizni kutamiz!" data-ru="Ждём вас!">Sizni kutamiz!</div>
+            <p class="scribble hand"><span data-uz="Jamoaga xush kelibsiz" data-ru="Добро пожаловать в команду">Jamoaga xush kelibsiz</span><svg aria-hidden="true"><use href="#i-swash"/></svg></p>
+          </div>
+        </article>
       </div>
 
       <div class="slider-bar">
         <div class="tabs" role="tablist" aria-label="Slaydlar">
           <button type="button" class="tab is-active" role="tab" aria-selected="true" aria-controls="slide-1"><span class="bar"><i></i></span><span class="n">01</span><span class="t" data-uz="Maktab haqida" data-ru="О школе">Maktab haqida</span></button>
           <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-2" tabindex="-1"><span class="bar"><i></i></span><span class="n">02</span><span class="t" data-uz="Musiqa kurslari" data-ru="Курсы музыки">Musiqa kurslari</span></button>
-          <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-3" tabindex="-1"><span class="bar"><i></i></span><span class="n">03</span><span class="t" data-uz="Raqs guruhlari" data-ru="Танцевальные группы">Raqs guruhlari</span></button>
+          <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-3" tabindex="-1"><span class="bar"><i></i></span><span class="n">03</span><span class="t" data-uz="Raqs guruhlari" data-ru="Танцы в группах">Raqs guruhlari</span></button>
           <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-4" tabindex="-1"><span class="bar"><i></i></span><span class="n">04</span><span class="t">ROYAL orchestra</span></button>
           <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-5" tabindex="-1"><span class="bar"><i></i></span><span class="n">05</span><span class="t">Little Stars</span></button>
           <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-6" tabindex="-1"><span class="bar"><i></i></span><span class="n">06</span><span class="t" data-uz="Mini-konsertlar" data-ru="Мини-концерты">Mini-konsertlar</span></button>
           <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-7" tabindex="-1"><span class="bar"><i></i></span><span class="n">07</span><span class="t" data-uz="Asoschi" data-ru="Основатель">Asoschi</span></button>
+          <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="slide-8" tabindex="-1" data-job="vakansiya.html"><span class="bar"><i></i></span><span class="n">08</span><span class="t" data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</span></button>
         </div>
         <div class="ctrls">
           <button type="button" class="icon-btn" id="sPrev" aria-label="Oldingi slayd" data-aria-uz="Oldingi slayd" data-aria-ru="Предыдущий слайд"><svg class="ic"><use href="#i-left"/></svg></button>
@@ -1386,7 +1417,7 @@ footer li a:hover{color:var(--ink)}
     <div class="faq-list rv">
       <details class="faq-item">
         <summary data-uz="ROYAL MUSIC SCHOOL qayerda joylashgan?" data-ru="Где находится ROYAL MUSIC SCHOOL?">ROYAL MUSIC SCHOOL qayerda joylashgan?</summary>
-        <p data-uz="Andijon, Bobur shox ko&#x27;chasi, 10 — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–21:00 ishlaymiz. Telefon: +998 77 260 40 40." data-ru="Андижан, ул. Бобур шох, 10 — ТЦ XOLIS, 3 этаж (со стороны Mobil Olami). Работаем с понедельника по субботу, 09:00–21:00. Телефон: +998 77 260 40 40.">Andijon, Bobur shox ko&#x27;chasi, 10 — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–21:00 ishlaymiz. Telefon: +998 77 260 40 40.</p>
+        <p data-uz="Andijon sh., O&#x27;zbegim MFY, Bobur shox ko&#x27;chasi, 28-uy — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–21:00 ishlaymiz. Telefon: +998 77 260 40 40." data-ru="г. Андижан, МСГ Узбегим, ул. Бобур шох, 28 — ТЦ XOLIS, 3 этаж (со стороны Mobil Olami). Работаем с понедельника по субботу, 09:00–21:00. Телефон: +998 77 260 40 40.">Andijon sh., O&#x27;zbegim MFY, Bobur shox ko&#x27;chasi, 28-uy — XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan). Dushanbadan shanbagacha 09:00–21:00 ishlaymiz. Telefon: +998 77 260 40 40.</p>
       </details>
       <details class="faq-item">
         <summary data-uz="Qanday kurslar bor?" data-ru="Какие есть курсы?">Qanday kurslar bor?</summary>
@@ -1493,12 +1524,12 @@ footer li a:hover{color:var(--ink)}
     <aside class="contact rv" aria-labelledby="contactTitle">
       <h3 id="contactTitle" data-uz="Aloqa" data-ru="Контакты">Aloqa</h3>
       <ul>
-        <li><span class="bubble"><svg class="ic"><use href="#i-pin"/></svg></span><div><small data-uz="Manzil" data-ru="Адрес">Manzil</small><strong data-uz="Andijon, Bobur shox ko'chasi, 10" data-ru="Андижан, ул. Бобур шох, 10">Andijon, Bobur shox ko'chasi, 10</strong><em data-uz="Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)" data-ru="Ориентир: ТЦ XOLIS, 3 этаж (со стороны Mobil Olami)">Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)</em></div></li>
+        <li><span class="bubble"><svg class="ic"><use href="#i-pin"/></svg></span><div><small data-uz="Manzil" data-ru="Адрес">Manzil</small><strong data-uz="Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy" data-ru="г. Андижан, МСГ Узбегим, ул. Бобур шох, 28">Andijon sh., O'zbegim MFY, Bobur shox ko'chasi, 28-uy</strong><em data-uz="Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)" data-ru="Ориентир: ТЦ XOLIS, 3 этаж (со стороны Mobil Olami)">Mo'ljal: XOLIS savdo markazi, 3-qavat (Mobil Olami tarafdan)</em></div></li>
         <li><span class="bubble"><svg class="ic"><use href="#i-phone"/></svg></span><div><small data-uz="Telefon" data-ru="Телефон">Telefon</small><a href="tel:+998772604040">+998 77 260 40 40</a></div></li>
         <li><span class="bubble"><svg class="ic"><use href="#i-clock"/></svg></span><div><small data-uz="Ish vaqti" data-ru="Время работы">Ish vaqti</small><strong data-uz="Du–Sha 09:00–21:00" data-ru="Пн–Сб 09:00–21:00">Du–Sha 09:00–21:00</strong></div></li>
         <li><span class="bubble"><svg class="ic"><use href="#i-insta"/></svg></span><div><small>Instagram</small><a href="https://instagram.com/royal.musicschool.uz" target="_blank" rel="noopener">@royal.musicschool.uz</a></div></li>
       </ul>
-      <a class="btn btn-white" href="https://www.google.com/maps/search/?api=1&query=Royal+Music+School+Andijon+Bobur+shox+10" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg><span data-uz="Xaritada ochish" data-ru="Открыть на карте">Xaritada ochish</span></a>
+      <a class="btn btn-white" href="https://www.google.com/maps/search/?api=1&query=Royal+Music+School+Andijon+XOLIS+savdo+markazi" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg><span data-uz="Xaritada ochish" data-ru="Открыть на карте">Xaritada ochish</span></a>
     </aside>
   </div>
 </section>
@@ -1556,6 +1587,7 @@ footer li a:hover{color:var(--ink)}
           <li><a href="#stars">LITTLE STARS</a></li>
           <li><a href="#studio" data-uz="Ovoz yozish studiyasi" data-ru="Студия звукозаписи">Ovoz yozish studiyasi</a></li>
           <li><a href="#plans" data-uz="Tariflar" data-ru="Тарифы">Tariflar</a></li>
+          <li data-job="vakansiya.html"><a href="vakansiya.html" data-uz="Vakansiyalar" data-ru="Вакансии">Vakansiyalar</a></li>
           <li><a href="#faq" data-uz="Savol-javob" data-ru="Вопросы и ответы">Savol-javob</a></li>
           <li><a href="#signup" data-uz="Yozilish" data-ru="Запись">Yozilish</a></li>
         </ul>
@@ -1565,7 +1597,7 @@ footer li a:hover{color:var(--ink)}
         <ul>
           <li><a href="tel:+998772604040">+998 77 260 40 40</a></li>
           <li><a href="https://instagram.com/royal.musicschool.uz" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.google.com/maps/search/?api=1&query=Royal+Music+School+Andijon+Bobur+shox+10" target="_blank" rel="noopener" data-uz="Xaritada ochish" data-ru="Открыть на карте">Xaritada ochish</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=Royal+Music+School+Andijon+XOLIS+savdo+markazi" target="_blank" rel="noopener" data-uz="Xaritada ochish" data-ru="Открыть на карте">Xaritada ochish</a></li>
           <li data-uz="Du–Sha 09:00–21:00" data-ru="Пн–Сб 09:00–21:00">Du–Sha 09:00–21:00</li>
         </ul>
       </div>

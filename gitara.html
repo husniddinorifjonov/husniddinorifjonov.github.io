@@ -555,6 +555,31 @@ form.lead .btn,.hero-form .btn{white-space:normal;text-align:center;line-height:
   };
 })();
 </script>
+<script>
+!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+oaiq("init", { pixelId: "6oPZBDgVz5wNGjqfD1MgaT", debug: true });
+(function () {
+  var LEAD = 'https://script.google.com/macros/s/', orig = window.fetch;
+  window.fetch = function (url, opts) {
+    var p = orig.apply(window, arguments);
+    try {
+      if (typeof url === 'string' && url.indexOf(LEAD) === 0 && opts && typeof opts.body === 'string') {
+        var b = {}; try { b = JSON.parse(opts.body) || {}; } catch (e) {}
+        if (b.form !== 'vakansiya' && b.type !== 'vakansiya') {
+          p.then(function (res) {
+            if (!res || !res.ok) return;
+            res.clone().json().then(function (data) {
+              if (data && data.ok) oaiq('measure', 'lead_created', { type: 'customer_action' },
+                { event_id: 'lead_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8) });
+            }).catch(function () {});
+          }, function () {});
+        }
+      }
+    } catch (e) {}
+    return p;
+  };
+})();
+</script>
 <link rel="canonical" href="https://royal-art.uz/gitara.html">
 <link rel="alternate" hreflang="uz" href="https://royal-art.uz/gitara.html">
 <link rel="alternate" hreflang="ru" href="https://royal-art.uz/ru/gitara.html">
